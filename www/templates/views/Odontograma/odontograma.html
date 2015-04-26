@@ -1,0 +1,43 @@
+<ion-view view-title="Odontograma" ng-controller="odontogramaController as vm">
+ <ion-content class="fondo"> 
+   
+    <div class="bar bar-header bar-positive" ng-show="seleccionado">
+        <div class="button-bar">
+          <a class="button" ng-click="adicionarTratamiento()">Adicionar tratamiento</a>
+          <a class="button" ng-click="verTratamiento()">Ver tratamientos</a>          
+          <a class="button" ng-click="odontograma()">Odontograma</a>
+          <a class="button" ng-click="imprimir()">imprimir</a>          
+        </div>
+    </div>
+
+    
+    <win-hub id="odontograma" on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()" obtener-control="setCtrl(ctrl)">
+
+    <win-hub-section header="'Odontograma'" is-header-static="true">
+        <odontograma-user-control item="vm.item"/>
+    </win-hub-section>
+
+    <win-hub-section header="'Tratamientos'">
+        <tratamiento-user-control delete="false"/>
+    </win-hub-section>          
+
+    <win-hub-section header="'Pieza seleccionada'" id="seleccionado">
+         <div style="width:300px;" ng-controller="piezaSeleccionadaCtrl">           
+             <pieza-completa es-pieza-completa="'true'" width="180" height="180" mostrar-boton-supernumerario="true" item='item'>
+            </pieza-completa> 
+        </div>        
+    </win-hub-section>       
+
+    <win-hub-section header="'Tratamientos para esta pieza'">
+        <ion-scroll direction="y" style="height: 500px">  
+            <div id="tratamientosPorPiezaDental">
+                <tratamientos-por-pieza-dental>
+                </tratamientos-por-pieza-dental>
+            </div>
+        </ion-scroll>
+    </win-hub-section>    
+   
+    </win-hub>
+
+</ion-content>
+</ion-view>

@@ -1,0 +1,36 @@
+<ion-view view-title="Listview Example">
+ <ion-content>
+    <button ng-click="toggleEditMode()">Toggle <span>Mode: </span><span>{{mode.text}}</span></button>
+    <span ng-show="mode.text === 'edit'">
+        <button ng-click="addItem()">Add Item</button>
+        <button ng-click="removeItem()">Remove Item(s)</button>
+    </span>
+    
+    <win-list-view class="listView win-selectionstylefilled"
+                   item-data-source="items"
+                   selection-mode="mode.selectionMode"
+                   tap-behavior="mode.tapBehavior"
+                   header="select('.header')"
+                   selection="selection">
+        
+        <win-item-template>
+            <div class="smallListIconTextItem">
+              
+                <img src="{{item.data.picture}}" class="smallListIconTextItem-Image" />
+                <div class="smallListIconTextItem-Detail">
+                    <h4>{{item.data.title}}</h4>
+                    <h6>{{item.data.text}}</h6>
+                </div>
+               
+               
+               <pieza-completa item='item.data'/>
+              
+
+            </div>
+        </win-item-template>
+        <win-grid-layout></win-grid-layout>
+    </win-list-view>
+
+</ion-content>
+</ion-view>
+

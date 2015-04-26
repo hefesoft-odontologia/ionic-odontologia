@@ -1,0 +1,67 @@
+<ion-view view-title="Parametrizar tratamientos" ng-controller="TpTratamientosCtrl as vm">
+	<ion-content ion-content scroll="true" class="fondo" >
+
+	<label class="item item-divider">
+           <button class="button button-balanced" ng-click="listado()">ver listado tratamientos actuales</button>
+	</label> 
+
+	<win-hub id="tratamiento" on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()" obtener-control="setCtrl(ctrl)">
+
+    <win-hub-section header="'Indices'" is-header-static="true">
+
+        <div class="item item-divider">
+    		Indices
+  		</div>
+		<ion-checkbox ng-model="Indices.IndiceCEO">Indice Ceo</ion-checkbox>
+		<ion-checkbox ng-model="Indices.IndiceCOP">Indice Cop</ion-checkbox>
+		<ion-checkbox ng-model="Indices.IndicePlacaBacteriana">Placa bacteriana</ion-checkbox>
+
+    </win-hub-section>
+
+    <win-hub-section header="'Aplica para'">
+
+         <div class="item item-divider">
+			Aplica para
+		</div>		
+		
+		<select ng-model="AplicaSeleccionado" ng-options="aplica.nombre for aplica in Aplica" ng-change="cambioAplicaA(AplicaSeleccionado)"></select>
+
+		<div class="item item-divider">
+			Fuente
+		</div>
+
+		<select ng-model="Fuente" ng-options="fuente.fuente for fuente in Fuentes" ng-change="cambioFuente(Fuente)" ></select>
+
+    </win-hub-section>          
+
+    <win-hub-section header="'Color'" id="seleccionado">
+ 		<ngjs-color-picker ng-click="clickColor(selectedColor)" selected="selectedColor" options="customOptions">
+ 		</ngjs-color-picker>
+    </win-hub-section>       
+
+    <win-hub-section header="'Textos'" id="seleccionado">
+
+    	<h5>Descripcion</h5>
+		<input ng-model="textoDescripcion" ng-keyup="tratamientoTexto(textoDescripcion)">
+
+		<h5>Letra</h5>
+		<input ng-model="textoLetra" ng-keyup="tratamientoLetra(textoLetra)">		
+
+
+		<h5>Symbolo</h5>
+		<input ng-model="textoSimbolo" ng-keyup="tratamientoSimbolo(textoSimbolo)">	
+
+    </win-hub-section>
+
+    <win-hub-section header="'Previsualizacion'">
+        <div class="col"><tratamientos item='tratamientoMuestra'/></div>        
+    </win-hub-section>    
+
+    <win-hub-section header="'Finalizar'">
+        <div class="col"><button class="button button-balanced" ng-click="guardar()">Guardar</button></div>		  
+    </win-hub-section>    
+   
+    </win-hub>
+
+	</ion-content>
+</ion-view>

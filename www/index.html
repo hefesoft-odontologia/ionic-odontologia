@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!- Vendors-->
+    <link href="css/winjs/ui-light.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="lib/ngjs-color-picker/css/ngjs-color-picker.css">
+
+
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+
+    <!-- Compatibilidad con windows 8 -->
+    <script src="lib/vendors/winstore-jscompat.js"></script>
+    <script src="lib/PushNotification.js"></script>
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- SignalR -->
+    <script src="lib/vendors/jquery-1.6.4.min.js"></script>
+    <!-- Vendors -->
+    <script src="lib/vendors/jquery.signalR-2.2.0.min.js"></script>  
+    <script src="lib/vendors/testChat.js"></script>   
+
+    <!--Vendors-->    
+    <script src="lib/lodash/lodash.min.js"></script>
+    <script src="lib/string.js/string.min.js"></script>
+    <script src="lib/ngjs-color-picker/js/ngjs-color-picker.js"></script>
+
+
+    <!-- Ng cordova-->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>   
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+
+    <!--Winjs-->
+    <script src="lib/winjs/js/WinJS.js"></script>
+    <script src="lib/angular-winjs/js/angular-winjs.js"></script>
+
+   
+    <!--Controllers-->    
+    <script src="js/controllers.js"></script>   
+    <script src="js/controllers/Odontograma/piezaSeleccionada.js"></script>  
+    <script src="js/controllers/Odontograma/odontograma.js"></script>
+    <script src="js/controllers/Odontograma/impresion.js"></script>   
+    <script src="js/controllers/tratamientos/Tp_Tratamientos.js"></script>
+    <script src="js/controllers/Sign/signUp.js"></script>
+    <script src="js/controllers/Sign/signIn.js"></script>
+    <script src="js/controllers/Pacientes/pacientesController.js"></script>
+
+    <!--Directivas-->
+    <script src="js/directives/odontograma/piezaDental.js"></script>
+    <script src="js/directives/tratamientos/tratamientos.js"></script>
+    <script src="js/directives/tratamientos/tratamientoUserControl.js"></script>
+    <script src="js/directives/tratamientos/tratamientosPorPiezaDental.js"></script>
+    <script src="js/directives/odontograma/odontogramaUserControl.js"></script>    
+    <script src="js/directives/validaciones/username.js"></script>
+    <script src="js/directives/pacientes/pacientes.js"></script>
+    <script src="js/directives/pacientes/pacientes.adicionar.js"></script>
+    <script src="js/factories/Globales/Variables.js"></script>
+    <script src="js/directives/winjs/winjs.hubs.js"></script>
+    <script src="js/directives/winjs/winjs.navbar.js"></script>
+   
+
+    <!--Services-->
+    <script src="js/services/Utilidades/converterFuente.js"></script>
+    <script src="js/services/Utilidades/crearPropiedades.js"></script>
+    <script src="js/services/Utilidades/colores.js"></script>
+    <script src="js/services/Utilidades/sharedData.js"></script>
+    <script src="js/services/Navegacion/validarNavegacion.js"></script>
+    
+    <script src="js/services/Odontograma/aplicarTratamiento.js"></script>
+    <script src="js/services/Odontograma/tratamientosPorPiezaDental.js"></script>    
+    <script src="js/services/Odontograma/leerOdontograma.js"></script>     
+
+    <!--Factories-->
+    <script src="js/factories/Azure/tableStorage.js"></script>
+    <script src="js/factories/Azure/blobStorage.js"></script>  
+    <script src="js/factories/Globales/urlServicio.js"></script>
+    <script src="js/factories/transformPost.js"></script>
+    <script src="js/factories/Auth/authInterceptorService.js"></script>
+    <script src="js/factories/Azure/storage.js"></script>
+    <script src="js/factories/Auth/token.js"></script>
+    <script src="js/factories/Auth/sign.js"></script>
+    <script src="js/factories/Auth/usuario.js"></script>
+    <script src="js/factories/Azure/imagesStorage.js"></script>
+    <script src="js/factories/Azure/push.js"></script>
+    <script src="js/factories/Azure/email.js"></script>
+
+
+    <!-- filters -->
+    <script src="js/filters/Width.js"></script>
+    <script src="js/filters/tratamientoIsnull.js"></script>    
+
+    <!-- Periododntograma-->    
+    <script src="js/directives/periodontograma/piezaDental.js"></script>
+    <script src="js/directives/periodontograma/Controllers/piezaDental.js"></script>
+    <script src="js/controllers/Periodontograma/periodontograma.js"></script>
+    <script src="js/directives/svg/svg.js"></script>   
+    <script src="js/filters/periodontograma.js"></script>
+
+    <!-- Prestador -->
+    <script src="js/controllers/Prestador/prestador.js"></script>
+
+    <!-- Citas -->
+    <script src="js/controllers/Citas/Citas.js"></script>
+
+    <!-- Signalr -->
+    <script src="js/factories/signalR/signalr.js"></script>  
+
+    <!-- Print Friendly services -->
+    <script src="lib/pdf/printFriendly.js"></script>
+
+  </head>
+
+  <body ng-app="starter">
+    <ion-nav-view></ion-nav-view>
+  </body>
+
+</html>

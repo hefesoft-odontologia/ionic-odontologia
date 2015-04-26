@@ -1,0 +1,52 @@
+<ion-view view-title="Mis datos" ng-controller="prestadorCtrl as vm">
+      <ion-content>
+
+ <form name="form" ng-submit="salvar()">
+      <div class="list">
+        
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" ng-model="Datos.email" name="name" required/>          
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Nombres</span>
+          <input type="text" ng-model="Datos.nombres" name="name" required/>          
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Telefono</span>
+          <input type="text" ng-model="Datos.telefono" name="name" required/>          
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">movil</span>
+          <input type="text" ng-model="Datos.movil" name="name" required/>          
+        </label>     
+
+         <label  ng-click="cargarImagen(item)" class="item item-input">
+          <span class="input-label">Imagen</span>
+          <img style="width: 80px;" ng-src="{{Imagen}}">          
+        </label>   
+
+        <label class="item item-input">
+          <span class="input-label">direccion</span>
+          <input type="text" ng-model="Datos.direccion" name="name" required/>          
+        </label>        
+        
+         
+        <div class="row">
+    
+          <button  class="button button-block button-positive" type="submit">Salvar</button>
+    
+    
+       </div>
+
+       
+
+      </div>
+</form>
+
+
+      </ion-content>
+</ion-view>

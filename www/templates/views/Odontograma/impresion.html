@@ -1,0 +1,32 @@
+<ion-view view-title="Imprimir odontograma"
+
+<ion-content>
+	
+	</br>
+	</br>
+    </br>
+
+ <button class="button button-full button-positive" ng-click="imprimir()">
+  Imprimir
+</button>
+
+<ion-scroll zooming="true" direction="y" style="height: 1000px">
+
+<ion-list>
+	  <ion-item ng-repeat="n in items track by $index">  	
+	    	<pieza-completa width="40" height="40" item='n'>
+			</pieza-completa> 
+			<div>
+	    		<h2>{{n.Descripcion}}</h2> 	    		
+	    	</div>
+	  </ion-item>
+	</ion-list>
+	
+
+</ion-scroll>
+	
+	
+
+</ion-content>
+
+</ion-view>

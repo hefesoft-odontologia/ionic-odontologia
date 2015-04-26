@@ -1,0 +1,32 @@
+{
+  "name": "angular-winjs",
+  "homepage": "https://github.com/winjs/angular-winjs",
+  "authors": [
+    "Microsoft Corporation and other contributors"
+  ],
+  "description": "This code is a wrapper which facilitates usage of WinJS UI controls in an Angular application.",
+  "main": "js/angular-winjs.js",
+  "keywords": [
+    "winjs",
+    "angular",
+    "AngularJS"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "f2ac7449eb",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "f2ac7449eb3a63f3662766163c1ddd2c0bda78dd"
+  },
+  "_source": "git://github.com/winjs/angular-winjs.git",
+  "_target": "*",
+  "_originalSource": "angular-winjs",
+  "_direct": true
+}

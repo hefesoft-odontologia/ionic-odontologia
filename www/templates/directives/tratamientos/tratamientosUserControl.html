@@ -1,0 +1,31 @@
+
+<ion-scroll direction="y" style="height: 500px">
+  
+  <div class="list list-inset">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search" ng-model="textoBuscar">
+  </label>
+</div>
+
+<ion-list show-delete="shouldShowDelete">
+
+
+  <ion-item ng-repeat="n in items | filter:textoBuscar">
+    
+    <a>
+      <tratamientos item='n' ng-click="clickSeleccionado(n)"/>
+    </a>
+
+  
+    <ion-delete-button class="ion-minus-circled"
+                       ng-click="eliminar(n, $index)">
+    </ion-delete-button>   
+
+
+  </ion-item>
+</ion-list>
+
+
+ </ion-scroll>
+

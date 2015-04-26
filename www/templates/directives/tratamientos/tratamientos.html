@@ -1,0 +1,25 @@
+<ul class="horizontal">
+     <li>
+     	<div style="height:100%; width:50px;"
+           ng-style="{'background-color': item.Color}"
+            >
+     		<p 
+        ng-hide="!item.Simbolo" 
+        ng-style="{'font-family': item.Fuente, 'color': item.ColorAdicional}"
+        style="text-align: center;">
+                    {{item.Simbolo}}
+               </p>
+               
+                <p ng-hide="!item.Letra"  
+                    ng-style="{'color': item.ColorAdicional}"
+                    style="text-align: center;">
+                   {{item.Letra}}
+               </p>
+     	</div>
+     </li>
+     <li>
+	     <div style="height:100%; width:200px;">
+	     	{{item.Descripcion}}	
+	     </div>
+     </li>     
+</ul>

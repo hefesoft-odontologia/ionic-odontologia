@@ -1,0 +1,151 @@
+<ion-view view-title="Periodontograma" ng-controller="PeriodontogramaCtrl as vm">
+<ion-content class="fondo">
+
+
+<win-hub id="Periodontograma" on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()" obtener-control="setCtrl(ctrl)">
+
+    <win-hub-section header="'Periodontograma'" is-header-static="true">
+        <div class="flex-container" style="justify-content:center;">
+			<div ng-repeat="item in items | filter:'parte1'">
+
+				<periodontograma-pieza-dental 
+					numero-pieza-dental="item.numeroPiezaDental" 
+					zoom="zoom"					
+					item="item"
+					>
+				</periodontograma-pieza-dental>
+			</div>
+		</div>
+
+		<div class="flex-container" style="justify-content:center;">
+			<div ng-repeat="item in items | filter:'parte2'">
+				<periodontograma-pieza-dental 
+					numero-pieza-dental="item.numeroPiezaDental" 
+					zoom="zoom"					
+					item="item"
+					>
+				</periodontograma-pieza-dental>
+			</div>
+		</div>
+
+		<div class="flex-container" style="justify-content:center;">
+			<div ng-repeat="item in items | filter:'parte3'">
+				<periodontograma-pieza-dental 
+					numero-pieza-dental="item.numeroPiezaDental" 
+					zoom="zoom"					
+					item="item"
+					>
+				</periodontograma-pieza-dental>
+			</div>
+		</div>
+
+		<div class="flex-container" style="justify-content:center;">
+			<div ng-repeat="item in items | filter:'parte4'">
+				<periodontograma-pieza-dental 
+					numero-pieza-dental="item.numeroPiezaDental" 
+					zoom="zoom"					
+					item="item"
+					>
+				</periodontograma-pieza-dental>
+			</div>
+		</div>
+
+		
+    </win-hub-section>
+
+    
+    <win-hub-section header="''" id="seleccionado">        
+	    <periodontograma-pieza-dental 
+				numero-pieza-dental="selecionado.numeroPiezaDental" 
+				width="40" 
+				height="120"			
+				item="selecionado"
+				>
+		</periodontograma-pieza-dental>
+    </win-hub-section>       
+
+    <win-hub-section header="'Pieza seleccionada'" id="seleccionado">
+		
+    	<ion-scroll direction="y" style="height: 5000px"> 
+
+    	<h5>Movilidad</h5>
+		<input type="text" ng-model="selecionado.movilidad"  placeholder="Movilidad">
+
+		<!--Margenes-->		
+		<h5> Margen gingival </h5>
+		<ul>
+			<li><div class="item range range-assertive"><input type="range" ng-model="selecionado.margen1"/></div></li>
+			<li><div class="item range range-assertive"><input type="range" ng-model="selecionado.margen2"/></div></li>
+			<li><div class="item range range-assertive"><input type="range" ng-model="selecionado.margen3"/></div></li>
+		</ul>
+
+		<h5> Profundidad sondaje </h5>
+		<ul>
+			<li><div class="item range range-positive"><input type="range" ng-model="selecionado.profundidad1"/></div></li>
+			<li><div class="item range range-positive"><input type="range" ng-model="selecionado.profundidad2"/></div></li>
+			<li><div class="item range range-positive"><input type="range" ng-model="selecionado.profundidad3"/></div></li>
+		</ul>
+		
+		<div>
+		  	<button class="button button-full button-balanced"  ng-click="implante()">Implante</button>
+		</div>
+
+		<div ng-show="mostrarFurca">
+		  	<button class="button button-full button-energized" ng-click="furca()">Furca</button>
+		</div>
+
+	<h5>Sangrado / Supuración</h5>
+	<div class="row">
+		  <div 
+		  	  ng-click="sangradoSupurado('sangrado_supuracion_1')"
+			  class="col" 
+			  ng-style="{'background':selecionado.sangrado_supuracion_1}" 
+			  style="width:30px; height: 30px; border: black;">
+		  </div>
+
+		  <div 
+		  	ng-click="sangradoSupurado('sangrado_supuracion_2')"
+		  	class="col" 
+		  	ng-style="{'background':selecionado.sangrado_supuracion_2}" 
+		  	style="width:30px; height: 30px; border: black; margin-left: 1px;">
+		  </div>
+
+		  <div 
+		    ng-click="sangradoSupurado('sangrado_supuracion_3')"
+		  	class="col" 
+		  	ng-style="{'background':selecionado.sangrado_supuracion_3}" 
+		  	style="width:30px; height: 30px; border: black; margin-left: 1px;">
+		  </div>
+		  
+	</div>
+
+	<h5>Placa</h5>	
+	<div class="row">
+		  <div 
+		  	  ng-click="placa('placa_1')"
+			  class="col" 
+			  ng-style="{'background':selecionado.placa_1}" 
+			  style="width:30px; height: 30px; border: black; margin-top: 1px;">
+		  </div>
+
+		  <div 
+		    ng-click="placa('placa_2')"
+		  	class="col" 
+		  	ng-style="{'background':selecionado.placa_2}" 
+		  	style="width:130px; height: 30px; border: black; margin-left: 1px; margin-top: 1px;">
+		  </div>
+
+		  <div 
+		    ng-click="placa('placa_3')"
+		  	class="col" 
+		  	ng-style="{'background':selecionado.placa_3}" 
+		  	style="width:30px; height: 30px; border: black; margin-left: 1px; margin-top: 1px;">
+		  </div>
+		  
+	</div>
+	</ion-scroll>
+    </win-hub-section>
+    
+</win-hub>
+</ion-content>
+</ion-view>

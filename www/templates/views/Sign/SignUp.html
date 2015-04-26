@@ -1,0 +1,29 @@
+<ion-view view-title="Registro" ng-controller="signUpController as vm">
+<ion-content has-subheader="false">
+
+ <form name="form" ng-submit="doSignUp()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" ng-model="loginData.username" name="name" username required/>
+          <span ng-show="form.name.$pending.username"> validando el email de usuario...</span>
+          <span ng-show="form.name.$error.username"> El email ya existe en el sistema!</span>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Clave</span>
+          <input type="password" name="password" ng-minlength="8" ng-model="loginData.password" required>
+        </label>
+        
+        <label class="item">
+          <button ng-disabled="form.name.$dirty && form.name.$invalid ||
+                  form.password.$dirty && form.password.$invalid || form.$invalid"
+          class="button button-block button-positive" type="submit">Suscribirse</button>
+        </label>
+
+      </div>
+</form>
+
+
+</ion-content>
+</ion-view>

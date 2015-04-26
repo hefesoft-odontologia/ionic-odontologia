@@ -1,0 +1,114 @@
+body {
+  -ms-content-zooming: none;
+}
+
+@font-face {
+  font-family: 'Ionicons';
+  src: url(data:application/x-font-woff;charset=utf-8;base64,***) format('woff'),
+  url(data:application/x-font-ttf;charset=utf-8;base64,***) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{ 
+font-family: 'Glyphyx';
+src: url('fonts/Glyphyx/Glyphyx.eot');
+src: url('fonts/Glyphyx/Glyphyx.eot?#iefix') format('embedded-opentype'),
+     url('fonts/Glyphyx/Glyphyx.woff') format('woff'),
+     url('fonts/Glyphyx/Glyphyx.ttf') format('truetype');         
+}
+
+@font-face{ 
+font-family: 'signify';
+src: url('fonts/signify/signifylite-webfont.eot');
+src: url('fonts/signify/signifylite-webfont.eot?#iefix') format('embedded-opentype'),
+     url('fonts/signify/signifylite-webfont.woff') format('woff'),
+     url('fonts/signify/signifylite-webfont.ttf') format('truetype'),
+     url('fonts/signify/signifylite-webfont.svg#webfont') format('svg');
+}
+
+ @font-face{ 
+font-family: 'raphael';
+src: url('fonts/raphael/raphaelicons-webfont.eot');
+src: url('fonts/raphael/raphaelicons-webfont.eot?#iefix') format('embedded-opentype'),
+     url('fonts/raphael/raphaelicons-webfont.woff') format('woff'),
+     url('fonts/raphael/raphaelicons-webfont.ttf') format('truetype'),
+     url('fonts/raphael/raphaelicons-webfont.svg#webfont') format('svg');
+}
+
+/* Estilos para las cajas horizontales tratamientos */
+.horizontal {
+    margin: 0;
+    padding: 0;   
+}
+
+.horizontal li {
+    display: inline-block;
+    border: 1px solid #000;
+    height: 50px;
+    overflow: hidden;
+}
+
+.flex-container {
+ 
+ 
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;  
+  -webkit-flex-wrap: wrap;
+   flex-wrap: wrap;
+   
+/* Deforma en firefox
+  display: -webkit-box;
+-webkit-box-orient: horizontal;
+-webkit-box-pack: center;
+-webkit-box-align: center;
+
+display: -moz-box;
+-moz-box-orient: horizontal;
+-moz-box-pack: center;
+-moz-box-align: center;
+
+display: box;
+box-orient: horizontal;
+box-pack: center;
+box-align: center;
+*/  
+
+
+}
+
+.flex-item {  
+
+  text-align: center;
+}
+
+.slider-bounce {
+  transition-duration:0.5s;
+  transition-timing-function: ease-out;
+  transition-property: all;
+}
+
+.horizontal-slider {
+  width: 500px;
+  position: relative;
+  left:0px;
+  translate3d(0px,0,0);
+}
+
+.fondo {
+  /*background: url(http://dentrios.com/wp-content/uploads/2013/10/dental-background4.jpg) no-repeat center center fixed;*/
+  background: url(img/Background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.contenedor{
+  position: relative;  
+}

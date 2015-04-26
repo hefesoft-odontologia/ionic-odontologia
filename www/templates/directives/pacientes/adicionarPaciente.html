@@ -1,0 +1,32 @@
+<form name="form" ng-submit="addPaciente()">
+      <div class="list">
+        
+        <label class="item item-input">
+          <span class="input-label">Nombres</span>
+          <input type="text" ng-model="Paciente.nombre" name="nombres" required/>          
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Numero de identificacion</span>
+          <input type="text" name="cedula" ng-minlength="3" ng-model="Paciente.cedula" required>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" name="email" ng-minlength="8" ng-model="Paciente.email">
+        </label>
+
+        <label ng-disabled="form.nombres.$dirty && form.nombres.$invalid"
+                  ng-click="cargarImagen(item)" class="item item-input">
+          <span class="input-label">Imagen</span>
+          <img style="width: 80px;" ng-src="{{Imagen}}">          
+        </label>
+        
+        <label class="item">
+          <button ng-disabled="form.nombres.$dirty && form.nombres.$invalid ||
+                  form.cedula.$dirty && form.cedula.$invalid || form.$invalid"
+          class="button button-block button-positive" type="submit">Salvar</button>
+        </label>
+
+      </div>
+</form>
