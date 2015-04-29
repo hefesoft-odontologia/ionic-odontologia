@@ -2,11 +2,13 @@ angular.module('starter')
 .controller('PeriodontogramaCtrl', ['$scope','dataTableStorageFactory','dataBlobStorageFactory','$ionicLoading','users','$state', 'validarNavegacionService',
     function ($scope, dataTableStorageFactory, dataBlobStorageFactory, $ionicLoading, users, $state, validarNavegacionService) {
 	
+ var i = 0;
  $scope.selecionado = {numeroPiezaDental: 18, mostrarFurca : false, tipoFurca: 'vacio', "movilidad" : "", parte: 'parte1'};
  $scope.mostrarFurca = false;
  var usuario = users.getCurrentUser();
  var pacienteId = $state.params.pacienteId;
  var cambioDetectado = false; 
+ $scope.seleccionado = false;
  validarNavegacionService.validarPacienteSeleccionado();
 
  $scope.zoom = 0.7;
@@ -15,10 +17,16 @@ angular.module('starter')
     function platform(){
         var deviceInformation = ionic.Platform.device();
         var isAndroid = ionic.Platform.isAndroid();
+        var isIPad = ionic.Platform.isIPad();
+        var isIOS = ionic.Platform.isIOS();
+
 
         if(isAndroid){
             $scope.zoom = 0.4;            
         }
+        else if(isIPad){
+            $scope.zoom = 0.5;            
+        }        
     }
 
     $scope.$on('$ionicView.leave', function(){        
@@ -148,10 +156,53 @@ angular.module('starter')
         }       
     }
 
+    $scope.periodontograma = function(){
+        goToSection(0);
+    }
+
+    $scope.diagnosticar = function(){
+        goToSection(1);
+    }
+
+    $scope.setCtrl = function(ctrl){
+        hubCtrl = ctrl;
+    }
+
+    //va hacia la izquierda
+    $scope.onSwipeRight = function(){
+        
+        if(i > 0){
+            i = i -1;
+            goToSection(i);
+        }        
+    }
+
+     function goToSection(index){
+        hubCtrl._scrollToSection(index,true)
+    }
+
+    //va hacia la derecha
+    $scope.onSwipeLeft = function(){
+        
+        if(i < 3){
+            i = i +1;
+            goToSection(i);
+        }
+    }
+
     function clickPiezaDental(item){
         $scope.selecionado = item;
         $scope.mostrarFurca = Boolean(item.mostrarFurca);
         cambioDetectado = true;
+        $scope.seleccionado = true;
+    }
+
+    $scope.down = function(e){
+        $scope.selecionado[e] = parseInt($scope.selecionado[e]) +10; 
+    }
+
+    $scope.up = function(e){
+        $scope.selecionado[e] = parseInt($scope.selecionado[e]) -10;    
     }
     
     obtenerPeriodontogramaBlob();

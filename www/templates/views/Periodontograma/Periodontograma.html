@@ -1,6 +1,13 @@
 <ion-view view-title="Periodontograma" ng-controller="PeriodontogramaCtrl as vm">
 <ion-content class="fondo">
 
+ <div class="bar bar-header bar-positive" ng-show="seleccionado">
+        <div class="button-bar">
+          <a class="button" ng-click="periodontograma()">Periodontograma</a>
+          <a class="button" ng-click="diagnosticar()">Diagnosticar</a>                    
+        </div>
+    </div>
+
 
 <win-hub id="Periodontograma" on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()" obtener-control="setCtrl(ctrl)">
 
@@ -74,16 +81,74 @@
 		<!--Margenes-->		
 		<h5> Margen gingival </h5>
 		<ul>
-			<li><div class="item range range-assertive"><input type="range" ng-model="selecionado.margen1"/></div></li>
-			<li><div class="item range range-assertive"><input type="range" ng-model="selecionado.margen2"/></div></li>
-			<li><div class="item range range-assertive"><input type="range" ng-model="selecionado.margen3"/></div></li>
+			
+
+			<li>
+				<div  class="row"> 
+					<a ng-click="up('margen1')" class="button icon-left ion-minus-round button-clear button-positive"></a>
+					<div class="item range range-assertive">
+						<input type="range" ng-model="selecionado.margen1"/>
+					</div>
+					<a ng-click="down('margen1')" class="button icon-right ion-plus-circled button-clear button-positive"></a>
+				</div>
+			</li>
+
+
+			<li>
+				<div class="row"> 
+					<a ng-click="up('margen2')" class="button icon-left ion-minus-round button-clear button-positive"></a>
+					<div class="item range range-assertive">
+						<input type="range" ng-model="selecionado.margen2"/>
+					</div>
+					<a ng-click="down('margen2')" class="button icon-right ion-plus-circled button-clear button-positive"></a>
+				</div>
+			</li>
+
+			<li>
+				<div class="row"> 
+					<a ng-click="up('margen3')" class="button icon-left ion-minus-round button-clear button-positive"></a>
+					<div class="item range range-assertive">
+						<input type="range" ng-model="selecionado.margen3"/>
+					</div>
+					<a ng-click="down('margen3')" class="button icon-right ion-plus-circled button-clear button-positive"></a>
+				</div>
+			</li>
+
+
 		</ul>
 
 		<h5> Profundidad sondaje </h5>
 		<ul>
-			<li><div class="item range range-positive"><input type="range" ng-model="selecionado.profundidad1"/></div></li>
-			<li><div class="item range range-positive"><input type="range" ng-model="selecionado.profundidad2"/></div></li>
-			<li><div class="item range range-positive"><input type="range" ng-model="selecionado.profundidad3"/></div></li>
+
+			<li>
+				<div class="row"> 
+					<a ng-click="up('profundidad1')" class="button icon-left ion-minus-round button-clear button-positive"></a>
+					<div class="item range range-positive">
+						<input type="range" ng-model="selecionado.profundidad1"/>
+					</div>
+					<a ng-click="down('profundidad1')" class="button icon-right ion-plus-circled button-clear button-positive"></a>
+				</div>
+			</li>
+
+			<li>
+				<div class="row"> 
+					<a ng-click="up('profundidad2')" class="button icon-left ion-minus-round button-clear button-positive"></a>
+					<div class="item range range-positive">
+						<input type="range" ng-model="selecionado.profundidad2"/>
+					</div>
+					<a ng-click="down('profundidad2')" class="button icon-right ion-plus-circled button-clear button-positive"></a>
+				</div>
+			</li>
+
+			<li>
+				<div class="row"> 
+					<a ng-click="up('profundidad3')" class="button icon-left ion-minus-round button-clear button-positive"></a>
+					<div class="item range range-positive">
+						<input type="range" ng-model="selecionado.profundidad3"/>
+					</div>
+					<a ng-click="down('profundidad3')"class="button icon-right ion-plus-circled button-clear button-positive"></a>
+				</div>
+			</li>			
 		</ul>
 		
 		<div>

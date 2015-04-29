@@ -13,11 +13,20 @@ angular.module('starter')
 	function platform(){
 		var deviceInformation = ionic.Platform.device();
 		var isAndroid = ionic.Platform.isAndroid();
+		var isIPad = ionic.Platform.isIPad();
+        var isIOS = ionic.Platform.isIOS();
+
+        
 
 		if(isAndroid){
-			$scope.width = 20;
-			$scope.height = 20;
+			$scope.width = 10;
+			$scope.height = 10;
 		}
+		else if(isIPad){
+			$scope.width = 20;
+			$scope.height = 20;			
+		}
+		
 	}
 
 	$scope.$on("elemento-dental-seleccionado", function(event, args){			
