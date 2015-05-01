@@ -8,8 +8,8 @@ angular.module('starter')
     };
 }])
 
-.controller("tratamientosPorPiezaDentalCtrl", ['$scope','tratamientosPorPiezaDental', 'indicesServices',
-    function ($scope, tratamientosPorPiezaDental, indicesServices) {
+.controller("tratamientosPorPiezaDentalCtrl", ['$scope','tratamientosPorPiezaDental', 'indicesServices','piezasService',
+    function ($scope, tratamientosPorPiezaDental, indicesServices, piezasService) {
 
 	$scope.items = [];
 
@@ -25,8 +25,9 @@ angular.module('starter')
 
     $scope.$on('elemento-dental-seleccionado', function(event, args){		
         var seleccionado = args.seleccionado.item;
-		var resultados = tratamientosPorPiezaDental.filtrarNumeroPiezaDental(seleccionado.numeroPiezaDental);      
+		var resultados = piezasService.getTratamientosByNombre(seleccionado.numeroPiezaDental);      
         var data = [];
+
 
         for (var i = resultados.length - 1; i >= 0; i--) {
             data.push(

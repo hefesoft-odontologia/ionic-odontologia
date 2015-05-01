@@ -24,7 +24,7 @@ angular.module('starter')
 	function ($rootScope, $scope, sharedDataService, aplicarTratamientoService, tratamientosPorPiezaDental, crearPropiedades) {
 
 		$scope.clickAplicar = function(e, parte){
-		var elemento = aplicarTratamientoService.aplicar($scope.item, parte);
+		var elemento = aplicarTratamientoService.aplicar($scope.item, parte, $scope.item);
 		if(elemento.valido){
 			elemento.superficie = parte;
 			

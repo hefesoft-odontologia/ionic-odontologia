@@ -1,12 +1,14 @@
 angular.module('starter')
-.controller('odontogramaController', [ '$scope', '$rootScope', '$state','validarNavegacionService', 
-	function($scope, $rootScope, $state, validarNavegacionService){
+.controller('odontogramaController', [ '$scope', '$rootScope', '$state','validarNavegacionService', 'piezasService', '$ionicLoading','users', 'dataTableStorageFactory',
+	function($scope, $rootScope, $state, validarNavegacionService, piezasService, $ionicLoading, users, dataTableStorageFactory){
 	
 	var i = 0;
 	var hubCtrl;
 	$scope.seleccionado = false;
 	$scope.width = 40;
 	$scope.height = 40;
+	var pacienteId = $state.params.pacienteId;   
+	var cambioDetectado = true;
 
 	validarNavegacionService.validarPacienteSeleccionado();
 
@@ -18,7 +20,7 @@ angular.module('starter')
 
         
 
-		if(isAndroid){
+	if(isAndroid){
 			$scope.width = 10;
 			$scope.height = 10;
 		}
@@ -28,6 +30,28 @@ angular.module('starter')
 		}
 		
 	}
+
+	$scope.$on('$ionicView.leave', function(){        
+        if(cambioDetectado){
+            $ionicLoading.show({
+                template: "Guardando odontograma..."
+            })
+
+            var usuario = users.getCurrentUser();
+            var items = piezasService.getPiezas(true);
+
+            //Datos, Nombre tabla, partition key, y campo que servira como row key
+            dataTableStorageFactory.postTableArray(items, 'TmOdontograma',  usuario.username+'paciente'+pacienteId, 'codigo')
+            .success(function (data) {
+               $ionicLoading.hide();
+            })
+            .error(function (error) {
+                $ionicLoading.hide();
+                console.log(error);                
+            });
+        }
+    });
+
 
 	$scope.$on("elemento-dental-seleccionado", function(event, args){			
 		$scope.seleccionado = true;	
@@ -75,18 +99,7 @@ angular.module('starter')
 			goToSection(i);
 		}
 	}
-
-	//Para quitar el boton de el lado derecho cuando no se necesite
-	$scope.$on('$ionicView.enter', function(){
-		$rootScope.$broadcast('boton-derecha', {valor : true});
-	    console.log('$ionicView.enter called');
-	});
-
-	$scope.$on('$ionicView.leave', function(){
-		 $rootScope.$broadcast('boton-derecha', {valor : false});
-         console.log('$ionicView.leave called');
-    });
-
+	
     function goToSection(index){
     	hubCtrl._scrollToSection(index, true);
     }

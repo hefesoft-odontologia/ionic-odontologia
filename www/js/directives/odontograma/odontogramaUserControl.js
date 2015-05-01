@@ -8,9 +8,9 @@ directive('odontogramaUserControl', [function () {
 }]);
 
 angular.module('starter')
-.controller("odontogramaCtrl", ['$scope', 'dataTableStorageFactory', 'dataBlobStorageFactory', 'sharedDataService', 'dataTableStorageFactory','leerOdontogramaServices','users','$state','$ionicLoading', '$q', 'indicesServices',
+.controller("odontogramaCtrl", ['$scope', 'dataTableStorageFactory', 'dataBlobStorageFactory', 'sharedDataService', 'dataTableStorageFactory','leerOdontogramaServices','users','$state','$ionicLoading', '$q', 'indicesServices','piezasService',
 
-    function ($scope, dataTableStorageFactory, dataBlobStorageFactory, sharedDataService, dataTableStorageFactory,leerOdontogramaServices, users, $state, $ionicLoading, $q, indicesServices) {
+    function ($scope, dataTableStorageFactory, dataBlobStorageFactory, sharedDataService, dataTableStorageFactory,leerOdontogramaServices, users, $state, $ionicLoading, $q, indicesServices, piezasService) {
     
      var usuario = users.getCurrentUser();
      var i = 0;
@@ -33,13 +33,13 @@ angular.module('starter')
         var supernumerarioAgregar = {numeroPiezaDental: 'S' + i, esSupernumerario : true, _numeroSuperNumerario : i, parte: seleccionado.parte};
         $scope.items.splice(index,0, supernumerarioAgregar);
 
-        supernumerarioAgregar.nombreTabla = 'TpOdontogramaSupernumerario';
+        supernumerarioAgregar.nombreTabla = 'TmOdontogramaSupernumerario';
         supernumerarioAgregar.RowKey = i;
         supernumerarioAgregar.PartitionKey = usuario.username + 'paciente' + pacienteId;
         supernumerarioAgregar.index = index;
         supernumerarioAgregar.direccion = direccion;
         supernumerarioAgregar.numeroPiezaDentalReferencia = seleccionado.numeroPiezaDental;
-        saveStorage(supernumerarioAgregar);
+        dataTableStorageFactory.saveStorage(supernumerarioAgregar);
     });
 
      $scope.$on('idice placa bacteriana', function(event, args){      
@@ -52,54 +52,32 @@ angular.module('starter')
         var index = _.indexOf($scope.items, seleccionado);        
         
         $scope.items.splice(index, 1);
-        deleteFromStorage(seleccionado);
+        dataTableStorageFactory.deleteFromStorage(seleccionado);
         
     });
 
-    function obtenerOdontograma(){
-        dataTableStorageFactory.getTableByPartition('TpOdontograma', usuario.username + 'paciente' + pacienteId)
-        .success(function(data){
-            leerOdontogramaServices.odontogramaToUi(data);
-            $ionicLoading.hide();
-        }).error(function(error){
-            $ionicLoading.hide();
-        })
-    }
-
-    function saveStorage(item){
-        dataTableStorageFactory.saveStorage(item);            
-    }
-
-    function deleteFromStorage(item){
-        item.Estado_Entidad = 2;        
-        dataTableStorageFactory.postTable(item)
-            .success(function (data) {
-              
-            })
-            .error(function (error) {
-               
-            });
-    }
+        
 
     function obtenerSupernumerarios(){
         $ionicLoading.show();
-        dataTableStorageFactory.getTableByPartition('TpOdontogramaSupernumerario', usuario.username + 'paciente' + pacienteId)
+        dataTableStorageFactory.getTableByPartition('TmOdontogramaSupernumerario', usuario.username + 'paciente' + pacienteId)
         .success(function(data){
-            for (var i = 0; i < data.length; i++) {
-                var item = data[i];
 
-                var index = _.findIndex($scope.items, function(chr) {
-                  return chr.numeroPiezaDental == item.numeroPiezaDentalReferencia;
-                });
+            if(data != null && data.length > 0){
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
 
-                if(item.direccion === "derecha"){
-                    index = index+1;
-                }
+                    var index = _.findIndex($scope.items, function(chr) {
+                      return chr.numeroPiezaDental == item.numeroPiezaDentalReferencia;
+                    });
 
-                $scope.items.splice(index, 0, item);
-            };
+                    if(item.direccion === "derecha"){
+                        index = index+1;
+                    }
 
-            obtenerOdontograma();
+                    $scope.items.splice(index, 0, item);
+                };                
+            }           
 
         }).error(function(error){
 
@@ -112,33 +90,80 @@ angular.module('starter')
         numeroPiezas.RowKey = 'numeropiezasdentales';
         numeroPiezas.PartitionKey = usuario.username + 'paciente' + pacienteId;        
         numeroPiezas.numeroPiezas = $scope.numeroPiezasPresentes;
-        saveStorage(numeroPiezas);
+        dataTableStorageFactory.saveStorage(numeroPiezas);
     }
 
     function load(){
         indicesServices.inicializar();
         var partition = usuario.username + 'paciente' + pacienteId;
-        var p1 = dataTableStorageFactory.getJsonData('Odontograma.json');
+        var p1 = dataTableStorageFactory.getTableByPartition('TmOdontograma', usuario.username+'paciente'+pacienteId);
         var p2 = dataTableStorageFactory.getTableByPartition('TmIndicesPacientes', partition);
 
         $ionicLoading.show();
         $q.all([p1, p2]).then(function(data){
-            var odontograma = data[0].data;
-
-            if(!angular.isUndefined(data[1].data[0])){
-                var numeroPiezasDentales = data[1].data[0].numeroPiezas;
-                $scope.numeroPiezasPresentes = numeroPiezasDentales;
-            }
             
-            $scope.items = odontograma;             
-
+            leerOdontograma(data);
+            leerNumeroPiezasDentales(data);
             $ionicLoading.hide();
-            obtenerSupernumerarios();
         });        
     }
 
     function round(value, decimals) {
         return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+    }
+
+    function leerNumeroPiezasDentales(data){
+        //Input numero de piezas dentales
+        if(data[1].data !=null && !angular.isUndefined(data[1].data[0])){
+            var numeroPiezasDentales = data[1].data[0].numeroPiezas;
+            $scope.numeroPiezasPresentes = numeroPiezasDentales;
+        }
+    }
+
+    function leerOdontograma(data){
+        var odontograma = data[0].data;
+        if(odontograma != null && odontograma.length > 0){  
+            
+            //Ordenarlos deacuerdo al codigo como en la nube se guardan en string no los ordena bien
+            odontograma = _.sortBy(odontograma, function(item) {
+               return parseInt(item.codigo);
+            });
+
+            piezasService.setPiezas(odontograma);
+            $scope.items = odontograma;            
+            obtenerSupernumerarios();
+        }
+        else{
+            obtenerOdontogramaBase();
+        }
+    }
+
+    //Mockup del odontograma
+    function obtenerOdontogramaBase(){
+        dataTableStorageFactory.getJsonData('Odontograma.json')
+        .success(function (data) {
+            save(data, true);            
+        })
+        .error(function (error) {
+            console.log(error);           
+        });
+    }
+
+    function save(data, recargar){
+        var usuario = users.getCurrentUser();      
+        $ionicLoading.show();
+        //Datos, Nombre tabla, partition key, y campo que servira como row key
+        dataTableStorageFactory.postTableArray(data, 'TmOdontograma',  usuario.username+'paciente'+pacienteId, 'codigo')
+        .success(function (data) {
+           $ionicLoading.hide();
+           if(recargar){
+             load();
+           }
+        })
+        .error(function (error) {
+            $ionicLoading.hide();
+            console.log(error);                
+        });
     }
 
     load();

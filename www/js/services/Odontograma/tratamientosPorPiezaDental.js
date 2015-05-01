@@ -2,9 +2,9 @@
 * El listado de los elementos aplicados a cada superficies 
 */
 angular.module('starter').
-service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearPropiedades','aplicarTratamientoService','dataTableStorageFactory','users','varsFactoryService', 'indicesServices',
+service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearPropiedades','aplicarTratamientoService','dataTableStorageFactory','users','varsFactoryService', 'indicesServices', 'piezasService',
 
-	function ($rootScope, sharedDataService, crearPropiedades, aplicarTratamientoService, dataTableStorageFactory, users, varsFactoryService, indicesServices) {
+	function ($rootScope, sharedDataService, crearPropiedades, aplicarTratamientoService, dataTableStorageFactory, users, varsFactoryService, indicesServices, piezasService) {
 	
 	var usuario = users.getCurrentUser();
 	var i = 0; 
@@ -37,29 +37,19 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 			tratamientos.push(item);
 	    }
 
-	    item.nombreTabla = 'TpOdontograma';
-	    item.PartitionKey = usuario.username + 'paciente' + pacienteId;
-	    item.RowKey = item.i;
-	    saveStorage(item);
-	}
-
-	//Filtra deacuerdo al numero de pieza dental
-	this.filtrarNumeroPiezaDental = function(numeroPiezaDental){
-		var resultado =_.filter(tratamientos, function(n) {
-		  return n.numeroPiezaDental === numeroPiezaDental;
-		});
-
-		return resultado;
+	    item['idTrataiento'] = tratamientoSeleccionado.RowKey;
+	    var elementoSalvar = addToPiezaDental(item);	    
 	}
 
 	this.eliminar = function(item){
-		var result = _.remove(tratamientos, function(n) {
-  			var valor =  (n.i  !== item.i);
-  			return valor;
-		});
 
-		tratamientos = result;
-		deleteFromStorage(item);
+		var elemento = piezasService.getPiezaByNombre(item.numeroPiezaDental);
+		var index = (elemento[item.superficie + "Items"]).indexOf(item);
+
+		if (index > -1) {
+		    (elemento[item.superficie + "Items"]).splice(index, 1);
+		}		
+		
 		actualizarDespuesEliminarUI(item);		
 	}
 
@@ -77,6 +67,32 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 		return result;
 	}
 
+
+	function addToPiezaDental(item){
+		var elemento = piezasService.getPiezaByNombre(item.numeroPiezaDental);
+
+		if(item.AplicaTratamiento == 1)
+		{
+			item.superficie = "piezaCompleta";			
+		}
+
+		return superficie(elemento, item.superficie, item);
+	}
+
+	function superficie(elemento, parte, item){
+		elemento[parte + "Items"].push(item); 		
+		return elemento;
+	}
+
+	//Filtra deacuerdo al numero de pieza dental
+	this.filtrarNumeroPiezaDental = function(numeroPiezaDental){
+		var resultado =_.filter(tratamientos, function(n) {
+		  return n.numeroPiezaDental === numeroPiezaDental;
+		});
+
+		return resultado;
+	}
+
 	function actualizarDespuesEliminarUI(item){
 		
 		var elemento = obtenerUltimoExistente(item);		
@@ -91,8 +107,7 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 
 		//Si es pieza completa no se le puede hacer click porque en el canvas esta un layer mas abajo
 		//Entonces hay que validar esta propiedad
-		if(item.hasOwnProperty('esPiezaCompleta') && item.esPiezaCompleta === 'True')
-		{
+		if(item.hasOwnProperty('esPiezaCompleta') && item.esPiezaCompleta === 'True'){
 			item.superficie = "piezacompleta";	
 		}
 
@@ -112,27 +127,6 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 		}
 
 		return dato;
-	}
-
-	function saveStorage(item){
-		dataTableStorageFactory.postTable(item)
-            .success(function (data) {
-              
-            })
-            .error(function (error) {
-               
-            });
-	}
-
-	function deleteFromStorage(item){
-		item.Estado_Entidad = 2;		
-		dataTableStorageFactory.postTable(item)
-            .success(function (data) {
-              
-            })
-            .error(function (error) {
-               
-            });
 	}
 
 }])

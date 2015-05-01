@@ -4,7 +4,7 @@ Implementa como se convierte un tratamiento seleccionado en algo que se pinta de
 angular.module('starter')
 .service('aplicarTratamientoService', ['sharedDataService', 'indicesServices', function (sharedDataService, indicesServices) {	
 	
-	this.aplicar = function(elemento, parte ){
+	this.aplicar = function(elemento, parte, item){
 		//Hay un servicio donde se gurada el procedimiento o diagnostico que actualmente se ha seleccionado
 		var tratamientoSeleccionado = sharedDataService.getTratamientoSeleccionado();
 	    //Se valida que se haya seleccionado algo
@@ -14,12 +14,14 @@ angular.module('starter')
 			 if(tratamientoSeleccionado.AplicaTratamiento == 1){
 				elemento = diente(tratamientoSeleccionado, parte);
 				indicesServices.setIndicePlacaBacteriana(tratamientoSeleccionado);	
+				indicesServices.setIndiceCeo(tratamientoSeleccionado, item);
 			 }
 
 			 //Aplica a superficie
 			 else if(tratamientoSeleccionado.AplicaTratamiento == 2){
 			    elemento = superficie(tratamientoSeleccionado, parte);
 			    indicesServices.setIndicePlacaBacteriana(tratamientoSeleccionado);
+			    indicesServices.setIndiceCeo(tratamientoSeleccionado, item);
 			 }
 			 else if(tratamientoSeleccionado.AplicaTratamiento == 3){
 			    console.log('Boca');
