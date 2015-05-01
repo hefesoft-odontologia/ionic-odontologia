@@ -3,7 +3,8 @@
 */
 
 angular.module('starter')
-.service('leerOdontogramaServices', ['$rootScope', 'tratamientosPorPiezaDental', function ($rootScope, tratamientosPorPiezaDental) {	
+.service('leerOdontogramaServices', ['$rootScope', 'tratamientosPorPiezaDental', 'indicesServices', 
+	function ($rootScope, tratamientosPorPiezaDental, indicesServices) {	
 	
 	this.odontogramaToUi = function(data){	
 	
@@ -13,8 +14,13 @@ angular.module('starter')
 			var item = data[i];
 			var nombreEvento = "leer" + item.numeroPiezaDental;
 			$rootScope.$broadcast(nombreEvento, { seleccionado : item, numeroPiezaDental : item.numeroPiezaDental });
+			indicePlacaBacteriana(item);
 		};
 
+	}
+
+	function indicePlacaBacteriana(item){
+		indicesServices.setIndicePlacaBacteriana(item);
 	}
 
 }])

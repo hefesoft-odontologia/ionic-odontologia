@@ -8,8 +8,8 @@ angular.module('starter')
     };
 }])
 
-.controller("tratamientosPorPiezaDentalCtrl", ['$scope','tratamientosPorPiezaDental',
-    function ($scope, tratamientosPorPiezaDental) {
+.controller("tratamientosPorPiezaDentalCtrl", ['$scope','tratamientosPorPiezaDental', 'indicesServices',
+    function ($scope, tratamientosPorPiezaDental, indicesServices) {
 
 	$scope.items = [];
 
@@ -20,6 +20,7 @@ angular.module('starter')
         });
 
         $scope.items = result;
+        indicesServices.deleteIndicePlacaBacteriana(elemento.elemento);
     }
 
     $scope.$on('elemento-dental-seleccionado', function(event, args){		

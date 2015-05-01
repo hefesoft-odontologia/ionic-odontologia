@@ -4,12 +4,15 @@
 	      <ion-list show-delete="shouldShowDelete"
 		          show-reorder="shouldShowReorder"
 		          can-swipe="listCanSwipe">
+		  
 		  <ion-item ng-repeat="item in listado"
-		            class="item-thumbnail-left">
+		            class="item item-avatar">
 
 		    <img ng-src="{{item.imagen}}">
 		    <h2>{{item.solicitadaPor}}</h2>
-		    <p>{{item.fecha}}</p>		    
+		    <p>Fecha {{item.fecha}}</p>
+		    <p>Estado {{item.aceptadaPrestador | AceptadoDenegado}}</p>		    
+		    <p>Estado usuario {{item.aceptadaUsuario | AceptadoDenegado}}</p>		    
 		    
 		    <ion-option-button class="button-positive"
 		                       ng-click="aceptar(item)">

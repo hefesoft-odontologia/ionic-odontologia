@@ -10,20 +10,23 @@ angular.module('starter')
 
 	$scope.aceptar = function(item){
 		item['aceptado'] = true;
+		item.aceptadaPrestador = 1;
 		var usuario = users.getCurrentUser();
-		var textoCita = 'Cita pedida a: ' + item.RowKey + ' aceptada';
-		pushFactory.enviarMensajePlatform(item.RowKey, textoCita, item.platform);
-		emailFactory.enviarEmail(usuario.email, item.RowKey, 'Solicitud de cita', textoCita, textoCita);
+		var textoCita = 'Aceptada';
+		var textoEmail = "La cita solicitada ha sido aceptada";
+
+		pushFactory.enviarMensajeUsername(item.usuarioEmail, textoCita);
+		emailFactory.enviarEmail(usuario.email, item.usuarioEmail, 'Solicitud de cita', textoEmail, textoEmail);		
 		dataTableStorageFactory.saveStorage(item);
 	}
 
 	$scope.cancelar = function(item){
 		item['aceptado'] = false;
-
-		var textoCita = 'Cita pedida a: ' + item.RowKey + ' no aceptada';
-		pushFactory.enviarMensajePlatform(item.RowKey,textoCita, item.platform);
-		emailFactory.enviarEmail(usuario.email, item.RowKey, 'Solicitud de cita', textoCita, textoCita);
-
+		item.aceptadaPrestador = 2;
+		var textoCita = 'Denegada';
+		var textoEmail = "La cita solicitada ha sido denegada";
+		pushFactory.enviarMensajeUsername(item.usuarioEmail, textoCita);		
+		emailFactory.enviarEmail(usuario.email, item.usuarioEmail, 'Solicitud de cita', textoEmail, textoEmail);
 		dataTableStorageFactory.saveStorage(item);	
 	}
 

@@ -2,9 +2,9 @@
 * El listado de los elementos aplicados a cada superficies 
 */
 angular.module('starter').
-service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearPropiedades','aplicarTratamientoService','dataTableStorageFactory','users','varsFactoryService',
+service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearPropiedades','aplicarTratamientoService','dataTableStorageFactory','users','varsFactoryService', 'indicesServices',
 
-	function ($rootScope, sharedDataService, crearPropiedades, aplicarTratamientoService, dataTableStorageFactory, users, varsFactoryService) {
+	function ($rootScope, sharedDataService, crearPropiedades, aplicarTratamientoService, dataTableStorageFactory, users, varsFactoryService, indicesServices) {
 	
 	var usuario = users.getCurrentUser();
 	var i = 0; 
@@ -60,7 +60,7 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 
 		tratamientos = result;
 		deleteFromStorage(item);
-		actualizarDespuesEliminarUI(item);
+		actualizarDespuesEliminarUI(item);		
 	}
 
 	function validarExiste(item){

@@ -91,6 +91,17 @@ angular.module('starter')
         });
     }
 
+    dataFactory.enviarMensajeUsername = function(enviarA, mensaje){      
+      var item = {to_tag : enviarA, mensaje : mensaje};
+      $http.post(urlBase + "api/NotifyPushUsername", item)
+      .success(function (data) {                
+          console.log(data);        
+        })
+        .error(function (error) {
+            console.log(error);      
+        });
+    }
+
   dataFactory.getPlatform = function(){
       return getPlatform();    
   }

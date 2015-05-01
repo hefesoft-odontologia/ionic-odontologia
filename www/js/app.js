@@ -65,6 +65,7 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
    
 .state('app.odontograma', {
     url: "/odontograma/:pacienteId",
+    cache: false,
     views: {
         'menuContent': {
             templateUrl: "templates/views/Odontograma/odontograma.html",            

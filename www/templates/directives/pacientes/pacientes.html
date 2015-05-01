@@ -14,7 +14,7 @@
 
 
   <ion-list >       
-  <ion-item ng-repeat="item in Pacientes | filter:textoBuscar:strict" class="item-thumbnail-left">
+  <ion-item ng-repeat="item in Pacientes | filter:textoBuscar:strict" class="item item-avatar">
     <img ng-src="{{item.urlImagen}}">
     <h2>{{item.nombre}}</h2>
     <p>{{item.cedula}}</p>

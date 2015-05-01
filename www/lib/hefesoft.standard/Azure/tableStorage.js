@@ -1,6 +1,6 @@
 angular.module('starter')
-    .factory('dataTableStorageFactory', ['$http','urlServicioFactory','$ionicLoading', 
-        function($http, urlServicioFactory, $ionicLoading) {
+    .factory('dataTableStorageFactory', ['$http','urlServicioFactory','$ionicLoading', '$q',
+        function($http, urlServicioFactory, $ionicLoading, $q) {
     
     var urlBase = urlServicioFactory.getUrlService();
     var dataFactory = {};
@@ -10,8 +10,30 @@ angular.module('starter')
         return $http.get('js/data/' + nombre);
     };
 
+    dataFactory.getJsonDataPromise = function (nombre) {
+        var deferred = $q.defer();
+        $ionicLoading.show();
+        $http.get('js/data/' + nombre)
+        .success(function (data) {
+                $ionicLoading.hide();
+                deferred.resolve(data);
+            })
+            .error(function (error) {
+                console.log(error);
+                $ionicLoading.hide();
+                deferred.reject(error);
+            });
+
+        return deferred.promise;
+    };
+
     dataFactory.getTableByPartition = function (nombreTabla,PartitionKey) {
         return $http.get(urlBase + "table/?nombreTabla=" + nombreTabla +"&partitionKey="+ PartitionKey);
+    };
+
+    // Los 2 ultimos parametros no son de utilidad solo se envian xq el servicio los requiere
+    dataFactory.getTableByRowKey = function (nombreTabla, RowKey) {
+        return $http.get(urlBase + "table/?nombreTabla=" + nombreTabla +"&rowkey="+ RowKey + "&modo=a&modo2=b");
     };
 
     dataFactory.getTableByPartitionAndRowKey = function (nombreTabla, PartitionKey, rowKey) {
@@ -76,15 +98,20 @@ angular.module('starter')
 
 
     dataFactory.saveStorage = function (item){
+        var deferred = $q.defer();
         $ionicLoading.show();
         dataFactory.postTable(item)
             .success(function (data) {
                 $ionicLoading.hide();
+                deferred.resolve(data);
             })
             .error(function (error) {
                 console.log(error);
                 $ionicLoading.hide();
+                deferred.reject(error);
             });
+
+        return deferred.promise;
     }
 
     dataFactory.deleteFromStorage = function (item){

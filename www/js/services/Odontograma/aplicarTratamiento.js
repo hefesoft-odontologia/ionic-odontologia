@@ -2,7 +2,7 @@
 Implementa como se convierte un tratamiento seleccionado en algo que se pinta dentro del odontograma
 */
 angular.module('starter')
-.service('aplicarTratamientoService', ['sharedDataService', function (sharedDataService) {	
+.service('aplicarTratamientoService', ['sharedDataService', 'indicesServices', function (sharedDataService, indicesServices) {	
 	
 	this.aplicar = function(elemento, parte ){
 		//Hay un servicio donde se gurada el procedimiento o diagnostico que actualmente se ha seleccionado
@@ -12,12 +12,14 @@ angular.module('starter')
 
 			 //Aplica a pieza completa
 			 if(tratamientoSeleccionado.AplicaTratamiento == 1){
-				elemento = diente(tratamientoSeleccionado, parte);	
+				elemento = diente(tratamientoSeleccionado, parte);
+				indicesServices.setIndicePlacaBacteriana(tratamientoSeleccionado);	
 			 }
 
 			 //Aplica a superficie
 			 else if(tratamientoSeleccionado.AplicaTratamiento == 2){
 			    elemento = superficie(tratamientoSeleccionado, parte);
+			    indicesServices.setIndicePlacaBacteriana(tratamientoSeleccionado);
 			 }
 			 else if(tratamientoSeleccionado.AplicaTratamiento == 3){
 			    console.log('Boca');
@@ -42,12 +44,14 @@ angular.module('starter')
 		var tratamientoSeleccionado = elemento;
 		//Aplica a pieza completa
 		 if(tratamientoSeleccionado.AplicaTratamiento == 1){
-			elemento = diente(tratamientoSeleccionado, parte);	
+			elemento = diente(tratamientoSeleccionado, parte);
+			indicesServices.deleteIndicePlacaBacteriana(tratamientoSeleccionado);
 		 }
 
 		 //Aplica a superficie
 		 else if(tratamientoSeleccionado.AplicaTratamiento == 2){
 		    elemento = superficie(tratamientoSeleccionado, parte);
+		    indicesServices.deleteIndicePlacaBacteriana(tratamientoSeleccionado);
 		 }
 		 else if(tratamientoSeleccionado.AplicaTratamiento == 3){
 		    console.log('Boca');

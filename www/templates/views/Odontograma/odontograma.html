@@ -6,6 +6,7 @@
           <a class="button" ng-click="adicionarTratamiento()">Adicionar tratamiento</a>
           <a class="button" ng-click="verTratamiento()">Ver tratamientos</a>          
           <a class="button" ng-click="odontograma()">Odontograma</a>
+          <a class="button" ng-click="indices()">Indices</a>
           <a class="button" ng-click="imprimir()">imprimir</a>          
         </div>
     </div>
@@ -36,6 +37,23 @@
             </div>
         </ion-scroll>
     </win-hub-section>    
+
+    <win-hub-section header="'Indices'" is-header-static="true">
+        
+        <div ng-controller="odontogramaCtrl">
+            <h5># de piezas dentales</h5>
+            <input type="text" ng-keyup="numeroPiezasDentales()" ng-model="numeroPiezasPresentes"  placeholder="Numero de piezas presentes">
+
+            <h5>Ceo</h5>
+
+            <h5>Cop</h5>
+
+            <h5>Placa bacteriana</h5>
+            <span>{{indicePlacaBacteriana}}</span>
+
+        </div>
+
+    </win-hub-section>
    
     </win-hub>
 

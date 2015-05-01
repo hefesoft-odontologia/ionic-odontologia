@@ -37,6 +37,10 @@ angular.module('starter')
 		$state.go('app.odontogramaimprimir');
 	}
 
+	$scope.indices = function(){
+		goToSection(4);
+	}
+
 	$scope.odontograma = function(){
 		goToSection(0);
 	}
@@ -60,9 +64,7 @@ angular.module('starter')
 		if(i > 0){
 			i = i -1;
 			goToSection(i);
-		}
-
-		
+		}		
 	}
 
 	//va hacia la derecha
@@ -86,7 +88,7 @@ angular.module('starter')
     });
 
     function goToSection(index){
-    	hubCtrl._scrollToSection(index,true)
+    	hubCtrl._scrollToSection(index, true);
     }
 
     platform();

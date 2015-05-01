@@ -1,0 +1,314 @@
+[
+	{
+	"numeroPiezaDental":18,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":17,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":16,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":15,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":14,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":13,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":12,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":11,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":21,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":22,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":23,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":24,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":25,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":26,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":27,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":28,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte1"
+	},
+	{
+	"numeroPiezaDental":55,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":54,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",	
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":53,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":52,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":51,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":61,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":62,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":63,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":64,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":65,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte2"
+	},
+	{
+	"numeroPiezaDental":85,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":84,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":83,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":82,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":81,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":71,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":72,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":73,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":74,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":75,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Temporal",
+	"parte":"parte3"
+	},
+	{
+	"numeroPiezaDental":48,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":47,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":46,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":45,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":44,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":43,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":42,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":41,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":31,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":32,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":33,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":34,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":35,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":36,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":37,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	},
+	{
+	"numeroPiezaDental":38,
+	"esSupernumerario":false,
+	"Tipo_Diente" : "Permanente",
+	"parte":"parte4"
+	}
+]
