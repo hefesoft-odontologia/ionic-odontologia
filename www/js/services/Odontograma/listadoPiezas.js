@@ -1,13 +1,31 @@
 angular.module('starter')
-.service('piezasService', [function () {
+.service('piezasService', ['$rootScope', function ($rootScope) {
 	
 	var dataFactory = {};
 	var PiezasDentales = [];
+	var COP;
+	var CEO;
 
 	dataFactory.setPiezas = function(data){
 		convertirstringArray(data);
 		PiezasDentales = data;
+
+		calculoCeo(PiezasDentales);
+		calculoCop(PiezasDentales);
+		COP = dataFactory.numeroCOP();
+		CEO = dataFactory.numeroCEO();
+		generarEventoIndices();
 	}
+
+	dataFactory.recalcular = function(){		
+		calculoCeo(PiezasDentales);
+		calculoCop(PiezasDentales);
+		COP = dataFactory.numeroCOP();
+		CEO = dataFactory.numeroCEO();
+		generarEventoIndices();
+	}
+
+	
 
 	dataFactory.getPiezas = function(convertirString){
 		if(!angular.isUndefined(convertirString)){
@@ -115,6 +133,55 @@ angular.module('starter')
 			item.piezaCompletaItems = JSON.parse(item.piezaCompletaItems);			
 		};
 
+		
+
+	}
+
+	function calculoCeo(coleecion){
+
+		for (var i = 0; i < coleecion.length; i++) {
+			var item = coleecion[i];
+
+			if(item.Tipo_Diente == "Temporal"){
+				
+				var central = stringToBoolean(_.result(_.find(item.centralItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
+				var izquierda = stringToBoolean(_.result(_.find(item.izquierdaItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
+				var derecha = stringToBoolean(_.result(_.find(item.derechaItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
+				var abajo = stringToBoolean(_.result(_.find(item.abajoItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
+				var arriba = stringToBoolean(_.result(_.find(item.arribaItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
+				var inferior = stringToBoolean(_.result(_.find(item.inferiorItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
+				var superior = stringToBoolean(_.result(_.find(item.superiorItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
+				var piezaCompleta = stringToBoolean(_.result(_.find(item.piezaCompletaItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));				
+
+				var indice = (central || izquierda || derecha || abajo || arriba || inferior || superior || piezaCompleta);
+				item.IndiceCEO = indice;
+
+			}
+		};
+
+	}
+
+	function calculoCop(coleecion){
+
+		for (var i = 0; i < coleecion.length; i++) {
+			var item = coleecion[i];
+
+			if(item.Tipo_Diente == "Permanente"){
+				
+				var central = stringToBoolean(_.result(_.find(item.centralItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
+				var izquierda = stringToBoolean(_.result(_.find(item.izquierdaItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
+				var derecha = stringToBoolean(_.result(_.find(item.derechaItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
+				var abajo = stringToBoolean(_.result(_.find(item.abajoItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
+				var arriba = stringToBoolean(_.result(_.find(item.arribaItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
+				var inferior = stringToBoolean(_.result(_.find(item.inferiorItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
+				var superior = stringToBoolean(_.result(_.find(item.superiorItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
+				var piezaCompleta = stringToBoolean(_.result(_.find(item.piezaCompletaItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));			
+
+				var indice = (central || izquierda || derecha || abajo || arriba || inferior || superior || piezaCompleta);
+				item.IndiceCOP = indice;
+			}
+		};
+
 	}
 
 	function validarEsString(item){
@@ -124,6 +191,35 @@ angular.module('starter')
 		else{
 			false
 		}
+	}
+
+	function generarEventoIndices(){
+		$rootScope.$broadcast('CEO-COP', { indiceCEO : CEO, indiceCOP : COP });
+	}
+
+	function stringToBoolean(string){
+		var val = (string === "True");
+		return val;
+	}
+
+	dataFactory.numeroCOP = function(){
+		var items = _.where(PiezasDentales, { 'IndiceCOP': true });
+		var numeroItems = _.size(items);
+		return numeroItems;
+	}
+
+	dataFactory.numeroCEO = function(){
+		var items = _.where(PiezasDentales, { 'IndiceCEO': true });
+		var numeroItems = _.size(items);
+		return numeroItems;
+	}
+
+	dataFactory.getCOP = function(){
+		return COP;
+	}
+
+	dataFactory.getCEO = function(){
+		return CEO;
 	}
 
 

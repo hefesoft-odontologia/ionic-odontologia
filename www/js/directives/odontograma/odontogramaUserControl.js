@@ -42,9 +42,14 @@ angular.module('starter')
         dataTableStorageFactory.saveStorage(supernumerarioAgregar);
     });
 
-     $scope.$on('idice placa bacteriana', function(event, args){      
+    $scope.$on('idice placa bacteriana', function(event, args){      
         var indice = args.indice;
         $scope.indicePlacaBacteriana = round((indice * 100) / $scope.numeroPiezasPresentes, 2);
+    });
+
+    $scope.$on('CEO-COP', function(event, args){      
+        $scope.CEO = args.indiceCEO;
+        $scope.COP = args.indiceCOP;
     });
 
      $scope.$on('eliminar-supernumerario', function(event, args){      

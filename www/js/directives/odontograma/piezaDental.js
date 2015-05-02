@@ -65,7 +65,7 @@ angular.module('starter')
 		var numeroPiezaDental = args.numeroPiezaDental;
 
 		if($scope.item.numeroPiezaDental == numeroPiezaDental){
-			crearPropiedades.fill(elemento,$scope.item);
+			crearPropiedades.fill(elemento, $scope.item);
 			console.log('eliminado');
 		}
 	});

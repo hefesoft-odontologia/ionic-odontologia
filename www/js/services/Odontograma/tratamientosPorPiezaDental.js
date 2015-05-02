@@ -37,20 +37,26 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 			tratamientos.push(item);
 	    }
 
-	    item['idTrataiento'] = tratamientoSeleccionado.RowKey;
-	    var elementoSalvar = addToPiezaDental(item);	    
+	    item['idTratamiento'] = tratamientoSeleccionado.RowKey;
+	    var elementoSalvar = addToPiezaDental(item);
+	    piezasService.recalcular();
 	}
 
 	this.eliminar = function(item){
 
 		var elemento = piezasService.getPiezaByNombre(item.numeroPiezaDental);
-		var index = (elemento[item.superficie + "Items"]).indexOf(item);
+		var array = (elemento[item.superficie + "Items"]);
+
+		var index = _.findIndex(array, function(chr) {
+                      return chr.idTratamiento == item.idTratamiento;
+                    });
 
 		if (index > -1) {
 		    (elemento[item.superficie + "Items"]).splice(index, 1);
 		}		
 		
-		actualizarDespuesEliminarUI(item);		
+		actualizarDespuesEliminarUI(item);
+		piezasService.recalcular();
 	}
 
 	function validarExiste(item){
@@ -93,8 +99,7 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 		return resultado;
 	}
 
-	function actualizarDespuesEliminarUI(item){
-		
+	function actualizarDespuesEliminarUI(item){		
 		var elemento = obtenerUltimoExistente(item);		
 
 		//actualiza la superficie seleccionada luego de eliminar el elemento
@@ -104,20 +109,13 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 
 	//Obtiene el ultimo elemento de la collecion por ejemplo el ultimo del centro
 	function obtenerUltimoExistente(item){
+		var elemento = piezasService.getPiezaByNombre(item.numeroPiezaDental);
+		var array = (elemento[item.superficie + "Items"]);
 
-		//Si es pieza completa no se le puede hacer click porque en el canvas esta un layer mas abajo
-		//Entonces hay que validar esta propiedad
-		if(item.hasOwnProperty('esPiezaCompleta') && item.esPiezaCompleta === 'True'){
-			item.superficie = "piezacompleta";	
-		}
-
-		var dato;
-		var index = _.findLastIndex(tratamientos, function(n){
-			return n.superficie === item.superficie && n.numeroPiezaDental === item.numeroPiezaDental ;
-		});
+		var index = array.length -1;
 
 		if(index >= 0){
-			dato = tratamientos[index];
+			dato = array[index];
 			dato = aplicarTratamientoService.revertir(dato, item.superficie);
 		}
 		else{
