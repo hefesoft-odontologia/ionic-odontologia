@@ -51,6 +51,9 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
                       return chr.idTratamiento == item.idTratamiento;
                     });
 
+		//Se agrega una propiedad para que solo guarde las entidades modificadas
+		elemento["Modificado"] = true;
+
 		if (index > -1) {
 		    (elemento[item.superficie + "Items"]).splice(index, 1);
 		}		
@@ -76,6 +79,9 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 
 	function addToPiezaDental(item){
 		var elemento = piezasService.getPiezaByNombre(item.numeroPiezaDental);
+
+		//Se agrega una propiedad para que solo guarde las entidades modificadas
+		elemento["Modificado"] = true;
 
 		if(item.AplicaTratamiento == 1)
 		{

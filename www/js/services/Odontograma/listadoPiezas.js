@@ -35,6 +35,14 @@ angular.module('starter')
 		return PiezasDentales;
 	}
 
+	dataFactory.getModifiedPiezas = function(){
+		//Se convierten las que han sido modificadas a string
+		dataFactory.getPiezas(true);
+		var array = _.where(PiezasDentales, { 'Modificado': true });
+		fijarModificadoFalso();
+		return array;
+	}
+
 	dataFactory.getPiezaByNumber = function(number){
 
 	  var item = _.findIndex(PiezasDentales, function(chr) {
@@ -84,53 +92,71 @@ angular.module('starter')
 		for (var i = 0; i < PiezasDentales.length; i++) {
 			var item = PiezasDentales[i];
 
-			if(!validarEsString(item.centralItems)){
-				item.centralItems = JSON.stringify(item.centralItems);
-			}
+			if(item.Modificado == true){
 
-			if(!validarEsString(item.izquierdaItems)){
-				item.izquierdaItems = JSON.stringify(item.izquierdaItems);
-			}
+				if(!validarEsString(item.centralItems)){
+					item.centralItems = JSON.stringify(item.centralItems);
+				}
 
-			if(!validarEsString(item.derechaItems)){
-				item.derechaItems = JSON.stringify(item.derechaItems);
-			}
+				if(!validarEsString(item.izquierdaItems)){
+					item.izquierdaItems = JSON.stringify(item.izquierdaItems);
+				}
 
-			if(!validarEsString(item.abajoItems)){
-				item.abajoItems = JSON.stringify(item.abajoItems);
-			}
+				if(!validarEsString(item.derechaItems)){
+					item.derechaItems = JSON.stringify(item.derechaItems);
+				}
 
-			if(!validarEsString(item.arribaItems)){
-				item.arribaItems = JSON.stringify(item.arribaItems);
-			}
+				if(!validarEsString(item.abajoItems)){
+					item.abajoItems = JSON.stringify(item.abajoItems);
+				}
 
-			if(!validarEsString(item.inferiorItems)){
-				item.inferiorItems = JSON.stringify(item.inferiorItems);
-			}
+				if(!validarEsString(item.arribaItems)){
+					item.arribaItems = JSON.stringify(item.arribaItems);
+				}
 
-			if(!validarEsString(item.superiorItems)){
-				item.superiorItems = JSON.stringify(item.superiorItems);
-			}
+				if(!validarEsString(item.inferiorItems)){
+					item.inferiorItems = JSON.stringify(item.inferiorItems);
+				}
 
-			if(!validarEsString(item.piezaCompletaItems)){
-				item.piezaCompletaItems = JSON.stringify(item.piezaCompletaItems);
+				if(!validarEsString(item.superiorItems)){
+					item.superiorItems = JSON.stringify(item.superiorItems);
+				}
+
+				if(!validarEsString(item.piezaCompletaItems)){
+					item.piezaCompletaItems = JSON.stringify(item.piezaCompletaItems);
+				}
 			}
 		};
-
 	}
+
+	function fijarModificadoFalso(){
+		for (var i = 0; i < PiezasDentales.length; i++) {
+			var item = PiezasDentales[i];
+			if(item.Modificado == true){
+				item.Modificado = false;
+			}
+		}
+	}
+
 
 	function convertirstringArray(PiezasDentales){
 
 		for (var i = 0; i < PiezasDentales.length; i++) {
-			var item = PiezasDentales[i];			
-			item.centralItems = JSON.parse(item.centralItems);			
-			item.izquierdaItems = JSON.parse(item.izquierdaItems);			
-			item.derechaItems = JSON.parse(item.derechaItems);			
-			item.abajoItems = JSON.parse(item.abajoItems);			
-			item.arribaItems = JSON.parse(item.arribaItems);			
-			item.inferiorItems = JSON.parse(item.inferiorItems);			
-			item.superiorItems = JSON.parse(item.superiorItems);			
-			item.piezaCompletaItems = JSON.parse(item.piezaCompletaItems);			
+			var item = PiezasDentales[i];	
+
+			try{		
+				item.centralItems = JSON.parse(item.centralItems);			
+				item.izquierdaItems = JSON.parse(item.izquierdaItems);			
+				item.derechaItems = JSON.parse(item.derechaItems);			
+				item.abajoItems = JSON.parse(item.abajoItems);			
+				item.arribaItems = JSON.parse(item.arribaItems);			
+				item.inferiorItems = JSON.parse(item.inferiorItems);			
+				item.superiorItems = JSON.parse(item.superiorItems);			
+				item.piezaCompletaItems = JSON.parse(item.piezaCompletaItems);
+			}
+			catch(ex){
+				console.log("Parseando procedimientos " + ex + " " + item.numeroPiezaDental);
+			}
 		};
 
 		

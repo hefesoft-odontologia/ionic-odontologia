@@ -8,7 +8,7 @@ angular.module('starter')
 	$scope.width = 40;
 	$scope.height = 40;
 	var pacienteId = $state.params.pacienteId;   
-	var cambioDetectado = true;
+	
 
 	validarNavegacionService.validarPacienteSeleccionado();
 
@@ -32,14 +32,14 @@ angular.module('starter')
 	}
 
 	$scope.$on('$ionicView.leave', function(){        
-        if(cambioDetectado){
+        var items = piezasService.getModifiedPiezas();
+
+        if(items.length > 0){
             $ionicLoading.show({
                 template: "Guardando odontograma..."
             })
 
             var usuario = users.getCurrentUser();
-            var items = piezasService.getPiezas(true);
-
             //Datos, Nombre tabla, partition key, y campo que servira como row key
             dataTableStorageFactory.postTableArray(items, 'TmOdontograma',  usuario.username+'paciente'+pacienteId, 'codigo')
             .success(function (data) {
