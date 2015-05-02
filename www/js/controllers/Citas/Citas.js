@@ -1,12 +1,13 @@
 angular.module('starter')
-.controller('citasCtrl', ['$scope', 'dataTableStorageFactory', 'users', '$cordovaPush', 'pushFactory', 'emailFactory',
-	function ($scope, dataTableStorageFactory, users, $cordovaPush, pushFactory, emailFactory) {
+.controller('citasCtrl', ['$scope', 'dataTableStorageFactory', 'users', '$cordovaPush', 'pushFactory', 'emailFactory', 'validarNavegacionService',
+	function ($scope, dataTableStorageFactory, users, $cordovaPush, pushFactory, emailFactory, validarNavegacionService) {
 	
 	$scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
     $scope.listCanSwipe = true
 	$scope.listado = [];
 
+	validarNavegacionService.validarCaptcha();
 
 	$scope.aceptar = function(item){
 		item['aceptado'] = true;

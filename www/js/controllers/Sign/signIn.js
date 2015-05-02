@@ -1,8 +1,9 @@
 angular.module('starter')
 .controller('signInController', 
-	['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory','signalrService', 'varsFactoryService',
-	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, signalrService, varsFactoryService) {
+	['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory','signalrService', 'varsFactoryService', 'validarNavegacionService',
+	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, signalrService, varsFactoryService, validarNavegacionService) {
 	
+	validarNavegacionService.validarCaptcha();
 	$scope.loginData= {};
 	var usuario = users.getCurrentUser();
 

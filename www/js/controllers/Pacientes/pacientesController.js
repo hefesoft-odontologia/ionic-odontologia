@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('pacientesController', ['$scope','dataTableStorageFactory', 'users', '$cordovaCamera', 'imagesStorageFactory','$state','varsFactoryService','$ionicLoading','$rootScope', 'emailFactory',
-	function ($scope, dataTableStorageFactory, users, $cordovaCamera, imagesStorageFactory, $state, varsFactoryService, $ionicLoading, $rootScope, emailFactory) {
+.controller('pacientesController', ['$scope','dataTableStorageFactory', 'users', '$cordovaCamera', 'imagesStorageFactory','$state','varsFactoryService','$ionicLoading','$rootScope', 'emailFactory', 'validarNavegacionService',
+	function ($scope, dataTableStorageFactory, users, $cordovaCamera, imagesStorageFactory, $state, varsFactoryService, $ionicLoading, $rootScope, emailFactory, validarNavegacionService) {
 	
 	$scope.Paciente = {};
 
@@ -13,6 +13,7 @@ angular.module('starter')
 
 	var usuario = users.getCurrentUser();
 	$rootScope.$broadcast('Dispositivo listo');
+	validarNavegacionService.validarCaptcha();
 
 	$scope.navegarOdontograma = function(item){
 		$scope.Paciente = item;

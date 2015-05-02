@@ -1,3 +1,4 @@
+
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -134,6 +135,13 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
   templateUrl: 'templates/views/Sign/SignUp.html'  
 })
 
+.state('captcha', {
+  url: '/captcha',
+  templateUrl: 'templates/captcha/captcha.html'  
+})
+
+
+
 
 .state('app.prestador', {
     url: "/prestador",
@@ -147,5 +155,5 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/sigin');
+  $urlRouterProvider.otherwise('/captcha');
 })

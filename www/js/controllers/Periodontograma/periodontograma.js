@@ -10,6 +10,7 @@ angular.module('starter')
  var cambioDetectado = false; 
  $scope.seleccionado = false;
  validarNavegacionService.validarPacienteSeleccionado();
+ validarNavegacionService.validarCaptcha();
 
  $scope.zoom = 0.7;
  

@@ -9,7 +9,7 @@ angular.module('starter')
 	$scope.height = 40;
 	var pacienteId = $state.params.pacienteId;   
 	
-
+	validarNavegacionService.validarCaptcha();
 	validarNavegacionService.validarPacienteSeleccionado();
 
 	function platform(){

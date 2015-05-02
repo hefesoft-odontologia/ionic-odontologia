@@ -1,23 +1,17 @@
 angular.module('starter').
 service('validarNavegacionService', ['users', '$state', 'varsFactoryService', function (users, $state, varsFactoryService) {
 	
- 	this.validarPacienteSeleccionado = function (){ 		
-		var usuario = users.getCurrentUser();
-    	var paciente = varsFactoryService.prestadorSeleccionado();
-    	var valido = true;
+ 	this.validarPacienteSeleccionado = function (){       
+        var usuario = users.getCurrentUser();
+        var paciente = varsFactoryService.pacienteSeleccionado();
 
-    	if(!usuario){
-    		valido = false;
-    		$state.go("sigin");
-    	}
-    	else if(!paciente){
-    		valido = false;
-    		$state.go("app.citas");
-    	}
-
-    	return valido;
-
- 	}
+        if(!usuario){
+            $state.go("sigin");
+        }
+        else if(!paciente){
+            $state.go("app.pacientes");
+        }
+    }
 
     this.validarUsuarioSeleccionado = function (){         
         var usuario = users.getCurrentUser();        
@@ -29,6 +23,15 @@ service('validarNavegacionService', ['users', '$state', 'varsFactoryService', fu
         }       
 
         return valido;
+
+    }
+
+    this.validarCaptcha = function (){         
+        var valido = varsFactoryService.captchaFijado();
+
+        if(!valido){
+            $state.go("captcha");
+        }
 
     }
 
