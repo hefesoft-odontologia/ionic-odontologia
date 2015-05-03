@@ -7,12 +7,13 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 	function ($rootScope, sharedDataService, crearPropiedades, aplicarTratamientoService, dataTableStorageFactory, users, varsFactoryService, indicesServices, piezasService) {
 	
 	var usuario = users.getCurrentUser();
-	var i = 0; 
-	var tratamientos = [];
+	var i = 0; 	
 	var pacienteId;
+	var dataFactory = {};
 
-	this.setdata = function(data){
+	dataFactory.setdata = function(data){
 		if(data.length > 0){
+			var tratamientos = [];
 			tratamientos = data;
 
 			//Saca el maximo indice que existe en la coleccion
@@ -24,85 +25,109 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 		}
 	}
 
-	this.insertar = function(item){       
+	dataFactory.insertar = function(item){       
 		//Tratamiento seleccionado
 		var tratamientoSeleccionado = sharedDataService.getTratamientoSeleccionado();
+		var elemento = piezasService.getPiezaByNombre(item.numeroPiezaDental);
+		
 		pacienteId = varsFactoryService.pacienteSeleccionado();
 		crearPropiedades.fill(tratamientoSeleccionado,item);
+		item['idTratamiento'] = tratamientoSeleccionado.RowKey;
 
-		var existe = validarExiste(item);
+
+		var existe = validarExiste(item, elemento);
 		if(!existe){
 			i = i+1;
-			item['i'] = i;
-			tratamientos.push(item);
-	    }
-
-	    item['idTratamiento'] = tratamientoSeleccionado.RowKey;
-	    var elementoSalvar = addToPiezaDental(item);
-	    piezasService.recalcular();
+			item['i'] = i;			
+	    	var elementoSalvar = addToPiezaDental(item, elemento);
+	    	piezasService.recalcular();
+	    }	    
 	}
 
-	this.eliminar = function(item){
-
+	dataFactory.eliminar = function(item){
 		var elemento = piezasService.getPiezaByNombre(item.numeroPiezaDental);
 		var array = (elemento[item.superficie + "Items"]);
 
 		var index = _.findIndex(array, function(chr) {
                       return chr.idTratamiento == item.idTratamiento;
-                    });
-
-		//Se agrega una propiedad para que solo guarde las entidades modificadas
-		elemento["Modificado"] = true;
+                    });		
 
 		if (index > -1) {
+
+			//Se agrega una propiedad para que solo guarde las entidades modificadas
+			elemento["Modificado"] = true;
 		    (elemento[item.superficie + "Items"]).splice(index, 1);
-		}		
-		
-		actualizarDespuesEliminarUI(item);
-		piezasService.recalcular();
+		    actualizarDespuesEliminarUI(item);
+			piezasService.recalcular();
+		}
 	}
 
-	function validarExiste(item){
-		var result = _.any(tratamientos, function(n){
-			var valor =  
-  			(n.PartitionKey  === item.PartitionKey 
-  			&& n.RowKey === item.RowKey 
-  			&& n.numeroPiezaDental === item.numeroPiezaDental 
-  			&& n.superficie === item.superficie);
+	dataFactory.obtenerTratamientos = function (numeroPiezaDental){
+		var tratamientos = [];
+		var elemento = piezasService.getPiezaByNombre(numeroPiezaDental);
+		tratamientos = tratamientos.concat(elemento.centralItems);
+		tratamientos = tratamientos.concat(elemento.izquierdaItems);
+		tratamientos = tratamientos.concat(elemento.derechaItems);
+		tratamientos = tratamientos.concat(elemento.abajoItems);
+		tratamientos = tratamientos.concat(elemento.arribaItems);
+		tratamientos = tratamientos.concat(elemento.inferiorItems);
+		tratamientos = tratamientos.concat(elemento.superiorItems);
+		tratamientos = tratamientos.concat(elemento.piezacompletaItems);
+		return tratamientos;
+	}
 
-  			return valor;
-		});
+	function validarExiste(item, elemento){
+		var tratamientos = [];
+		tratamientos = dataFactory.obtenerTratamientos(item.numeroPiezaDental);
+		result = false;
+
+		//validacion para superficies y boca
+		if(item.AplicaTratamiento == "2" || item.AplicaTratamiento == "3"){
+			result = _.any(tratamientos, function(n){
+				var valor =  
+	  			(n.idTratamiento === item.idTratamiento 
+	  			&& n.numeroPiezaDental === item.numeroPiezaDental 
+	  			&& n.superficie === item.superficie);
+
+	  			return valor;
+			});
+		}
+
+		//validacion para pieza completa
+		if(item.AplicaTratamiento == "1"){
+			result = _.any(tratamientos, function(n){
+				var valor =  
+	  			(n.idTratamiento === item.idTratamiento 
+	  			 && n.numeroPiezaDental === item.numeroPiezaDental 
+	  			);
+
+	  			return valor;
+			});
+		}
 
 		return result;
 	}
 
 
-	function addToPiezaDental(item){
-		var elemento = piezasService.getPiezaByNombre(item.numeroPiezaDental);
+	function addToPiezaDental(item, elemento){		
 
 		//Se agrega una propiedad para que solo guarde las entidades modificadas
 		elemento["Modificado"] = true;
 
+		//El nombre de esta propiedad debe ser piezacompleta sin mayusculas de lo contrario
+		//cuando este limpiando las superficies no funcionara 
 		if(item.AplicaTratamiento == 1)
 		{
-			item.superficie = "piezaCompleta";			
+			item.superficie = "piezacompleta";			
 		}
-
-		return superficie(elemento, item.superficie, item);
-	}
-
-	function superficie(elemento, parte, item){
-		elemento[parte + "Items"].push(item); 		
+		
+		elemento[item.superficie + "Items"].push(item); 		
 		return elemento;
-	}
+	}	
 
 	//Filtra deacuerdo al numero de pieza dental
-	this.filtrarNumeroPiezaDental = function(numeroPiezaDental){
-		var resultado =_.filter(tratamientos, function(n) {
-		  return n.numeroPiezaDental === numeroPiezaDental;
-		});
-
-		return resultado;
+	dataFactory.filtrarNumeroPiezaDental = function(numeroPiezaDental){
+		return dataFactory.obtenerTratamientos(numeroPiezaDental);		
 	}
 
 	function actualizarDespuesEliminarUI(item){		
@@ -133,4 +158,5 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 		return dato;
 	}
 
+	return dataFactory;
 }])

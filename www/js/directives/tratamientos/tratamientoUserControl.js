@@ -29,6 +29,18 @@ angular.module('starter')
         sharedDataService.putTratamientoSeleccionado(e);        
     }
 
+    $scope.$on('elemento-dental-seleccionado', function(event, args){       
+        var seleccionado = args.seleccionado.item;
+
+        if(seleccionado.numeroPiezaDental == "Boca"){
+            $scope.textoBuscar = "Aplica para boca";
+        }
+        else{
+            $scope.textoBuscar = "Aplica para superficies y pieza completa";            
+        }
+        
+    });
+
     $scope.eliminar = function(e, $index){
         $scope.items.splice($index, 1)
         dataTableStorageFactory.deleteFromStorage(e);

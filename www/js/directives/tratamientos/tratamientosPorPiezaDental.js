@@ -1,5 +1,11 @@
-angular.module('starter')
 
+/*
+
+Listado en el que se muestran todos lo tratamientos para una pieza dental
+
+*/
+
+angular.module('starter')
 .directive('tratamientosPorPiezaDental', [function () {
     return {
         restrict: 'E',      
@@ -15,30 +21,37 @@ angular.module('starter')
 
     $scope.eliminar = function(elemento){
         tratamientosPorPiezaDental.eliminar(elemento.elemento);
-        var result = _.remove($scope.items, function(n) {
-          return n.i !== elemento.i;
-        });
-
-        $scope.items = result;
-        indicesServices.deleteIndicePlacaBacteriana(elemento.elemento);
+        var resultados = tratamientosPorPiezaDental.obtenerTratamientos(elemento.elemento.numeroPiezaDental);
+        refrescarListado(resultados); 
     }
 
     $scope.$on('elemento-dental-seleccionado', function(event, args){		
         var seleccionado = args.seleccionado.item;
-		var resultados = piezasService.getTratamientosByNombre(seleccionado.numeroPiezaDental);      
+		var resultados = tratamientosPorPiezaDental.obtenerTratamientos(seleccionado.numeroPiezaDental);
+        refrescarListado(resultados); 
+	});
+
+    function refrescarListado(resultados){
         var data = [];
 
-
         for (var i = resultados.length - 1; i >= 0; i--) {
+            
+            //Cuando se agrega al listado en el que se puede eliminar hay que indicarle
+            //que si es boca no muestre cirtas superficies
+            if(resultados[i].numeroPiezaDental == "Boca"){
+                resultados[i]["esBoca"] = true;
+            }
+
             data.push(
                 {
-                    Descripcion : resultados[i].Descripcion,                     
+                    Descripcion : resultados[i].Descripcion,
+                    //En el listado es lo que muestra la pieza dental al lado del boton eliminar
                     elemento : resultados[i],
                     i : resultados[i].i
                 });
         };
 
         $scope.items = data;
-	});
+    }
    
 }]);

@@ -7,6 +7,7 @@ angular.module('starter')
 	var captcha;
 	var captchaFijado = false;	
 	var autologueado = true;
+	var modoDesarrollo = true;
 
 
 	vars.fijarPrestador = function(prestador){
@@ -40,6 +41,10 @@ angular.module('starter')
 
 	vars.setAutologueado = function(valor){
 		autologueado = valor;
+	}
+
+	vars.getModoDesarrollo = function(){
+		return modoDesarrollo;
 	}
 
 	return vars;	

@@ -34,3 +34,12 @@
   </ion-item>
 </div>
 
+<div class="flex-container">
+  <ion-item ng-repeat="n in items | filter:'boca'">
+    <a>
+      <pieza-completa width="width" height="height" mostrar-boton-supernumerario="false" item='n'>
+    </pieza-completa> 
+  </a>
+  </ion-item>
+</div>
+

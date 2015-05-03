@@ -4,6 +4,12 @@ controller('recaptchaController', ['$scope', '$state', '$timeout', 'varsFactoryS
 	
 	$scope.activarIngreso = false;
 
+	if(varsFactoryService.getModoDesarrollo()){
+		varsFactoryService.captchaSet("development");
+		$scope.activarIngreso = true;
+		$state.go("sigin");
+	}
+
 	$scope.irLogin = function(){
 		$state.go("sigin");
 	}

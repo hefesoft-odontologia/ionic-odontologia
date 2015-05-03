@@ -8,9 +8,9 @@ directive('odontogramaUserControl', [function () {
 }]);
 
 angular.module('starter')
-.controller("odontogramaCtrl", ['$scope', 'dataTableStorageFactory', 'dataBlobStorageFactory', 'sharedDataService', 'dataTableStorageFactory','leerOdontogramaServices','users','$state','$ionicLoading', '$q', 'indicesServices','piezasService',
+.controller("odontogramaCtrl", ['$scope', 'dataTableStorageFactory', 'dataBlobStorageFactory', 'sharedDataService', 'dataTableStorageFactory','leerOdontogramaServices','users','$state','$ionicLoading', '$q', 'indicesServices','piezasService', '$rootScope',
 
-    function ($scope, dataTableStorageFactory, dataBlobStorageFactory, sharedDataService, dataTableStorageFactory,leerOdontogramaServices, users, $state, $ionicLoading, $q, indicesServices, piezasService) {
+    function ($scope, dataTableStorageFactory, dataBlobStorageFactory, sharedDataService, dataTableStorageFactory,leerOdontogramaServices, users, $state, $ionicLoading, $q, indicesServices, piezasService, $rootScope) {
     
      var usuario = users.getCurrentUser();
      var i = 0;
@@ -137,6 +137,7 @@ angular.module('starter')
             piezasService.setPiezas(odontograma);
             $scope.items = odontograma;            
             obtenerSupernumerarios();
+            $rootScope.$broadcast("Odontograma cargado");         
         }
         else{
             obtenerOdontogramaBase();

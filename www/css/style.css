@@ -40,11 +40,12 @@ src: url('fonts/raphael/raphaelicons-webfont.eot?#iefix') format('embedded-opent
 .horizontal {
     margin: 0;
     padding: 0;   
+    background: transparent;
 }
 
 .horizontal li {
     display: inline-block;
-    border: 1px solid #000;
+    border: 0px solid #000;
     height: 50px;
     overflow: hidden;
 }
@@ -61,25 +62,6 @@ src: url('fonts/raphael/raphaelicons-webfont.eot?#iefix') format('embedded-opent
   -webkit-flex-flow: row wrap;  
   -webkit-flex-wrap: wrap;
    flex-wrap: wrap;
-   
-/* Deforma en firefox
-  display: -webkit-box;
--webkit-box-orient: horizontal;
--webkit-box-pack: center;
--webkit-box-align: center;
-
-display: -moz-box;
--moz-box-orient: horizontal;
--moz-box-pack: center;
--moz-box-align: center;
-
-display: box;
-box-orient: horizontal;
-box-pack: center;
-box-align: center;
-*/  
-
-
 }
 
 .flex-item {  

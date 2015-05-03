@@ -11,26 +11,27 @@ angular.module('starter')
 		if(tratamientoValido(elemento)){
 
 			 //Aplica a pieza completa
-			 if(tratamientoSeleccionado.AplicaTratamiento == 1){
+			 if(tratamientoSeleccionado.AplicaTratamiento == 1 && elemento.numeroPiezaDental != "Boca"){
 				elemento = diente(tratamientoSeleccionado, parte);
 				indicesServices.setIndicePlacaBacteriana(tratamientoSeleccionado);	
-				indicesServices.setIndiceCeo(tratamientoSeleccionado, item);
+				elemento['valido'] = true;
 			 }
 
 			 //Aplica a superficie
-			 else if(tratamientoSeleccionado.AplicaTratamiento == 2){
+			 else if(tratamientoSeleccionado.AplicaTratamiento == 2 && elemento.numeroPiezaDental != "Boca"){
 			    elemento = superficie(tratamientoSeleccionado, parte);
 			    indicesServices.setIndicePlacaBacteriana(tratamientoSeleccionado);
-			    indicesServices.setIndiceCeo(tratamientoSeleccionado, item);
+			    elemento['valido'] = true;
 			 }
-			 else if(tratamientoSeleccionado.AplicaTratamiento == 3){
-			    console.log('Boca');
+			 else if(tratamientoSeleccionado.AplicaTratamiento == 3 && elemento.numeroPiezaDental == "Boca"){
+			    elemento = superficie(tratamientoSeleccionado, parte);
+			    indicesServices.setIndicePlacaBacteriana(tratamientoSeleccionado);
+			    elemento['valido'] = true;
 			 }
 			 else{
-			 	console.log('No parametrizado campo AplicaTratamiento');
-			 }
-
-			 elemento['valido'] = true;	   	
+			 	console.log('No parametrizado campo AplicaTratamiento o aplicado a superficie incorrecta');
+			 	elemento['valido'] = false;
+			 }			 
 	   }
 	   else{
 			
@@ -69,7 +70,7 @@ angular.module('starter')
 		elemento["texto" + superficie] = '';
 		elemento["texto" + superficie + "FuenteColor"] = 'transparent';
 		elemento["texto" + superficie + "Fuente"] = 'Arial';
-		elemento[superficie] = "Transparent";
+		elemento[superficie] = "Transparent"; 
 		return elemento;
 	}
 

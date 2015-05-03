@@ -81,7 +81,7 @@ angular.module('starter')
 	  array = array.concat(Pieza.arribaItems);
 	  array = array.concat(Pieza.inferiorItems);
 	  array = array.concat(Pieza.superiorItems);
-	  array = array.concat(Pieza.piezaCompletaItems);
+	  array = array.concat(Pieza.piezacompletaItems);
 
 	  return array;
 
@@ -122,8 +122,8 @@ angular.module('starter')
 					item.superiorItems = JSON.stringify(item.superiorItems);
 				}
 
-				if(!validarEsString(item.piezaCompletaItems)){
-					item.piezaCompletaItems = JSON.stringify(item.piezaCompletaItems);
+				if(!validarEsString(item.piezacompletaItems)){
+					item.piezacompletaItems = JSON.stringify(item.piezacompletaItems);
 				}
 			}
 		};
@@ -152,7 +152,7 @@ angular.module('starter')
 				item.arribaItems = JSON.parse(item.arribaItems);			
 				item.inferiorItems = JSON.parse(item.inferiorItems);			
 				item.superiorItems = JSON.parse(item.superiorItems);			
-				item.piezaCompletaItems = JSON.parse(item.piezaCompletaItems);
+				item.piezacompletaItems = JSON.parse(item.piezacompletaItems);
 			}
 			catch(ex){
 				console.log("Parseando procedimientos " + ex + " " + item.numeroPiezaDental);
@@ -177,7 +177,7 @@ angular.module('starter')
 				var arriba = stringToBoolean(_.result(_.find(item.arribaItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
 				var inferior = stringToBoolean(_.result(_.find(item.inferiorItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
 				var superior = stringToBoolean(_.result(_.find(item.superiorItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));
-				var piezaCompleta = stringToBoolean(_.result(_.find(item.piezaCompletaItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));				
+				var piezaCompleta = stringToBoolean(_.result(_.find(item.piezacompletaItems, { 'IndiceCEO': "True" }), 'IndiceCEO'));				
 
 				var indice = (central || izquierda || derecha || abajo || arriba || inferior || superior || piezaCompleta);
 				item.IndiceCEO = indice;
@@ -201,7 +201,7 @@ angular.module('starter')
 				var arriba = stringToBoolean(_.result(_.find(item.arribaItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
 				var inferior = stringToBoolean(_.result(_.find(item.inferiorItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
 				var superior = stringToBoolean(_.result(_.find(item.superiorItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));
-				var piezaCompleta = stringToBoolean(_.result(_.find(item.piezaCompletaItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));			
+				var piezaCompleta = stringToBoolean(_.result(_.find(item.piezacompletaItems, { 'IndiceCOP': "True" }), 'IndiceCOP'));			
 
 				var indice = (central || izquierda || derecha || abajo || arriba || inferior || superior || piezaCompleta);
 				item.IndiceCOP = indice;

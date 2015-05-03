@@ -23,6 +23,16 @@ angular.module('starter')
 .controller('piezaCompletaController', ['$rootScope', '$scope','sharedDataService','aplicarTratamientoService', 'tratamientosPorPiezaDental','crearPropiedades',
 	function ($rootScope, $scope, sharedDataService, aplicarTratamientoService, tratamientosPorPiezaDental, crearPropiedades) {
 
+		if($scope.item.numeroPiezaDental == "Boca"){
+			$scope.item["esBoca"] = true;
+			$scope.item["widthBoca"] = 2;
+		}
+		else
+		{
+			$scope.item["widthBoca"] = 0;
+			$scope.item["esBoca"] = false;	
+		}
+
 		$scope.clickAplicar = function(e, parte){
 		var elemento = aplicarTratamientoService.aplicar($scope.item, parte, $scope.item);
 		if(elemento.valido){
@@ -40,7 +50,7 @@ angular.module('starter')
 			if(!angular.isUndefined($scope.esPiezaCompleta) && $scope.item.numeroPiezaDental !== "Pieza seleccionada"){
 				//si se da click sobre la pieza completa debe avizasrle al elemento dentro del listado
 				//que tambien debe cambiar ademas se debe validar que se haya seleccionado algo			
-				$rootScope.$broadcast($scope.item.numeroPiezaDental, { seleccionado: $scope });			
+				$rootScope.$broadcast($scope.item.numeroPiezaDental, { seleccionado: $scope });
 			}	
 		}
 	}

@@ -43,7 +43,7 @@ angular.module('starter')
 	}
 
 
-	$scope.Aplica = [{nombre: 'Boca', codigo : 1}, {nombre: 'Superficie', codigo : 2}, {nombre: 'Pieza completa', codigo : 3}];
+	$scope.Aplica = [{nombre: 'Boca', codigo : 3}, {nombre: 'Superficie', codigo : 2}, {nombre: 'Pieza completa', codigo : 1}];
 	$scope.AplicaSeleccionado = $scope.Aplica[1];
 
 	$scope.Fuentes = [{fuente: 'Arial', codigo : 1 },{fuente: 'Glyphyx', codigo : 2}, {fuente: 'signify', codigo : 3}, {fuente: 'raphael', codigo : 4}];
@@ -124,6 +124,14 @@ angular.module('starter')
 						IndicePlacaBacteriana : $scope.Indices.IndicePlacaBacteriana,
 						Fuente: $scope.Fuente.fuente
 					};
+
+		if(elemento.AplicaTratamiento == 1 || elemento.AplicaTratamiento == 2){
+			elemento["criterioBusqueda"] = "Aplica para superficies y pieza completa";
+		}
+		else if(elemento.AplicaTratamiento =3){
+			elemento["criterioBusqueda"] = "Aplica para boca";
+		}
+
 
 			dataTableStorageFactory.saveStorage(elemento);
 		}
