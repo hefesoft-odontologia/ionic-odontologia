@@ -1,12 +1,13 @@
 <ion-view view-title="Odontograma" ng-controller="odontogramaController as vm">
  <ion-content class="fondo"> 
    
-    <div class="bar bar-header bar-positive" ng-show="seleccionado">
+    <div class="bar bar-header bar-positive">
         <div class="button-bar">
-          <a class="button" ng-click="adicionarTratamiento()">Adicionar tratamiento</a>
-          <a class="button" ng-click="verTratamiento()">Ver tratamientos</a>          
-          <a class="button" ng-click="odontograma()">Odontograma</a>
-          <a class="button" ng-click="indices()">Indices</a>
+          <a class="button" ng-click="goToState('0')">Odontograma</a>
+          <a class="button" ng-click="goToState('1')">Adicionar tratamiento</a>
+          <a class="button" ng-click="goToState('2')">Ver tratamientos</a>          
+          
+          <a class="button" ng-click="goToState('3')">Indices</a>
           <a class="button" ng-click="imprimir()">imprimir</a>          
         </div>
     </div>

@@ -3,8 +3,7 @@ angular.module('starter')
 	function($scope, $rootScope, $state, validarNavegacionService, piezasService, $ionicLoading, users, dataTableStorageFactory){
 	
 	var i = 0;
-	var hubCtrl;
-	$scope.seleccionado = false;
+	var hubCtrl;	
 	$scope.width = 40;
 	$scope.height = 40;
 	var pacienteId = $state.params.pacienteId;   
@@ -53,30 +52,17 @@ angular.module('starter')
     });
 
 
-	$scope.$on("elemento-dental-seleccionado", function(event, args){			
-		$scope.seleccionado = true;	
+	$scope.$on("elemento-dental-seleccionado", function(event, args){		
+		goToSection(1);	
 	});
 
 	$scope.imprimir = function(){
 		$state.go('app.odontogramaimprimir');
 	}
 
-	$scope.indices = function(){
-		goToSection(4);
+	$scope.goToState = function(item){
+		goToSection(item);
 	}
-
-	$scope.odontograma = function(){
-		goToSection(0);
-	}
-
-	$scope.adicionarTratamiento = function(){
-		goToSection(1);
-	}
-
-	$scope.verTratamiento = function(){
-		goToSection(3);
-	}
-	
 	 
 	$scope.setCtrl = function(ctrl){
 		hubCtrl = ctrl;

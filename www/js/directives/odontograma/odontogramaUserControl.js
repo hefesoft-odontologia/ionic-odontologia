@@ -133,6 +133,7 @@ angular.module('starter')
             });
 
             piezasService.setPiezas(odontograma);
+
             $scope.items = odontograma;            
             obtenerSupernumerarios();
             $rootScope.$broadcast("Odontograma cargado");

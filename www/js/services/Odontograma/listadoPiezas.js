@@ -65,6 +65,20 @@ angular.module('starter')
 
 	}
 
+	dataFactory.getAllTratamientos = function(){
+
+	  var piezas = dataFactory.getPiezas(true);
+	  var tratamientos = [];
+
+	  for (var i = 0; i < piezas.length; i++) {
+			var result = dataFactory.getTratamientosByNombre(piezas[i].numeroPiezaDental)
+			tratamientos = tratamientos.concat(result);
+	  };
+
+	  return tratamientos;
+
+	}
+
 	dataFactory.getTratamientosByNombre = function(numeroPiezaDental){
 
 	  var item = _.findIndex(PiezasDentales, function(chr) {
