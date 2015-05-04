@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('pacientesController', ['$scope','dataTableStorageFactory', 'users', '$cordovaCamera', 'imagesStorageFactory','$state','varsFactoryService','$ionicLoading','$rootScope', 'emailFactory', 'validarNavegacionService',
-	function ($scope, dataTableStorageFactory, users, $cordovaCamera, imagesStorageFactory, $state, varsFactoryService, $ionicLoading, $rootScope, emailFactory, validarNavegacionService) {
+.controller('pacientesController', ['$scope','dataTableStorageFactory', 'users', '$cordovaCamera', 'imagesStorageFactory','$state','varsFactoryService','$ionicLoading','$rootScope', 'emailFactory', 'validarNavegacionService', 'messageService',
+	function ($scope, dataTableStorageFactory, users, $cordovaCamera, imagesStorageFactory, $state, varsFactoryService, $ionicLoading, $rootScope, emailFactory, validarNavegacionService, messageService) {
 	
 	$scope.Paciente = {};
 
@@ -39,7 +39,9 @@ angular.module('starter')
 		}
 		data.nombreTabla= 'TmPacientes';		
 
-		dataTableStorageFactory.saveStorage(data);
+		dataTableStorageFactory.saveStorage(data).then(function(data){
+			messageService.showMessage("Paciente salvado al volver al listado sera visible");
+		});
 		
 		if(angular.isUndefined(data.RowKey)){
 			$scope.Pacientes.push(data);

@@ -108,6 +108,7 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
 
 .state('app.pacientes', {
     url: "/pacientes",
+    cache: false,
     views: {
         'menuContent': {
             templateUrl: "templates/views/Pacientes/Listado.html",            
@@ -117,6 +118,7 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
 
 .state('app.citas', {
     url: "/citas",
+    cache: false,
     views: {
         'menuContent': {
             templateUrl: "templates/views/Citas/Listado.html", 

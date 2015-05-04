@@ -1,12 +1,12 @@
 angular.module('starter')
-.controller('TpTratamientosCtrl', ['$scope','dataTableStorageFactory','$cordovaOauth','$ionicLoading', '$state', 'users',
-	function ($scope, dataTableStorageFactory, $cordovaOauth,$ionicLoading, $state, users) {
+.controller('TpTratamientosCtrl', ['$scope','dataTableStorageFactory','$cordovaOauth','$ionicLoading', '$state', 'users', 'messageService',
+	function ($scope, dataTableStorageFactory, $cordovaOauth,$ionicLoading, $state, users, messageService) {
 	
 	$scope.customOptions = {
 	    size: 30,
 	    roundCorners: true,
-	    randomColors: 30,
-	    total: 30
+	    randomColors: 80,
+	    total: 80
 	}
 
 	var Color;
@@ -125,15 +125,15 @@ angular.module('starter')
 						Fuente: $scope.Fuente.fuente
 					};
 
-		if(elemento.AplicaTratamiento == 1 || elemento.AplicaTratamiento == 2){
-			elemento["criterioBusqueda"] = "Aplica para superficies y pieza completa";
-		}
-		else if(elemento.AplicaTratamiento =3){
-			elemento["criterioBusqueda"] = "Aplica para boca";
-		}
-
-
-			dataTableStorageFactory.saveStorage(elemento);
+			if(elemento.AplicaTratamiento == 1 || elemento.AplicaTratamiento == 2){
+				elemento["criterioBusqueda"] = "Aplica para superficies y pieza completa";
+			}
+			else if(elemento.AplicaTratamiento =3){
+				elemento["criterioBusqueda"] = "Aplica para boca";
+			}
+		  dataTableStorageFactory.saveStorage(elemento).then(function(data){
+		  	messageService.showMessage(elemento.Descripcion + " guardado");
+		  });
 		}
 	}
 

@@ -11,9 +11,9 @@ directive('tratamientoUserControl', [function () {
 }]);
 
 angular.module('starter')
-.controller("tratamientosCtrl", ['$rootScope','$scope', 'dataTableStorageFactory', 'dataBlobStorageFactory','sharedDataService','users', 
+.controller("tratamientosCtrl", ['$rootScope','$scope', 'dataTableStorageFactory', 'dataBlobStorageFactory','sharedDataService','users', 'messageService', 
 
-    function ($rootScope, $scope, dataTableStorageFactory, dataBlobStorageFactory, sharedDataService, users) {
+    function ($rootScope, $scope, dataTableStorageFactory, dataBlobStorageFactory, sharedDataService, users, messageService) {
     
     var usuario = users.getCurrentUser();
     var Listado = [];
@@ -49,8 +49,14 @@ angular.module('starter')
      function get() {
         dataTableStorageFactory.getTableByPartition('TpTratamientos', usuario.username)
             .success(function (data) {
-                Listado = data;
-                $scope.items = Listado;
+                
+                if(data.length == 0){
+                    messageService.showMessage("No se han encontrado procedimientos parametrizados, Por favor vaya Menu -> Tratamientos y adicione como minimo uno");
+                }
+                else{
+                    Listado = data;
+                    $scope.items = Listado;
+                }
             })
             .error(function (error) {
                 $scope.status = 'Unable to load customer data: ' + error.message;

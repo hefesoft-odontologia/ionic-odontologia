@@ -1,11 +1,12 @@
 angular.module('starter')
 .controller('signInController', 
-	['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory','signalrService', 'varsFactoryService', 'validarNavegacionService',
-	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, signalrService, varsFactoryService, validarNavegacionService) {
+	['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory','signalrService', 'varsFactoryService', 'validarNavegacionService', 'messageService', '$timeout',
+	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, signalrService, varsFactoryService, validarNavegacionService, messageService, $timeout) {
 	
 	validarNavegacionService.validarCaptcha();
 	$scope.loginData= {};
 	var usuario = users.getCurrentUser();
+	var ingresoSatisfactorio = false;
 
 	if(varsFactoryService.getAutologueado()){
 		if(!angular.isUndefined(usuario) && usuario.email.length >0){
@@ -24,11 +25,15 @@ angular.module('starter')
 	}
 
 	$scope.doSign = function(){
+		//Variable de control para el timeout
+		ingresoSatisfactorio = false;
 		$ionicLoading.show();
 		signFactoryService.sign($scope.loginData).then(success, error);
+		$timeout(validarToken, 15000);
 	}
 
 	function success(data){
+		ingresoSatisfactorio = true;
 		console.log(data);
 		$ionicLoading.hide();
 		$state.go("app.pacientes");
@@ -46,9 +51,25 @@ angular.module('starter')
 		//signalrService.sendMessage('futbolito152@gmail.com', {mensaje : 'mensaje', to: 'futbolito152@gmail.com'});
 	}
 
+	function validarToken(){
+
+		if(!ingresoSatisfactorio){
+			messageService.showMessage("Tiempo superado para realizar validacion, por favor intente de nuevo");
+		}
+
+		$ionicLoading.hide();
+	}
+
 	function error(data){
 		console.log(data);
 		$ionicLoading.hide();
+
+		if(!ingresoSatisfactorio){
+			messageService.showMessage("Usuario o clave incorrectos");
+
+			// Para que no muestre el mensaje en el timer
+			ingresoSatisfactorio = true;
+		}
 	}
 
 }])
