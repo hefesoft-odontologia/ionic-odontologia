@@ -59,12 +59,9 @@ angular.module('starter')
         $scope.items.splice(index, 1);
         dataTableStorageFactory.deleteFromStorage(seleccionado);
         
-    });
+    }); 
 
-        
-
-    function obtenerSupernumerarios(){
-        $ionicLoading.show();
+    function obtenerSupernumerarios(){        
         dataTableStorageFactory.getTableByPartition('TmOdontogramaSupernumerario', usuario.username + 'paciente' + pacienteId)
         .success(function(data){
 
@@ -126,6 +123,7 @@ angular.module('starter')
     }
 
     function leerOdontograma(data){
+        $ionicLoading.show();
         var odontograma = data[0].data;
         if(odontograma != null && odontograma.length > 0){  
             
@@ -137,7 +135,8 @@ angular.module('starter')
             piezasService.setPiezas(odontograma);
             $scope.items = odontograma;            
             obtenerSupernumerarios();
-            $rootScope.$broadcast("Odontograma cargado");         
+            $rootScope.$broadcast("Odontograma cargado");
+            $ionicLoading.hide();
         }
         else{
             obtenerOdontogramaBase();
