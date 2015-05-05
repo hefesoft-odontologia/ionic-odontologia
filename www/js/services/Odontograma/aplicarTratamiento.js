@@ -80,7 +80,7 @@ angular.module('starter')
 		return elemento;
 	}
 
-	function superficie(tratamientoSeleccionado, parte){
+	function superficie(tratamientoSeleccionado, parte){		
 		switch (parte) {
 			    case 'central':
 			        elemento = tratamientoToSuperficie(tratamientoSeleccionado, 'central');
