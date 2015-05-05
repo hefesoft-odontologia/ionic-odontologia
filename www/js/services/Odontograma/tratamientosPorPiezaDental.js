@@ -56,6 +56,8 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 
 			//Se agrega una propiedad para que solo guarde las entidades modificadas
 			elemento["Modificado"] = true;
+			elemento["Pendientes"] = "Tiene pendientes";
+
 		    (elemento[item.superficie + "Items"]).splice(index, 1);
 		    actualizarDespuesEliminarUI(item);
 			piezasService.recalcular();
@@ -121,6 +123,8 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 			item.superficie = "piezacompleta";			
 		}
 		
+		item['realizado'] = "NO";
+		item['textoRealizado'] = "En espera";
 		elemento[item.superficie + "Items"].push(item); 		
 		return elemento;
 	}	

@@ -1,5 +1,18 @@
+
+<!--
+<div class="list list-inset">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search" ng-model="textoBuscar">    
+  </label>  
+</div>
+
+<h6>Guia buscador</h6>
+<h6>Tiene pendientes: Muestra las piezas con proc pendientes</h6>
+-->
+
  <div class="flex-container">
-  <ion-item ng-repeat="n in items | filter:'parte1'">
+  <ion-item ng-repeat="n in items | filter:'parte1' | filter: textoBuscar">
     <a>
 	    <pieza-completa width="width" height="height" mostrar-boton-supernumerario="false" item='n'>
 		  </pieza-completa> 
@@ -8,7 +21,7 @@
 </div>
 
 <div class="flex-container" style="justify-content:center;">
-  <ion-item ng-repeat="n in items | filter:'parte2'">
+  <ion-item ng-repeat="n in items | filter:'parte2' | filter: textoBuscar">
     <a>
       <pieza-completa width="width" height="height" mostrar-boton-supernumerario="false" item='n'>
     </pieza-completa> 
@@ -17,7 +30,7 @@
 </div>
 
 <div class="flex-container" style="justify-content:center;">
-  <ion-item ng-repeat="n in items | filter:'parte3'">
+  <ion-item ng-repeat="n in items | filter:'parte3' | filter: textoBuscar">
     <a>
       <pieza-completa width="width" height="height" mostrar-boton-supernumerario="false" item='n'>
     </pieza-completa> 
@@ -26,7 +39,7 @@
 </div>
 
 <div class="flex-container">
-  <ion-item ng-repeat="n in items | filter:'parte4'">
+  <ion-item ng-repeat="n in items | filter:'parte4' | filter: textoBuscar">
     <a>
       <pieza-completa width="width" height="height" mostrar-boton-supernumerario="false" item='n'>
     </pieza-completa> 
@@ -35,7 +48,7 @@
 </div>
 
 <div class="flex-container">
-  <ion-item ng-repeat="n in items | filter:'boca'">
+  <ion-item ng-repeat="n in items | filter:'boca' | filter: textoBuscar">
     <a>
       <pieza-completa width="width" height="height" mostrar-boton-supernumerario="false" item='n'>
     </pieza-completa> 

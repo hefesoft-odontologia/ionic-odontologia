@@ -1,14 +1,35 @@
 
+ <div class="list list-inset">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search" ng-model="textoBuscar">    
+  </label>  
+</div>
+
+<h6>Guia buscador</h6>
+<h6>iniciado: Muestra los proc iniciados</h6>
+<h8>En espera: iniciado: Muestra los proc no realizados</h6>
+
 <ion-list>
-  <ion-item class="flex-container" ng-repeat="n in items track by $index">  	
+  <ion-item class="flex-container" ng-repeat="n in items | filter:textoBuscar">  	
     <pieza-completa width="40" height="40" item='n.elemento'>
 		</pieza-completa>     
     	
-		<div>
+     <div style="margin-left: 20px;">
+        <h3>Realizado</h3> 
+
+        <input type="checkbox"
+          ng-model="n.elemento.realizado"
+          ng-change="realizado(n.elemento)"          
+          ng-true-value="'SI'" ng-false-value="'NO'">
+        <h4> Realizado: {{n.elemento.realizado}}</h4>
+    </div>
+
+		<div style="margin-left: 20px;">
     		<h2>{{n.Descripcion}}</h2> 
     		<button class="button button-assertive" ng-click="eliminar(n)">
 			  Eliminar
 			</button>
-    	</div>
+   </div>
   </ion-item>
 </ion-list>

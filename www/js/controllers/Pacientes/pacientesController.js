@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('pacientesController', ['$scope','dataTableStorageFactory', 'users', '$cordovaCamera', 'imagesStorageFactory','$state','varsFactoryService','$ionicLoading','$rootScope', 'emailFactory', 'validarNavegacionService', 'messageService',
-	function ($scope, dataTableStorageFactory, users, $cordovaCamera, imagesStorageFactory, $state, varsFactoryService, $ionicLoading, $rootScope, emailFactory, validarNavegacionService, messageService) {
+.controller('pacientesController', ['$scope','dataTableStorageFactory', 'users', '$cordovaCamera', 'imagesStorageFactory','$state','varsFactoryService','$ionicLoading','$rootScope', 'emailFactory', 'validarNavegacionService', 'messageService', 'platformService',
+	function ($scope, dataTableStorageFactory, users, $cordovaCamera, imagesStorageFactory, $state, varsFactoryService, $ionicLoading, $rootScope, emailFactory, validarNavegacionService, messageService, platformService) {
 	
 	$scope.Paciente = {};
 
@@ -39,6 +39,10 @@ angular.module('starter')
 		}
 		data.nombreTabla= 'TmPacientes';		
 
+		if(!data.hasOwnProperty("urlImagen")){
+			data["urlImagen"] = 'https://hefesoft.blob.core.windows.net/profile/profile.png';
+		}
+
 		dataTableStorageFactory.saveStorage(data).then(function(data){
 			messageService.showMessage("Paciente salvado al volver al listado sera visible");
 		});
@@ -55,7 +59,12 @@ angular.module('starter')
 	} 
 
 	$scope.cargarImagen = function(item){
-		obtenerFoto();
+		if(platformService.esMobile()){
+			obtenerFoto();
+		}
+		else{
+			messageService.showMessage("Solo soportado en dispositivos moviles");
+		}
 	}
 
 	$scope.edit = function(item){

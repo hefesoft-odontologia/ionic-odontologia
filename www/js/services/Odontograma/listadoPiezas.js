@@ -106,38 +106,55 @@ angular.module('starter')
 		for (var i = 0; i < PiezasDentales.length; i++) {
 			var item = PiezasDentales[i];
 
+			//Variable para computar los pendientes
+			var p1,p2,p3,p4,p5,p6,p7,p8;			
 			if(item.Modificado == true){
 
 				if(!validarEsString(item.centralItems)){
-					item.centralItems = JSON.stringify(item.centralItems);
+					p1 = _.result(_.find(item.centralItems, { 'realizado': "NO" }), 'realizado');
+					item.centralItems = JSON.stringify(item.centralItems);				
 				}
 
-				if(!validarEsString(item.izquierdaItems)){
+				if(!validarEsString(item.izquierdaItems)){					
+					p2 = _.result(_.find(item.izquierdaItems, { 'realizado': "NO" }), 'realizado');
 					item.izquierdaItems = JSON.stringify(item.izquierdaItems);
 				}
 
-				if(!validarEsString(item.derechaItems)){
+				if(!validarEsString(item.derechaItems)){					
+					p3 = _.result(_.find(item.derechaItems, { 'realizado': "NO" }), 'realizado')
 					item.derechaItems = JSON.stringify(item.derechaItems);
 				}
 
 				if(!validarEsString(item.abajoItems)){
-					item.abajoItems = JSON.stringify(item.abajoItems);
+					p4 = _.result(_.find(item.abajoItems, { 'realizado': "NO" }), 'realizado');
+					item.abajoItems = JSON.stringify(item.abajoItems);					
 				}
 
 				if(!validarEsString(item.arribaItems)){
-					item.arribaItems = JSON.stringify(item.arribaItems);
+					p5 = _.result(_.find(item.arribaItems, { 'realizado': "NO" }), 'realizado');
+					item.arribaItems = JSON.stringify(item.arribaItems);					
 				}
 
 				if(!validarEsString(item.inferiorItems)){
-					item.inferiorItems = JSON.stringify(item.inferiorItems);
+					p6 = _.result(_.find(item.inferiorItems, { 'realizado': "NO" }), 'realizado')
+					item.inferiorItems = JSON.stringify(item.inferiorItems);					
 				}
 
 				if(!validarEsString(item.superiorItems)){
-					item.superiorItems = JSON.stringify(item.superiorItems);
+					p7 = _.result(_.find(item.superiorItems, { 'realizado': "NO" }), 'realizado')
+					item.superiorItems = JSON.stringify(item.superiorItems);					
 				}
 
 				if(!validarEsString(item.piezacompletaItems)){
-					item.piezacompletaItems = JSON.stringify(item.piezacompletaItems);
+					p8 = _.result(_.find(item.piezacompletaItems, { 'realizado': "NO" }), 'realizado')
+					item.piezacompletaItems = JSON.stringify(item.piezacompletaItems);					
+				}
+
+				if(p1 || p2 || p3 || p4 || p5 || p6 || p7 || p8){
+					PiezasDentales[i]["Pendientes"] = "Tiene pendientes";
+				}
+				else{
+					PiezasDentales[i]["Pendientes"] = "Sin pendientes";	
 				}
 			}
 		};
