@@ -48,7 +48,9 @@ angular.module('starter')
 	}
 
 	function proxyInicializado(){
-		//signalrService.sendMessage('futbolito152@gmail.com', {mensaje : 'mensaje', to: 'futbolito152@gmail.com'});
+		$timeout(function(){
+			signalrService.sendMessage('futbolito152@gmail.com', {mensaje : 'prueba socket', to: 'hefesoft@hotmail.com'});	
+		}, 10000);		
 	}
 
 	function validarToken(){

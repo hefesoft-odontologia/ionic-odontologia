@@ -1,6 +1,6 @@
 var app = angular.module('starter');
-app.service('signalrService', ['$rootScope','$q', 'urlServicioFactory', 'tokenService', 'users',
-    function ($rootScope, q,  urlServicioFactory, tokenService, users) {
+app.service('signalrService', ['$rootScope','$q', 'urlServicioFactory', 'tokenService', 'users', 'messageService',
+    function ($rootScope, q,  urlServicioFactory, tokenService, users, messageService) {
 	
 	var username;
 	var self = this;
@@ -26,8 +26,8 @@ app.service('signalrService', ['$rootScope','$q', 'urlServicioFactory', 'tokenSe
                 //Nombre del hub a conectar
                 proxy = connection.createHubProxy("chatHub");
 
-                proxy.on("broadcastMessage", function (name, message) {
-                console.log(name + ' ' + message);
+            proxy.on("broadcastMessage", function (name, message) {
+                messageService.showMessage(name + " " + message);
                 $rootScope.$broadcast('signalrOn', name, message);                
             });
 
