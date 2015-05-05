@@ -10,6 +10,9 @@ angular.module('starter')
   		else if(item === "2" ){
   			return "Denegada";
   		}
+      else if(item === "3" ){
+        return "Cancelado";
+      }
   		else{
   			return "NA";
   		}

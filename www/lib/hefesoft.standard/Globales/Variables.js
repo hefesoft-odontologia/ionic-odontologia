@@ -8,6 +8,8 @@ angular.module('starter')
 	var captchaFijado = false;	
 	var autologueado = true;
 	var modoDesarrollo = true;
+	var proxyInicializado = false;
+    var proxyEnLinea = false;
 
 
 	vars.fijarPrestador = function(prestador){
@@ -26,6 +28,24 @@ angular.module('starter')
 	vars.prestadorSeleccionado = function(){
 		return prestadorSeleccionado;
 	}
+
+	//Si ya se llamo a la funcion inicializar
+    vars.setproxyInicializado = function(item){
+        proxyInicializado = item;
+    }
+
+    vars.setproxyEnLinea = function(item){
+        proxyEnLinea = item;
+    }
+
+	//Si ya se llamo a la funcion inicializar
+    vars.obtenerproxyInicializado = function(){
+        return proxyInicializado;
+    }
+
+    vars.obtenerproxyEnLinea = function(){
+        return proxyEnLinea;
+    }
 
 	vars.fijarPaciente = function(paciente){
 		pacienteSeleccionado = paciente;

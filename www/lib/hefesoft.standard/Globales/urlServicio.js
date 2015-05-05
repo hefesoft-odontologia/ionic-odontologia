@@ -26,9 +26,9 @@ angular.module('starter')
 	urlFactory.getUrlWebSocket = function(){
 
 		//Produccion
-	    var urlBase = 'https://hefesoftdynamicbackend.azurewebsites.net';
+	    //var urlBase = 'https://hefesoftdynamicbackend.azurewebsites.net';
 	    //Pruebas
-	    //var urlBase = 'http://localhost:3481'
+	    var urlBase = 'http://localhost:3481'
 	    return urlBase;
 
 	}

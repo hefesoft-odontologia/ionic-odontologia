@@ -1,7 +1,7 @@
 angular.module('starter')
 .controller('signInController', 
-	['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory','signalrService', 'varsFactoryService', 'validarNavegacionService', 'messageService', '$timeout',
-	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, signalrService, varsFactoryService, validarNavegacionService, messageService, $timeout) {
+	['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory','signalrService', 'varsFactoryService', 'validarNavegacionService', 'messageService', '$timeout', 'conexionSignalR', 'platformService',
+	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, signalrService, varsFactoryService, validarNavegacionService, messageService, $timeout, conexionSignalR, platformService) {
 	
 	validarNavegacionService.validarCaptcha();
 	$scope.loginData= {};
@@ -39,19 +39,17 @@ angular.module('starter')
 		$state.go("app.pacientes");
 		
 		//Notification Hub
-		pushFactory.registerAndroid();
+		if(platformService.esMobile()){		
+			pushFactory.registerAndroid();
+		}	
 
-		//SignalR
-		signalrService.inicializarProxy('chatHub')
-		.then(proxyInicializado,error,error);
 
+		//para, de, tipo, mensaje, accion
+		//Esta instruccion es para inicializar el proxy
+        conexionSignalR.procesarMensaje($scope.loginData.username, $scope.loginData.username, '', "");
 	}
 
-	function proxyInicializado(){
-		$timeout(function(){
-			signalrService.sendMessage('futbolito152@gmail.com', {mensaje : 'prueba socket', to: 'hefesoft@hotmail.com'});	
-		}, 10000);		
-	}
+
 
 	function validarToken(){
 
