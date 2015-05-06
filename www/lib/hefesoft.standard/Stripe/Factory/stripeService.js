@@ -10,6 +10,11 @@ angular.module('starter')
         return $http.post(urlBase + "stripeCustomer", data);
     };
 
+
+    dataFactory.cancelSubscription = function (data) {        
+        return $http.post(urlBase + "stripeSubscription", data);
+    };
+
     dataFactory.saveStorage = function (item){
         var deferred = $q.defer();
         $ionicLoading.show();

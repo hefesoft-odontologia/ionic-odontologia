@@ -82,7 +82,9 @@ angular.module('starter')
 		    data.PartitionKey = users.getCurrentUser().username;
 		    data.nombreTabla = "TmStripeSubscription";
 		    data.RowKey = response.id;
-		    data.card = JSON.stringify(response.card);		    
+		    data.card = JSON.stringify(response.card);
+		    data.plan1 = JSON.stringify(response.subscriptions.data[0]);		    
+
 			dataTableStorageFactory.saveStorage(data);
 			messageService.showMessage("Se ha inscrito satisfactoriamente");
 		});		
