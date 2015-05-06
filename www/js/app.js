@@ -127,6 +127,17 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
         }
     })
 
+.state('app.stripe', {
+    url: "/stripe",
+    cache: false,
+    views: {
+        'menuContent': {
+            templateUrl: "templates/views/stripe/stripe.html", 
+            controller : "StripeCtrl"
+        }       
+        }
+    })
+
 .state('sigin', {
   url: '/sigin',
   templateUrl: 'templates/views/Sign/SignIn.html'  
@@ -141,9 +152,6 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
   url: '/captcha',
   templateUrl: 'lib/hefesoft.standard/Directivas/recaptcha/Vista/captcha.html'  
 })
-
-
-
 
 .state('app.prestador', {
     url: "/prestador",
