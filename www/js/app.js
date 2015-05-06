@@ -43,7 +43,47 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
     abstract: true,
     templateUrl: "templates/menus/principal.html",
     controller: 'AppCtrl'
+  })
+
+  .state('stripe', {
+    url: "/stripe",
+    abstract: true,
+    templateUrl: "lib/hefesoft.standard/Stripe/menu/menu.html",
+    controller: 'AppCtrl'
   }) 
+
+  .state('stripe.mistarjetas', {
+    url: "/mistarjetas",
+    views: {
+      'menuContent': {
+        templateUrl: "lib/hefesoft.standard/Stripe/Views/misTarjetas.html",
+        controller : 'mistarjetasCtrl'
+      }
+    }
+  })
+
+  .state('stripe.misuscripcion', {
+    url: "/misuscripcion",
+    views: {
+      'menuContent': {
+        templateUrl: "lib/hefesoft.standard/Stripe/Views/misSuscripciones.html",
+        controller : 'missuscripcionesCtrl'
+      }
+    }
+  })
+
+  
+
+  .state('stripe.register', {
+    url: "/register",
+    cache: false,
+    views: {
+        'menuContent': {
+            templateUrl: "lib/hefesoft.standard/Stripe/Views/Register.html", 
+            controller : "StripeCtrl"
+        }       
+        }
+    })
 
   .state('app.parametrizartratamientos', {
     url: "/parametrizartratamientos",
@@ -123,17 +163,6 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
         'menuContent': {
             templateUrl: "templates/views/Citas/Listado.html", 
             controller: 'citasCtrl'           
-        }       
-        }
-    })
-
-.state('app.stripe', {
-    url: "/stripe",
-    cache: false,
-    views: {
-        'menuContent': {
-            templateUrl: "lib/hefesoft.standard/Stripe/Views/Register.html", 
-            controller : "StripeCtrl"
         }       
         }
     })

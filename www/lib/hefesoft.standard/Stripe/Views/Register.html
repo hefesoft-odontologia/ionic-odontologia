@@ -33,6 +33,21 @@
           <span class="input-label">Mes expiracion</span>
           <input type="text" ng-model="selectedMonth" ng-keyup="month(selectedMonth)" size="2" data-stripe="exp-month" required/>
         </label> 
+
+        <ul class="list">
+          <li class="item item-checkbox">
+             <label class="checkbox">
+               <input type="checkbox" ng-model="tieneCupon" ng-change="cuponChange(tieneCupon)">
+             </label>
+             Tengo un cupon
+          </li>
+        </ul>
+
+         <label class="item item-input" ng-show="tieneCupon">
+          <span class="input-label">Cupon</span>
+          <input type="text" ng-model="cupon" ng-keyup="cuponText(cupon)"/>
+        </label> 
+
      
           <div class="row">            
              <button ng-disabled="form.name.$dirty && form.name.$invalid ||

@@ -1,22 +1,41 @@
 angular.module('starter')
-.controller('StripeCtrl', ['$scope', 'dataTableStorageFactory', 'users' , 'messageService', 
-	function ($scope, dataTableStorageFactory, users, messageService) {
+.controller('StripeCtrl', ['$scope', 'dataTableStorageFactory', 'users' , 'messageService', 'stripeService',
+	function ($scope, dataTableStorageFactory, users, messageService, stripeService) {
 	
-	Stripe.setPublishableKey('pk_test_Pp9SiIClea7o9guzbv6qHlFD');
+	Stripe.setPublishableKey('pk_test_OUODqwD5OAZpCT6yS2hlJ3Bz');
 	$scope.MesAnioNoValido = true;	
 	$scope.tarjetaNoValida = true;
+	$scope.tieneCupon = false;
+	$scope.cupon = "";
+
 	var mes = 0;
 	var anio = 0;
+	var token;	
+	
+	$scope.cuponText = function(m){
+		$scope.cupon = m;		
+	}
+
+	$scope.cuponChange = function(m){
+		$scope.tieneCupon = m;
+	}
 
 	$scope.submit = function(){
-		var $form = $('#payment-form');	
+		var validoCupon = validarTieneCupon();
 
-		$form.find('button').prop('disabled', true);
+		if(validoCupon){
+			var $form = $('#payment-form');	
 
-	    Stripe.card.createToken($form, stripeResponseHandler);
+			$form.find('button').prop('disabled', true);
 
-	    // Prevent the form from submitting with the default action
-	    return false;
+		    Stripe.card.createToken($form, stripeResponseHandler);
+
+		    // Prevent the form from submitting with the default action
+		    return false;
+		}
+		else{
+			messageService.showMessage("Si posee un cupon de descuento por favor ingreselo");
+		}
 	}
 
 	function stripeResponseHandler(status, response) {
@@ -30,7 +49,7 @@ angular.module('starter')
 	  } 
 	  else {
 	    // response contains id and card, which contains additional card details
-	    var token = response.id;
+	    token = response.id;
 	    // Insert the token into the form so it gets submitted to the server
 	    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
 
@@ -40,15 +59,33 @@ angular.module('starter')
 	    //$form.get(0).submit();
 	    var data = response;
 	    data.PartitionKey = users.getCurrentUser().username;
-	    data.nombreTabla = "TmStripeUser";
+	    data.nombreTabla = "TmStripeUserCard";
 	    data.RowKey = response.id;
 	    data.card = JSON.stringify(response.card);
 	    dataTableStorageFactory.saveStorage(data).then(success);
 	  }
 	};
 
+	//Ya con el token se debe suscribir a el plan
 	function success(data){
-		messageService.showMessage("Se ha inscrito satisfactoriamente");
+		var item = {
+			email : users.getCurrentUser().email,
+			descripcion : "Suscripcion odontologia",
+			planId : "Odontologia",
+			tienecupon : $scope.tieneCupon,
+			Cupon : $scope.cupon,
+			token : token
+		};
+		stripeService.saveStorage(item).then(function(response){
+			//Se guarda el registro delusuario suscrito a un plan
+			var data = response;
+		    data.PartitionKey = users.getCurrentUser().username;
+		    data.nombreTabla = "TmStripeSubscription";
+		    data.RowKey = response.id;
+		    data.card = JSON.stringify(response.card);		    
+			dataTableStorageFactory.saveStorage(data);
+			messageService.showMessage("Se ha inscrito satisfactoriamente");
+		});		
 	}
 
 	$scope.month = function(m){		
@@ -76,6 +113,15 @@ angular.module('starter')
 		catch(ex){
 
 		}	
+	}
+
+	function validarTieneCupon(){
+		var valido = true;
+		if($scope.tieneCupon && $scope.cupon.length == 0){
+			valido = false;
+		}
+
+		return valido;
 	}
 	
 }])
