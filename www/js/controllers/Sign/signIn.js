@@ -14,6 +14,7 @@ angular.module('starter')
 			$scope.loginData.password = usuario.password;
 			
 			varsFactoryService.setAutologueado(false);
+			registrarEnSocket();
 			//Se busca que en el primer ingreso el usuario no tenga que poner su usuario y contraseña
 			//Pero despues pueda volver a esta pagina sin que lo autologuee
 			$state.go("app.pacientes");	
@@ -41,9 +42,12 @@ angular.module('starter')
 		//Notification Hub
 		if(platformService.esMobile()){		
 			pushFactory.registerAndroid();
-		}	
+		}
 
+		registrarEnSocket();
+	}
 
+	function registrarEnSocket(){
 		//para, de, tipo, mensaje, accion
 		//Esta instruccion es para inicializar el proxy
         conexionSignalR.procesarMensaje($scope.loginData.username, $scope.loginData.username, '', "");

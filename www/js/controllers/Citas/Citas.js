@@ -24,6 +24,7 @@ angular.module('starter')
 			//Debe enviarse con un separador diferente a comas
 			mensaje = mensaje.join(";");
         	conexionSignalR.procesarMensaje(item.usuarioEmail, usuario.email, "ejecutar accion", mensaje, "cambio cita prestador");
+        	conexionSignalR.procesarMensaje(item.usuarioEmail, usuario.email, "mensaje", "Cita cancelada por " + item.fecha);
 		});
 	}
 
@@ -41,6 +42,7 @@ angular.module('starter')
 			//Debe enviarse con un separador diferente a comas
 			mensaje = mensaje.join(";");
         	conexionSignalR.procesarMensaje(item.usuarioEmail, usuario.email, "ejecutar accion", mensaje, "cambio cita prestador");
+        	conexionSignalR.procesarMensaje(item.usuarioEmail, usuario.email, "mensaje", "Cita cancelada por " + item.fecha);
 		});
 	}
 
