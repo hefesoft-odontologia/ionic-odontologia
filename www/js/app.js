@@ -132,7 +132,7 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
     cache: false,
     views: {
         'menuContent': {
-            templateUrl: "templates/views/stripe/stripe.html", 
+            templateUrl: "lib/hefesoft.standard/Stripe/Views/Register.html", 
             controller : "StripeCtrl"
         }       
         }
