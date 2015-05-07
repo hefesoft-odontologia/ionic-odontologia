@@ -7,6 +7,7 @@ angular.module('starter')
 	$scope.tarjetaNoValida = true;
 	$scope.tieneCupon = false;
 	$scope.cupon = "";
+	$scope.card;
 
 	var mes = 0;
 	var anio = 0;
@@ -62,6 +63,7 @@ angular.module('starter')
 	    data.nombreTabla = "TmStripeUserCard";
 	    data.RowKey = response.id;
 	    data.card = JSON.stringify(response.card);
+	    $scope.card = data.card;
 	    dataTableStorageFactory.saveStorage(data).then(success);
 	  }
 	};
@@ -82,7 +84,7 @@ angular.module('starter')
 		    data.PartitionKey = users.getCurrentUser().username;
 		    data.nombreTabla = "TmStripeSubscription";
 		    data.RowKey = response.id;
-		    data.card = JSON.stringify(response.card);
+		    data.card = $scope.card;
 		    data.plan1 = JSON.stringify(response.subscriptions.data[0]);		    
 
 			dataTableStorageFactory.saveStorage(data);

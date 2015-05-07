@@ -1,7 +1,7 @@
 angular.module('starter')
 .controller('signInController', 
-	['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory','signalrService', 'varsFactoryService', 'validarNavegacionService', 'messageService', '$timeout', 'conexionSignalR', 'platformService',
-	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, signalrService, varsFactoryService, validarNavegacionService, messageService, $timeout, conexionSignalR, platformService) {
+	['$scope','signFactoryService','$ionicLoading','$state', 'users', 'pushFactory','signalrService', 'varsFactoryService', 'validarNavegacionService', 'messageService', '$timeout', 'conexionSignalR', 'platformService', 'stripeService',
+	function ($scope, signFactoryService, $ionicLoading, $state, users, pushFactory, signalrService, varsFactoryService, validarNavegacionService, messageService, $timeout, conexionSignalR, platformService, stripeService) {
 	
 	validarNavegacionService.validarCaptcha();
 	$scope.loginData= {};
@@ -15,6 +15,7 @@ angular.module('starter')
 			
 			varsFactoryService.setAutologueado(false);
 			registrarEnSocket();
+			stripeService.getSubscription(usuario.username).then(subscripcionActiva);
 			//Se busca que en el primer ingreso el usuario no tenga que poner su usuario y contraseña
 			//Pero despues pueda volver a esta pagina sin que lo autologuee
 			$state.go("app.pacientes");	
@@ -29,7 +30,7 @@ angular.module('starter')
 		//Variable de control para el timeout
 		ingresoSatisfactorio = false;
 		$ionicLoading.show();
-		signFactoryService.sign($scope.loginData).then(success, error);
+		signFactoryService.sign($scope.loginData).then(success, error);		
 		$timeout(validarToken, 15000);
 	}
 
@@ -74,6 +75,12 @@ angular.module('starter')
 			// Para que no muestre el mensaje en el timer
 			ingresoSatisfactorio = true;
 		}
+	}
+
+	function subscripcionActiva(data){
+		var subscripcion =data.StripeCustomer.subscriptions.data[0];
+		var fechaInicial = data.FechaInicialString;
+		var fechaFinal = data.FechaFinalString;
 	}
 
 }])

@@ -29,6 +29,7 @@ angular.module('starter')
 		
 		for (var i = data.length - 1; i >= 0; i--) {
 			data[i].plan1 =  JSON.parse(data[i].plan1);			
+			data[i].card =  JSON.parse(data[i].card);			
 		};
 		
 

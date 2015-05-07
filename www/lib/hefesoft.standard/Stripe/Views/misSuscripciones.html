@@ -9,7 +9,9 @@
 		  <ion-item ng-repeat="item in items"
 		            class="item item-avatar">
 		   
-		    <h2>Nombre: {{item.description}}</h2>		    
+		    <h2>Nombre: {{item.description}}</h2>
+		    <p>Tarjeta ultimos 4: {{item.card.last4}}</p>
+		    <p>{{item.card.brand}}</p>
 		    
 		    <ion-option-button class="button-positive"
 		                       ng-click="eliminar(item)">

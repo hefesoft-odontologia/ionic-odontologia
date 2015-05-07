@@ -54,6 +54,7 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
 
   .state('stripe.mistarjetas', {
     url: "/mistarjetas",
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "lib/hefesoft.standard/Stripe/Views/misTarjetas.html",
@@ -64,6 +65,7 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
 
   .state('stripe.misuscripcion', {
     url: "/misuscripcion",
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "lib/hefesoft.standard/Stripe/Views/misSuscripciones.html",
