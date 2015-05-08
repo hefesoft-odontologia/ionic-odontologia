@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('odontogramaController', [ '$scope', '$rootScope', '$state','validarNavegacionService', 'piezasService', '$ionicLoading','users', 'dataTableStorageFactory', '$q',
-	function($scope, $rootScope, $state, validarNavegacionService, piezasService, $ionicLoading, users, dataTableStorageFactory, $q){
+.controller('odontogramaController', [ '$scope', '$rootScope', '$state','validarNavegacionService', 'piezasService', '$ionicLoading','users', 'dataTableStorageFactory', '$q', '$timeout',
+	function($scope, $rootScope, $state, validarNavegacionService, piezasService, $ionicLoading, users, dataTableStorageFactory, $q, $timeout){
 	
 	var i = 0;
 	var hubCtrl;	
@@ -55,6 +55,9 @@ angular.module('starter')
                 console.log(error);
                 deferred.reject(data);                
             });
+        }
+        else{
+        	$timeout(function(){deferred.resolve();}, 1000);
         }
 
         return deferred.promise;
