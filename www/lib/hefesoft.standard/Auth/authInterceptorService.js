@@ -3,14 +3,16 @@
 */
 
 angular.module('starter')
-.factory('authInterceptorService', ['$q', '$location', '$localstorage', 'messageService', 
-    function ($q, $location, localStorageService, messageService) {
+.factory('authInterceptorService', ['$q', '$location', '$localstorage', 'messageService', 'platformService',
+    function ($q, $location, localStorageService, messageService, platformService) {
  
     var authInterceptorServiceFactory = {};
- 
+    var esMobile = platformService.esMobile();
+    
     var _request = function (config) {
         
-        var isOnline = navigator.onLine;
+        //Cuando esta en android falla la validacion si esta online por eso el segundo 'o' logico
+        var isOnline = navigator.onLine || esMobile;
 
         if(isOnline){
             config.headers = config.headers || {};

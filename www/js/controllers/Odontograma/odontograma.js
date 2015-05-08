@@ -6,6 +6,8 @@ angular.module('starter')
 	var hubCtrl;	
 	$scope.width = 40;
 	$scope.height = 40;
+	$scope.mostrarImprimir = true;
+
 	var pacienteId = $state.params.pacienteId;   
 	
 	validarNavegacionService.validarCaptcha();
@@ -22,10 +24,12 @@ angular.module('starter')
 	if(isAndroid){
 			$scope.width = 10;
 			$scope.height = 10;
+			$scope.mostrarImprimir = false;		
 		}
 		else if(isIPad){
 			$scope.width = 20;
-			$scope.height = 20;			
+			$scope.height = 20;
+			$scope.mostrarImprimir = false;		
 		}
 		
 	}

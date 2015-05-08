@@ -1,7 +1,8 @@
 angular.module('starter')
-.service('connectionMode', [function () {
+.service('connectionMode', ['platformService', function (platformService) {
   var dataFactory = {};
-	
+	var esMobile = platformService.esMobile();
+
   document.body.addEventListener("offline", function () {
          updateOnlineStatus("offline")
        }, false);
@@ -14,7 +15,7 @@ angular.module('starter')
      }
 
       dataFactory.conexionStatus = function(){
-        return navigator.onLine;
+        return navigator.onLine || esMobile;
       }      
 
      return dataFactory;

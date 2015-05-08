@@ -181,6 +181,7 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
 })
 
 .state('captcha', {
+  cache: false,
   url: '/captcha',
   templateUrl: 'lib/hefesoft.standard/Directivas/recaptcha/Vista/captcha.html'  
 })

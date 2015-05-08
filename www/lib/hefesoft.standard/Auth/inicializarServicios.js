@@ -1,6 +1,6 @@
 angular.module('starter')
-.service('inicializarServicios', ['users', 'stripeService', 'platformService', 'conexionSignalR', 'messageService',
-	function (users, stripeService, platformService, conexionSignalR, messageService) {
+.service('inicializarServicios', ['users', 'stripeService', 'platformService', 'conexionSignalR', 'messageService', 'pushFactory',
+	function (users, stripeService, platformService, conexionSignalR, messageService, pushFactory) {
 
 		var dataFactory = {};
 		
