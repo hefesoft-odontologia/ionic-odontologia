@@ -1,5 +1,5 @@
 angular.module('starter')
-.service('messageService', [function () {
+.service('messageService', ['$timeout',function ($timeout) {
 
 	var dataFactory = {};
 	var deviceInformation = ionic.Platform.device();
@@ -12,10 +12,18 @@ angular.module('starter')
 
     var currentPlatform = ionic.Platform.platform();
     var currentPlatformVersion = ionic.Platform.version();
-
+    var lastMessage= "";
 
 	dataFactory.showMessage = function(message){
-		browser(message);
+		if(lastMessage !== message){
+			browser(message);
+			lastMessage = message;
+		}
+		else{
+			
+			//Despues de 20 segundos limpie la validacion del mismo mensaje
+			$timeout(function(){ lastMessage= "";}, 20000);
+		}
 	}
 
 	function browser(message){

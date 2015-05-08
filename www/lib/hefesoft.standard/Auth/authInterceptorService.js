@@ -3,18 +3,26 @@
 */
 
 angular.module('starter')
-.factory('authInterceptorService', ['$q', '$location', '$localstorage', function ($q, $location, localStorageService) {
+.factory('authInterceptorService', ['$q', '$location', '$localstorage', 'messageService', 
+    function ($q, $location, localStorageService, messageService) {
  
     var authInterceptorServiceFactory = {};
  
     var _request = function (config) {
- 
-        config.headers = config.headers || {};
- 
         
-        var authData = localStorageService.getObject('authorizationData');
-        if (authData) {
-            config.headers.Authorization = authData.access_token;             
+        var isOnline = navigator.onLine;
+
+        if(isOnline){
+            config.headers = config.headers || {};
+     
+            
+            var authData = localStorageService.getObject('authorizationData');
+            if (authData) {
+                config.headers.Authorization = authData.access_token;             
+            }
+        }
+        else{
+            messageService.showMessage("No se ha encontrado una conexion a internet activa");
         }
         
  

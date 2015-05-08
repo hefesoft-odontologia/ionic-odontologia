@@ -1,13 +1,18 @@
 angular.module('starter')
-.controller('signUpController', ['$scope', 'signFactoryService','$ionicLoading', 'validarNavegacionService', 'messageService','$state',
-	function ($scope, signFactoryService, $ionicLoading, validarNavegacionService, messageService, $state) {
+.controller('signUpController', ['$scope', 'signFactoryService','$ionicLoading', 'validarNavegacionService', 'messageService','$state', 'connectionMode',
+	function ($scope, signFactoryService, $ionicLoading, validarNavegacionService, messageService, $state, connectionMode) {
 	
 	validarNavegacionService.validarCaptcha();
 	$scope.loginData= {};
 
 	$scope.doSignUp = function(){
-		$ionicLoading.show();
-		signFactoryService.signUp($scope.loginData).then(success, error);
+		if(connectionMode.conexionStatus()){
+			$ionicLoading.show();
+			signFactoryService.signUp($scope.loginData).then(success, error);
+		}
+		else{
+			messageService.showMessage("No se ha detectado una conexion a internet activa");	
+		}
 	}
 
 	$scope.goLogin = function(){
