@@ -5,9 +5,7 @@
 angular.module('starter')
 .factory('leerOdontogramaServices', ['$rootScope', 'tratamientosPorPiezaDental', 'indicesServices', 'piezasService', 'dataTableStorageFactory', '$ionicLoading', '$rootScope', '$q',
 	function ($rootScope, tratamientosPorPiezaDental, indicesServices, piezasService, dataTableStorageFactory, $ionicLoading, $rootScope, $q) {	
-
-	var dataFactory = {};
-	var deferredCargarOdontograma;
+	var dataFactory = {};	
 	var items = [];
 	var usuario;
 	var pacienteId;
@@ -25,28 +23,22 @@ angular.module('starter')
 
 	}
 
-	dataFactory.load = function(Usuario, paciente){
-		deferredCargarOdontograma = $q.defer();
+	dataFactory.load = function(Usuario, paciente){	       
 		items = [];
-
 		usuario = Usuario;
 		pacienteId = paciente;
         indicesServices.inicializar();
         var partition = usuario.username + 'paciente' + pacienteId;
-        var p1 = dataTableStorageFactory.getTableByPartition('TmOdontograma', usuario.username+'paciente'+pacienteId);
-        var p2 = dataTableStorageFactory.getTableByPartition('TmIndicesPacientes', partition);
+        var p1 = dataTableStorageFactory.getTableByPartition('TmOdontograma', usuario.username+'paciente'+pacienteId);        
        
         $q.all([p1]).then(function(data){            
             leerOdontograma(data); 
-        });  
-
-        return deferredCargarOdontograma.promise;      
+        }); 
     }
 
     function obtenerSupernumerarios(){        
         dataTableStorageFactory.getTableByPartition('TmOdontogramaSupernumerario', usuario.username + 'paciente' + pacienteId)
         .success(function(data){
-
             if(data != null && data.length > 0){
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
@@ -62,11 +54,11 @@ angular.module('starter')
                     items.splice(index, 0, item);
                 };                
             }
-
-             deferredCargarOdontograma.resolve(items);           
+             
+        $rootScope.$broadcast("Odontograma cargado", {Piezas : items});
 
         }).error(function(error){
-        	deferredCargarOdontograma.reject("Error leer supernumerarios");
+        	
         })
     }
 
@@ -81,8 +73,7 @@ angular.module('starter')
 
             piezasService.setPiezas(odontograma);
             items = odontograma;            
-            obtenerSupernumerarios();
-            $rootScope.$broadcast("Odontograma cargado");            
+            obtenerSupernumerarios();                        
         }
         else{
             obtenerOdontogramaBase();
@@ -97,8 +88,7 @@ angular.module('starter')
              dataFactory.load(usuario, pacienteId);
            }
         })
-        .error(function (error) {
-           
+        .error(function (error) {           
             console.log(error);                
         });
     }

@@ -119,6 +119,7 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
 
 .state('app.odontogramaimprimir', {
     url: "/odontogramaimprimir/:pacienteId/:userId",
+    cache: false,
     views: {
         'menuContent': {
             templateUrl: "templates/views/Odontograma/impresion.html",

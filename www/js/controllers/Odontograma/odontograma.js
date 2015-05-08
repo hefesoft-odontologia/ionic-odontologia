@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('odontogramaController', [ '$scope', '$rootScope', '$state','validarNavegacionService', 'piezasService', '$ionicLoading','users', 'dataTableStorageFactory',
-	function($scope, $rootScope, $state, validarNavegacionService, piezasService, $ionicLoading, users, dataTableStorageFactory){
+.controller('odontogramaController', [ '$scope', '$rootScope', '$state','validarNavegacionService', 'piezasService', '$ionicLoading','users', 'dataTableStorageFactory', '$q',
+	function($scope, $rootScope, $state, validarNavegacionService, piezasService, $ionicLoading, users, dataTableStorageFactory, $q){
 	
 	var i = 0;
 	var hubCtrl;	
@@ -31,7 +31,12 @@ angular.module('starter')
 	}
 
 	$scope.$on('$ionicView.leave', function(){        
-        var items = piezasService.getModifiedPiezas();
+        guardar();
+    });
+
+    function guardar(){
+    	var deferred = $q.defer();
+    	var items = piezasService.getModifiedPiezas();
 
         if(items.length > 0){
             $ionicLoading.show({
@@ -43,13 +48,17 @@ angular.module('starter')
             dataTableStorageFactory.postTableArray(items, 'TmOdontograma',  usuario.username+'paciente'+pacienteId, 'codigo')
             .success(function (data) {
                $ionicLoading.hide();
+               deferred.resolve(data);
             })
             .error(function (error) {
                 $ionicLoading.hide();
-                console.log(error);                
+                console.log(error);
+                deferred.reject(data);                
             });
         }
-    });
+
+        return deferred.promise;
+    }
 
 
 	$scope.$on("elemento-dental-seleccionado", function(event, args){		
@@ -58,7 +67,9 @@ angular.module('starter')
 
 	$scope.imprimir = function(){
 		var usuario = users.getCurrentUser();
-		$state.go('app.odontogramaimprimir', {userId: usuario.username, pacienteId: pacienteId });
+		guardar().then(function(){
+			$state.go('app.odontogramaimprimir', {userId: usuario.username, pacienteId: pacienteId });
+		});		
 	}
 
 	$scope.goToState = function(item){

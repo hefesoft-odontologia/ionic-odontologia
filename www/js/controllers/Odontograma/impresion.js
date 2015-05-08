@@ -10,14 +10,17 @@ angular.module('starter')
         window.print();
     }
 
+    $scope.$on('Odontograma cargado', function(event, args){      
+        $scope.items = [];
+        $ionicLoading.hide();
+        $scope.items =piezasService.getAllTratamientos();
+        $ionicLoading.hide();
+    });
+
     function load(data){
     	var usuario = {username : userId};
 	    $ionicLoading.show();
-		leerOdontogramaServices.load(usuario, pacienteId).then(function(data){       
-	        $scope.items = [];
-	        $scope.items =piezasService.getAllTratamientos();
-	        $ionicLoading.hide();
-		});         
+		leerOdontogramaServices.load(usuario, pacienteId);
     }
 
     load();
