@@ -18,6 +18,7 @@ controller('recaptchaController', ['$scope', '$state', '$timeout', 'varsFactoryS
     	$scope.$apply(function () {
     		varsFactoryService.captchaSet(response);
             $scope.activarIngreso = true;
+            $timeout(function(){$state.go("sigin");}, 1000);
         });
   	};
 }])

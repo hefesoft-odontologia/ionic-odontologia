@@ -1,9 +1,15 @@
+<ion-view view-title="Eres humano?" ng-controller="recaptchaController as vm">
+<ion-content has-subheader="false">
 
-<div ng-controller="recaptchaController as vm">
-<!-- POSTs back to the page's URL upon submit with a g-recaptcha-response POST parameter. -->
-    <form  ng-submit="irLogin()">
-      <div id="captcha" recaptcha="setCaptcha(response)"></div>
-      <br> 
-      <input ng-show="activarIngreso" type="submit" value="Ingresar">
-    </form>
-</div>
+	<div class="row">
+	<!-- POSTs back to the page's URL upon submit with a g-recaptcha-response POST parameter. -->
+	    <form  ng-submit="irLogin()">
+	      <div id="captcha" recaptcha="setCaptcha(response)"></div>
+	      <br> 
+	      <input ng-show="activarIngreso" type="submit" value="Ingresar">
+	    </form>
+	</div>
+
+</ion-content>
+</ion-view>
+

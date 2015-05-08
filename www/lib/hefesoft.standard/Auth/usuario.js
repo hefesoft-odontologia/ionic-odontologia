@@ -18,6 +18,16 @@ angular.module('starter')
 	}
   }
 
+  userFactory.userEmailToUser = function(usernameEmail){
+  	try{
+        var username = usernameEmail.split('@')[0];
+	    return username;		
+	}
+	catch(ex) {
+		throw ex;
+	}
+  }
+
   return userFactory; 
 
 }]);

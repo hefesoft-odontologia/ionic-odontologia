@@ -15,8 +15,10 @@ angular.module('starter')
      var usuario = users.getCurrentUser();
      var i = 0;
      var index = 0;
-     var pacienteId = $state.params.pacienteId;   
+     var pacienteId = $state.params.pacienteId; 
+     $scope.items = [];  
      $scope.numeroPiezasPresentes = 1;
+
 
      $scope.$on('supernumerario', function(event, args){      
         var seleccionado = args.seleccionado;
@@ -60,31 +62,7 @@ angular.module('starter')
         dataTableStorageFactory.deleteFromStorage(seleccionado);
         
     }); 
-
-    function obtenerSupernumerarios(){        
-        dataTableStorageFactory.getTableByPartition('TmOdontogramaSupernumerario', usuario.username + 'paciente' + pacienteId)
-        .success(function(data){
-
-            if(data != null && data.length > 0){
-                for (var i = 0; i < data.length; i++) {
-                    var item = data[i];
-
-                    var index = _.findIndex($scope.items, function(chr) {
-                      return chr.numeroPiezaDental == item.numeroPiezaDentalReferencia;
-                    });
-
-                    if(item.direccion === "derecha"){
-                        index = index+1;
-                    }
-
-                    $scope.items.splice(index, 0, item);
-                };                
-            }           
-
-        }).error(function(error){
-
-        })
-    }
+    
 
     $scope.numeroPiezasDentales = function(){
         var numeroPiezas = {};
@@ -93,22 +71,7 @@ angular.module('starter')
         numeroPiezas.PartitionKey = usuario.username + 'paciente' + pacienteId;        
         numeroPiezas.numeroPiezas = $scope.numeroPiezasPresentes;
         dataTableStorageFactory.saveStorage(numeroPiezas);
-    }
-
-    function load(){
-        indicesServices.inicializar();
-        var partition = usuario.username + 'paciente' + pacienteId;
-        var p1 = dataTableStorageFactory.getTableByPartition('TmOdontograma', usuario.username+'paciente'+pacienteId);
-        var p2 = dataTableStorageFactory.getTableByPartition('TmIndicesPacientes', partition);
-
-        $ionicLoading.show();
-        $q.all([p1, p2]).then(function(data){
-            
-            leerOdontograma(data);
-            leerNumeroPiezasDentales(data);
-            $ionicLoading.hide();
-        });        
-    }
+    }   
 
     function round(value, decimals) {
         return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
@@ -116,62 +79,28 @@ angular.module('starter')
 
     function leerNumeroPiezasDentales(data){
         //Input numero de piezas dentales
-        if(data[1].data !=null && !angular.isUndefined(data[1].data[0])){
-            var numeroPiezasDentales = data[1].data[0].numeroPiezas;
+        if(data[0].data !=null && !angular.isUndefined(data[0].data[0])){
+            var numeroPiezasDentales = data[0].data[0].numeroPiezas;
             $scope.numeroPiezasPresentes = numeroPiezasDentales;
         }
     }
 
-    function leerOdontograma(data){
-        $ionicLoading.show();
-        var odontograma = data[0].data;
-        if(odontograma != null && odontograma.length > 0){  
-            
-            //Ordenarlos deacuerdo al codigo como en la nube se guardan en string no los ordena bien
-            odontograma = _.sortBy(odontograma, function(item) {
-               return parseInt(item.codigo);
-            });
-
-            piezasService.setPiezas(odontograma);
-
-            $scope.items = odontograma;            
-            obtenerSupernumerarios();
-            $rootScope.$broadcast("Odontograma cargado");
-            $ionicLoading.hide();
-        }
-        else{
-            obtenerOdontogramaBase();
-        }
-    }
-
-    //Mockup del odontograma
-    function obtenerOdontogramaBase(){
-        dataTableStorageFactory.getJsonData('Odontograma.json')
-        .success(function (data) {
-            save(data, true);            
-        })
-        .error(function (error) {
-            console.log(error);           
+    function leerIndices(){
+        var partition = usuario.username + 'paciente' + pacienteId;
+        var p2 = dataTableStorageFactory.getTableByPartition('TmIndicesPacientes', partition);
+        $q.all([p2]).then(function(data){
+            leerNumeroPiezasDentales(data);            
         });
-    }
+    }     
 
-    function save(data, recargar){
-        var usuario = users.getCurrentUser();      
-        $ionicLoading.show();
-        //Datos, Nombre tabla, partition key, y campo que servira como row key
-        dataTableStorageFactory.postTableArray(data, 'TmOdontograma',  usuario.username+'paciente'+pacienteId, 'codigo')
-        .success(function (data) {
-           $ionicLoading.hide();
-           if(recargar){
-             load();
-           }
-        })
-        .error(function (error) {
-            $ionicLoading.hide();
-            console.log(error);                
-        });
-    }
+    $ionicLoading.show();
+    leerOdontogramaServices.load(usuario, pacienteId).then(function(data){       
+        $scope.items = [];
+        $scope.items = data;
+        $ionicLoading.hide();
+    });
 
-    load();
+    leerIndices();
+    
     
 }]);

@@ -18,14 +18,19 @@ angular.module('starter')
     dataFactory.getSubscription = function (partitionKey) {
         var deferred = $q.defer();
         dataTableStorageFactory.getTableByPartition('TmStripeSubscription', partitionKey)
-        .success(function(data){                       
-            $http.get(urlBase + "stripeSubscription?customer=" + data[0].RowKey)
-            .success(function(dataStripe){
-                deferred.resolve(dataStripe);
-            })
-            .error(function(error){
-                deferred.reject(data);
-            })
+        .success(function(data){
+            if(data.length == 0){
+                deferred.reject("No ha registrado medio de pago");
+            }
+            else{
+                $http.get(urlBase + "stripeSubscription?customer=" + data[0].RowKey)
+                .success(function(dataStripe){
+                    deferred.resolve(dataStripe);
+                })
+                .error(function(error){
+                    deferred.reject(data);
+                })
+            }
         }).error(function(error){
             deferred.reject(data);
         })

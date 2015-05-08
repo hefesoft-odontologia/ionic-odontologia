@@ -31,15 +31,18 @@ app.service('signalrService', ['$rootScope','$q', 'urlServicioFactory', 'tokenSe
             });
 
             connection.reconnecting(function() {
+                console.log('Reconectando');
                 tryingToReconnect = true;
             });
 
             connection.reconnected(function() {
+                console.log('Reconectado');
                 tryingToReconnect = false;
             });
 
             connection.disconnected(function() {
                setTimeout(function() {
+                   console.log('Desconectado y reconectando');
                    dataFactory.connect(connection, deferred);
                }, 5000); // Restart connection after 5 seconds.
             });

@@ -1,6 +1,8 @@
 angular.module('starter')
-.controller("impresionOdontogramaCtrl", ['$scope','dataTableStorageFactory', 'validarNavegacionService', 'varsFactoryService', 'users', 'piezasService',
-    function ($scope, dataTableStorageFactory, validarNavegacionService, varsFactoryService, users, piezasService) {
+.controller("impresionOdontogramaCtrl", ['$scope','dataTableStorageFactory', 'validarNavegacionService', 'varsFactoryService', 'users', 'piezasService', '$state', 'leerOdontogramaServices', '$ionicLoading',
+    function ($scope, dataTableStorageFactory, validarNavegacionService, varsFactoryService, users, piezasService, $state, leerOdontogramaServices, $ionicLoading) {
+    var pacienteId = $state.params.pacienteId;
+    var userId = $state.params.userId;
 
 	$scope.items = [];    
 
@@ -9,7 +11,13 @@ angular.module('starter')
     }
 
     function load(data){
-        $scope.items =piezasService.getAllTratamientos();         
+    	var usuario = {username : userId};
+	    $ionicLoading.show();
+		leerOdontogramaServices.load(usuario, pacienteId).then(function(data){       
+	        $scope.items = [];
+	        $scope.items =piezasService.getAllTratamientos();
+	        $ionicLoading.hide();
+		});         
     }
 
     load();

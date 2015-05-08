@@ -17,6 +17,7 @@ angular.module('starter')
 	var i = 0;
 	var hubCtrl;
 	var usuario = users.getCurrentUser();
+	var tipo = "Na";
 
 	$scope.listado = function(){
 		$state.go("app.listadotratamientos");
@@ -63,6 +64,7 @@ angular.module('starter')
 		$scope.tratamientoMuestra.Color = e;
 
 		login();
+		tipo = "Color";
 	}
 
 	$scope.tratamientoTexto = function(e){
@@ -81,6 +83,7 @@ angular.module('starter')
 		$scope.tratamientoMuestra.Simbolo = e;	
 		$scope.tratamientoMuestra.Fuente = $scope.Fuente.fuente;
 		Simbolo = e;
+		tipo = "Simbolo";
 	}
 
 	$scope.tratamientoLetra= function(e){
@@ -94,6 +97,7 @@ angular.module('starter')
 		$scope.tratamientoMuestra.Letra = e;
 		$scope.tratamientoMuestra.Fuente = 'Arial';	
 		Letra = e;
+		tipo = "Letra";
 	}
 
 	$scope.cambioFuente = function(e){
@@ -107,13 +111,23 @@ angular.module('starter')
 	$scope.guardar = function(){
 		if(validar()){
 
+		var colorPrincipal = Color;
+
+		if(tipo == "Simbolo" || tipo == "Letra"){
+			colorPrincipal = "Transparent";
+			ColorAdicional = Color;
+		}
+		else{
+			colorPrincipal = Color;
+		}
+
 		$ionicLoading.show();
 		var elemento = { 
 						PartitionKey : usuario.username,
 						generarIdentificador : true, 
 						nombreTabla: 'TpTratamientos',
 						RowKey : 1000,
-						Color: Color ,
+						Color: colorPrincipal ,
 						ColorAdicional : ColorAdicional,
 						AplicaTratamiento: $scope.AplicaSeleccionado.codigo,
 						Descripcion : Descripcion,

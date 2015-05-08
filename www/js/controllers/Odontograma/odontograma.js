@@ -57,7 +57,8 @@ angular.module('starter')
 	});
 
 	$scope.imprimir = function(){
-		$state.go('app.odontogramaimprimir');
+		var usuario = users.getCurrentUser();
+		$state.go('app.odontogramaimprimir', {userId: usuario.username, pacienteId: pacienteId });
 	}
 
 	$scope.goToState = function(item){
