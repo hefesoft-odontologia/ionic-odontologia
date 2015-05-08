@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.odontograma715928" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Odontograma</name>
-  <description>&#xD;&#xD;&#xD;&#xD;
-        An Ionic Framework and Cordova project.&#xD;&#xD;&#xD;&#xD;
+  <name>Odontologia</name>
+  <description>&#xD;&#xD;&#xD;
+        Proyecto de apoyo odontologico.&#xD;&#xD;&#xD;
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">&#xD;&#xD;&#xD;&#xD;
-      Ionic Framework Team&#xD;&#xD;&#xD;&#xD;
+  <author email="hefesoft@outlook.com" href="http://hefesoft.com/">&#xD;&#xD;&#xD;
+      Hefesoft&#xD;&#xD;&#xD;
     </author>
   <content src="index.html"/>
   <access origin="*"/>
