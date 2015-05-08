@@ -3,6 +3,7 @@ angular.module('starter')
 	function($scope, $rootScope, $state, validarNavegacionService, piezasService, $ionicLoading, users, dataTableStorageFactory, $q, $timeout){
 	
 	var i = 0;
+	var secction = 0;
 	var hubCtrl;	
 	$scope.width = 40;
 	$scope.height = 40;
@@ -79,9 +80,16 @@ angular.module('starter')
 		});		
 	}
 
-	$scope.goToState = function(item){
-		goToSection(item);
-	}
+	$scope.derecha = function(){
+        secction = secction +1;
+        goToSection(secction);
+    }
+
+    $scope.izquierda = function(){
+        secction = secction - 1;
+        goToSection(secction);
+    }
+
 	 
 	$scope.setCtrl = function(ctrl){
 		hubCtrl = ctrl;
@@ -106,7 +114,12 @@ angular.module('starter')
 	}
 	
     function goToSection(index){
-    	hubCtrl._scrollToSection(index, true);
+    	try{
+    		hubCtrl._scrollToSection(index, true);
+    	}
+    	catch(ex){
+
+    	}
     }
 
     platform();
