@@ -5,8 +5,8 @@
 		          show-reorder="shouldShowReorder"
 		          can-swipe="listCanSwipe">
 		  
-		  <ion-item ng-repeat="item in listado"
-		            class="item item-avatar">
+		  <ion-item id="{{item.RowKey}}" ng-repeat="item in listado"
+		            class="item item-avatar" list-click="-163px">
 
 		    <img ng-src="{{item.imagen}}">
 		    <h2>{{item.solicitadaPor}}</h2>
