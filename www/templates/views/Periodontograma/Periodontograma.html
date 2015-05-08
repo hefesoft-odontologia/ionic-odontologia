@@ -1,10 +1,10 @@
 <ion-view view-title="Periodontograma" ng-controller="PeriodontogramaCtrl as vm">
 <ion-content class="fondo">
 
- <div class="bar bar-header bar-positive" ng-show="seleccionado">
+ <div class="bar bar-header bar-positive">
         <div class="button-bar">
-          <a class="button" ng-click="periodontograma()">Periodontograma</a>
-          <a class="button" ng-click="diagnosticar()">Diagnosticar</a>                    
+          <a class="button" ng-click="izquierda()">  <<  </a>
+          <a class="button" ng-click="derecha()"> >> </a>                    
         </div>
     </div>
 
@@ -71,12 +71,7 @@
 		</periodontograma-pieza-dental>
     </win-hub-section>       
 
-    <win-hub-section header="'Pieza seleccionada'" id="seleccionado">
-		
-    	<ion-scroll direction="y" style="height: 5000px"> 
-
-    	<h5>Movilidad</h5>
-		<input type="text" ng-model="selecionado.movilidad"  placeholder="Movilidad">
+    <win-hub-section header="''"> 
 
 		<!--Margenes-->		
 		<h5> Margen gingival </h5>
@@ -150,15 +145,21 @@
 				</div>
 			</li>			
 		</ul>
-		
-		<div>
-		  	<button class="button button-full button-balanced"  ng-click="implante()">Implante</button>
-		</div>
+    </win-hub-section>
 
-		<div ng-show="mostrarFurca">
-		  	<button class="button button-full button-energized" ng-click="furca()">Furca</button>
-		</div>
+    <win-hub-section header="''">
 
+    <h5>Movilidad</h5>
+		<input type="text" ng-model="selecionado.movilidad"  placeholder="Movilidad">
+
+    <div>
+	  	<button class="button button-full button-balanced"  ng-click="implante()">Implante</button>
+	</div>
+
+	<div ng-show="mostrarFurca">
+	  	<button class="button button-full button-energized" ng-click="furca()">Furca</button>
+	</div>
+	
 	<h5>Sangrado / Supuración</h5>
 	<div class="row">
 		  <div 
@@ -208,8 +209,9 @@
 		  </div>
 		  
 	</div>
-	</ion-scroll>
-    </win-hub-section>
+
+
+	</win-hub-section>
     
 </win-hub>
 </ion-content>

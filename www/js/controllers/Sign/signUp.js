@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('signUpController', ['$scope', 'signFactoryService','$ionicLoading', 'validarNavegacionService', 'messageService','$state', 'connectionMode',
-	function ($scope, signFactoryService, $ionicLoading, validarNavegacionService, messageService, $state, connectionMode) {
+.controller('signUpController', ['$scope', 'signFactoryService','$ionicLoading', 'validarNavegacionService', 'messageService','$state', 'connectionMode', 'inicializarServicios',
+	function ($scope, signFactoryService, $ionicLoading, validarNavegacionService, messageService, $state, connectionMode, inicializarServicios) {
 	
 	validarNavegacionService.validarCaptcha();
 	$scope.loginData= {};
@@ -23,12 +23,14 @@ angular.module('starter')
 	function success(data){
 		signFactoryService.sign(data)
 		.then(successLogin, error);
-		messageService.showMessage("Usuario registrado ahora podra ingresar al sistema");
+		messageService.showMessage("Bienvenido: " + $scope.loginData.username);
 	}
 
 	function successLogin(data){
 		console.log(data);
 		$ionicLoading.hide();
+		inicializarServicios.inicializar($scope.loginData.username);
+		$state.go("app.pacientes");
 	}
 
 	function error(data){

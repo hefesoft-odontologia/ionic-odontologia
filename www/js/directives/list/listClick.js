@@ -9,6 +9,7 @@ directive('listClick', ['$parse',function ($parse) {
 				if(mostrar){
 					mostrar = false;
 					$(el).find('.item-content').css('-webkit-transform','translate3d(' + pading +', 0px, 0px)');
+					$(el).find('.item-content').css('transform','translate3d(' + pading +', 0px, 0px)');
 					$(el).find('.item-options').removeClass('invisible');
 				}
 				else{

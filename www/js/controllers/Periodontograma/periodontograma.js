@@ -3,6 +3,7 @@ angular.module('starter')
     function ($scope, dataTableStorageFactory, dataBlobStorageFactory, $ionicLoading, users, $state, validarNavegacionService) {
 	
  var i = 0;
+ var secction = 0;
  $scope.selecionado = {numeroPiezaDental: 18, mostrarFurca : false, tipoFurca: 'vacio', "movilidad" : "", parte: 'parte1'};
  $scope.mostrarFurca = false;
  var usuario = users.getCurrentUser();
@@ -157,12 +158,14 @@ angular.module('starter')
         }       
     }
 
-    $scope.periodontograma = function(){
-        goToSection(0);
+    $scope.derecha = function(){
+        secction = secction +1;
+        goToSection(secction);
     }
 
-    $scope.diagnosticar = function(){
-        goToSection(1);
+    $scope.izquierda = function(){
+        secction = secction - 1;
+        goToSection(secction);
     }
 
     $scope.setCtrl = function(ctrl){
@@ -179,7 +182,10 @@ angular.module('starter')
     }
 
      function goToSection(index){
-        hubCtrl._scrollToSection(index,true)
+        try{
+          hubCtrl._scrollToSection(index,true)
+        }
+        catch(ex){}
     }
 
     //va hacia la derecha

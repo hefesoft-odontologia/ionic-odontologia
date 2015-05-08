@@ -11,7 +11,7 @@ directive('recaptcha', ['$parse', '$timeout', function ($parse, $timeout) {
 			Attr =attr;
 			Element =element;
 			Scope = scope;
-            $timeout(iniciarCaptcha, 3000);
+            $timeout(iniciarCaptcha, 1000);
 		}
 	};
 
