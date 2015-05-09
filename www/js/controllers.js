@@ -11,9 +11,6 @@ angular.module('starter')
          else{
          	messageService.showMessage("Sin conexxion a internet");	
          }
-
-         
     });
-
 })
 

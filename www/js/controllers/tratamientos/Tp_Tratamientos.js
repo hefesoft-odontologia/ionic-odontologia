@@ -11,13 +11,17 @@ angular.module('starter')
 
 	var Color;
 	var ColorAdicional;	
-	var Descripcion;
+	var Descripcion = "";
 	var Simbolo;
 	var Letra;	
 	var i = 0;
 	var hubCtrl;
 	var usuario = users.getCurrentUser();
 	var tipo = "Na";
+
+	$scope.esModoColor = true; 
+	$scope.esModoLetra = false; 
+	$scope.esModoSimbolo = false; 
 
 	$scope.listado = function(){
 		$state.go("app.listadotratamientos");
@@ -58,6 +62,36 @@ angular.module('starter')
 	$scope.textoLetra = '';
 	
 	$scope.tratamientoMuestra = {};
+
+	//Tipo de tratamiento
+	$scope.modoTratamiento = [{codigo: 1, Modo : "Color"}, {codigo: 2, Modo : "Texto"}, {codigo: 3, Modo : "Simbolo"}];
+	$scope.modoTratamientoSeleccionado = $scope.modoTratamiento[0];
+
+	$scope.cambioModo = function(e){
+		if(e.Modo == "Texto"){
+			$scope.esModoColor = false; 
+			$scope.esModoLetra = true; 
+			$scope.esModoSimbolo = false; 
+			$scope.textoSimbolo = "";
+			$scope.tratamientoMuestra.Simbolo = "";
+		}
+		else if(e.Modo == "Simbolo"){
+			$scope.esModoColor = false; 
+			$scope.esModoLetra = false; 
+			$scope.esModoSimbolo = true; 
+			$scope.textoLetra = "";
+			$scope.tratamientoMuestra.Letra = "";
+		}
+		else if(e.Modo == "Color"){
+			$scope.esModoColor = true; 
+			$scope.esModoLetra = false; 
+			$scope.esModoSimbolo = false; 
+			$scope.textoLetra = "";
+			$scope.textoSimbolo = "";
+			$scope.tratamientoMuestra.Simbolo = "";
+			$scope.tratamientoMuestra.Letra = "";			
+		}
+	}
 
 	$scope.clickColor = function(e){		
 		Color = e;
@@ -155,6 +189,11 @@ angular.module('starter')
 		var valido = true;
 		if(angular.isUndefined($scope.AplicaSeleccionado)){
 			valido = false;
+			messageService.showMessage("Seleccione si aplica para diente superficie o boca");
+		}
+		if(Descripcion.length == 0){
+			valido = false;
+			messageService.showMessage("Digite una descripcion");
 		}
 		return valido;
 	}

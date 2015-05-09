@@ -35,7 +35,7 @@
     </win-hub-section>          
 
     <win-hub-section header="'Color'" id="seleccionado">
-    	<div style="display: inline-block; width: 300px;">
+    	<div style="display: inline-block; width: 300px;" ng-show="esModoColor">
 	 		<ngjs-color-picker ng-click="clickColor(selectedColor)" selected="selectedColor" options="customOptions">
 	 		</ngjs-color-picker>
  		</div>
@@ -43,15 +43,29 @@
 
     <win-hub-section header="'Textos'" id="seleccionado">
 
-    	<h5>Descripcion</h5>
+    	 <div class="item item-divider">
+			Modo tratamiento
+			<p>La manera en la que se mostrara</p>
+			<p>el procedimiento ej un color un simbolo o una letra</p>
+		</div>		
+		
+		<select ng-model="modoTratamientoSeleccionado" 
+				ng-options="modo.Modo for modo in modoTratamiento" 
+				ng-change="cambioModo(modoTratamientoSeleccionado)">
+		</select>
+
+    	<h5>Descripcion del tratamiento ej: (Caries)</h5>
 		<input ng-model="textoDescripcion" ng-keyup="tratamientoTexto(textoDescripcion)">
 
-		<h5>Letra</h5>
-		<input ng-model="textoLetra" ng-keyup="tratamientoLetra(textoLetra)">		
+		<p ng-show="esModoColor">Primero debe seleccionar un color</p>
+		<p ng-show="esModoColor">de la paleta de la izquierda</p>
+
+		<h5 ng-show="esModoLetra">Letra</h5>
+		<input ng-model="textoLetra" ng-show="esModoLetra" ng-keyup="tratamientoLetra(textoLetra)">		
 
 
-		<h5>Symbolo</h5>
-		<input ng-model="textoSimbolo" ng-keyup="tratamientoSimbolo(textoSimbolo)">	
+		<h5 ng-show="esModoSimbolo">Symbolo</h5>
+		<input ng-model="textoSimbolo" ng-show="esModoSimbolo" ng-keyup="tratamientoSimbolo(textoSimbolo)">	
 
     </win-hub-section>
 

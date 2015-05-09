@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('prestadorCtrl', ['$scope', 'users', 'dataTableStorageFactory', '$cordovaCamera', 'imagesStorageFactory','$ionicLoading', 'pushFactory', 'validarNavegacionService',
-	function ($scope, users, dataTableStorageFactory, $cordovaCamera, imagesStorageFactory, $ionicLoading, pushFactory, validarNavegacionService) {
+.controller('prestadorCtrl', ['$scope', 'users', 'dataTableStorageFactory', '$cordovaCamera', 'imagesStorageFactory','$ionicLoading', 'pushFactory', 'validarNavegacionService', 'platformService', 'messageService',
+	function ($scope, users, dataTableStorageFactory, $cordovaCamera, imagesStorageFactory, $ionicLoading, pushFactory, validarNavegacionService, platformService, messageService) {
 	
   var usuario = users.getCurrentUser();
   $scope.Imagen = 'https://hefesoft.blob.core.windows.net/profile/profile.png';
@@ -19,7 +19,9 @@ angular.module('starter')
   $scope.salvar = function(){
       var platformPush = pushFactory.getPlatform();
       $scope.Datos['platform'] = platformPush;
-  		dataTableStorageFactory.saveStorage($scope.Datos);
+  		dataTableStorageFactory.saveStorage($scope.Datos).then(function(){
+        messageService.showMessage("Guardado");
+      })
   }
 
   function obtenerDatos(){
@@ -30,7 +32,12 @@ angular.module('starter')
   }
 
   $scope.cargarImagen = function(item){
-		obtenerFoto();
+		if(platformService.esMobile()){
+        obtenerFoto();
+    }
+    else{
+      messageService.showMessage("Solo soportado en dispositivos moviles");
+    }
   }
 
   function obtenerFoto(){
