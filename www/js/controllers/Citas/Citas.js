@@ -46,8 +46,31 @@ angular.module('starter')
 		});
 	}
 
+	$scope.reloadList = function(){
+		cargarCitas();
+	}
+
 	//Ocurre cuando un paciente cancela una cita
 	$scope.$on("cita cancelada", function(event, args) {
+       try{
+           var array = args.mensaje.split(';');
+           var RowKey = array[0];
+           var cambio = array[1];
+
+           var cita = _.find($scope.listado, { 'RowKey': RowKey })
+
+           if(cambio == "cita cancelada"){              
+              cambioEstado(cita, "3");
+              messageService.showMessage("Cita cancelada por " + cita.RowKey + " " + cita.fecha);
+           }                        
+       }
+       catch(ex){
+            messageService.showMessage("Una cita a sido cancelada"); 
+       }       
+    })
+
+    //Ocurre cuando un paciente cancela una cita
+	$scope.$on("nueva cita", function(event, args) {
        try{
            var array = args.mensaje.split(';');
            var RowKey = array[0];
@@ -72,6 +95,7 @@ angular.module('starter')
     }
 
 	function cargarCitas(){
+		$ionicLoading.show();
 		var usuario = users.getCurrentUser();
 		dataTableStorageFactory.getTableByPartition('TmCitas', usuario.username)
 		.success(success)
@@ -79,11 +103,13 @@ angular.module('starter')
 	}
 
 	function success(data){
-		$scope.listado = data;		
+		$scope.listado = data;
+		$ionicLoading.hide();
 	}
 
 	function error(error){
 		console.log(error);
+		$ionicLoading.hide();
 	}
 
 	cargarCitas();
