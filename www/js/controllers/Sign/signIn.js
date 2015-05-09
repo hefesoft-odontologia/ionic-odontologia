@@ -21,11 +21,20 @@ angular.module('starter')
 	}
 
 	function success(data){
+		try{
 		ingresoSatisfactorio = true;
 		console.log(data);
 		$ionicLoading.hide();
 		$state.go("app.pacientes");
-		inicializarServicios.inicializar($scope.loginData.username);		
+		inicializarServicios.inicializar($scope.loginData.username);
+		}
+		catch(ex){
+			$ionicLoading.hide();
+			$state.go("app.citas");
+
+			//Molesta el push en wp8
+			//alert(ex);
+		}		
 	}
 
 	

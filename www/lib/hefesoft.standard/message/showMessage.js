@@ -15,14 +15,19 @@ angular.module('starter')
     var lastMessage= "";
 
 	dataFactory.showMessage = function(message){
-		if(lastMessage !== message){
-			browser(message);
-			lastMessage = message;
+		try{
+			if(lastMessage !== message){
+				browser(message);
+				lastMessage = message;
+			}
+			else{
+				
+				//Despues de 20 segundos limpie la validacion del mismo mensaje
+				$timeout(function(){ lastMessage= "";}, 20000);
+			}
 		}
-		else{
+		catch(ex){
 			
-			//Despues de 20 segundos limpie la validacion del mismo mensaje
-			$timeout(function(){ lastMessage= "";}, 20000);
 		}
 	}
 
