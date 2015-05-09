@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('citasCtrl', ['$scope', 'dataTableStorageFactory', 'users', '$cordovaPush', 'pushFactory', 'emailFactory', 'validarNavegacionService', 'conexionSignalR', 'messageService',
-	function ($scope, dataTableStorageFactory, users, $cordovaPush, pushFactory, emailFactory, validarNavegacionService, conexionSignalR, messageService) {
+.controller('citasCtrl', ['$scope', 'dataTableStorageFactory', 'users', '$cordovaPush', 'pushFactory', 'emailFactory', 'validarNavegacionService', 'conexionSignalR', 'messageService', '$ionicLoading', 
+	function ($scope, dataTableStorageFactory, users, $cordovaPush, pushFactory, emailFactory, validarNavegacionService, conexionSignalR, messageService, $ionicLoading) {
 	
 	$scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
@@ -76,15 +76,10 @@ angular.module('starter')
            var RowKey = array[0];
            var cambio = array[1];
 
-           var cita = _.find($scope.listado, { 'RowKey': RowKey })
-
-           if(cambio == "cita cancelada"){              
-              cambioEstado(cita, "3");
-              messageService.showMessage("Cita cancelada por " + cita.RowKey + " " + cita.fecha);
-           }                        
+           cargarCitas();                      
        }
        catch(ex){
-            messageService.showMessage("Una cita a sido cancelada"); 
+            
        }       
     })
 
