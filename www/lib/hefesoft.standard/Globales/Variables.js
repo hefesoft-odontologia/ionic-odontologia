@@ -7,7 +7,7 @@ angular.module('starter')
 	var captcha;
 	var captchaFijado = false;	
 	var autologueado = true;
-	var modoDesarrollo = true;
+	var modoDesarrollo = false;
 	var proxyInicializado = false;
     var proxyEnLinea = false;
 
