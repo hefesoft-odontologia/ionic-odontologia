@@ -44,6 +44,7 @@ angular.module('starter')
 		}
 
 		dataTableStorageFactory.saveStorage(data).then(function(data){
+			varsFactoryService.fijarPaciente(data.RowKey);
 			messageService.showMessage("Paciente salvado al volver al listado sera visible");
 		});
 		
@@ -68,10 +69,11 @@ angular.module('starter')
 	}
 
 	$scope.edit = function(item){
+		varsFactoryService.fijarPaciente(item.RowKey);
 		$scope.Paciente = item;
 		$scope.Imagen = item.urlImagen;
 		varsFactoryService.fijarPaciente(item);
-		$state.go("app.editarPacientes");
+		$state.go("historia.editarPacientes");		
 
 		//prueba
 		/*
@@ -86,7 +88,7 @@ angular.module('starter')
 		$scope.Imagen = 'https://hefesoft.blob.core.windows.net/profile/profile.png';
 		$scope.Paciente.urlImagen = $scope.Imagen;
 		varsFactoryService.fijarPaciente({});
-		$state.go("app.editarPacientes");		
+		$state.go("historia.editarPacientes");		
 	}
 
 	function obtenerPacientes(){

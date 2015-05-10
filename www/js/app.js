@@ -50,7 +50,16 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
     abstract: true,
     templateUrl: "lib/hefesoft.standard/Stripe/menu/menu.html",
     controller: 'AppCtrl'
+  })
+
+  .state('historia', {
+    url: "/historia",
+    abstract: true,
+    templateUrl: "templates/menus/historial.html",
+    controller: 'AppCtrl'
   }) 
+
+  
 
   .state('stripe.mistarjetas', {
     url: "/mistarjetas",
@@ -139,11 +148,23 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
         }
     })
 
-.state('app.editarPacientes', {
+.state('historia.editarPacientes', {    
     url: "/editarPacientes",
+    cache: false,
     views: {
         'menuContent': {
             templateUrl: "templates/views/Pacientes/editar.html",            
+        }       
+        }
+    })
+
+.state('historia.add', {
+    url: "/add",
+    cache: false,
+    views: {
+        'menuContent': {
+            templateUrl: "templates/views/Historia/historia.html",
+            controller: "historiaCtrl"
         }       
         }
     })

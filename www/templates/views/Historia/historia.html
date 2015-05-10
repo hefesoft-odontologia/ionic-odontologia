@@ -1,0 +1,64 @@
+<<ion-view view-title="Historia">
+  <ion-content>
+    
+	<form name="form" ng-model="Datos" ng-click="inicializar()" ng-submit="save()">
+      <div class="list">
+        
+        <label class="item item-input">
+          <span class="input-label">Ciudad/Municipio</span>
+          <input type="text" ng-model="Datos.ciudad" required/>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Fecha (DD/MM/AA)</span>
+          <input type="text" ng-minlength="3" ng-model="Datos.fecha" required>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Edad</span>
+          <input type="text" ng-model="Datos.edad">
+        </label>
+
+         <label class="item item-input">
+          <span class="input-label">Telefono</span>
+          <input type="text" ng-model="Datos.telefono">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Eps</span>
+          <input type="text" ng-model="Datos.eps">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">IPS</span>
+          <input type="text" ng-model="Datos.ips">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">ARS</span>
+          <input type="text" ng-model="Datos.ars">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Regimen especial</span>
+          <input type="text" ng-model="Datos.regimenEspecial">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Odontologo particular</span>
+          <input type="text" ng-model="Datos.odontologoPasrticular">
+        </label>
+
+      
+        
+        <label class="item">
+          <button ng-disabled="form.nombres.$dirty || form.$invalid"
+          class="button button-block button-positive" type="submit">Salvar</button>
+        </label>
+
+      </div>
+</form>
+
+
+  </ion-content>
+</ion-view>
