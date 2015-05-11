@@ -159,12 +159,12 @@ angular.module('starter')
     }
 
     $scope.derecha = function(){
-        secction = secction +1;
+        secction = hubCtrl.sectionOnScreen +1;
         goToSection(secction);
     }
 
     $scope.izquierda = function(){
-        secction = secction - 1;
+        secction = hubCtrl.sectionOnScreen -1;
         goToSection(secction);
     }
 
@@ -183,7 +183,9 @@ angular.module('starter')
 
      function goToSection(index){
         try{
-          hubCtrl._scrollToSection(index,true)
+         if(index >= 0){
+            hubCtrl._scrollToSection(index,true)
+          }
         }
         catch(ex){}
     }

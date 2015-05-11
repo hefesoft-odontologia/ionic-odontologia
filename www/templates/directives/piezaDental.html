@@ -1,5 +1,11 @@
 
-<div id="contenedor">
+
+<div ng-show="item.ausente" class="center">
+  <h3>Diente ausente</h3>
+</div>
+
+
+<div id="contenedor" ng-hide="item.ausente">
 
 <div style="text-align: center;" ng-click="clickSeleccionar(item)">
   <div>
@@ -258,5 +264,15 @@
          y="606.6156">{{item.textoinferior}}</tspan></text>
   </g>
 </div>
+</div>
 
-
+<div ng-show="esPiezaCompleta">  
+  <ul class="list">
+   <li class="item item-checkbox">
+     <label class="checkbox">
+       <input type="checkbox" ng-model="item.ausente" ng-change="ausente()">
+     </label>
+     Diente ausente     
+  </li>
+</ul>
+</div>

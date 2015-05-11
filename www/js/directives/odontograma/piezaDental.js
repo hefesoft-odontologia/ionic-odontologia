@@ -33,6 +33,13 @@ angular.module('starter')
 			$scope.item["esBoca"] = false;	
 		}
 
+		if($scope.item.ausente == "False" || $scope.item.ausente == "false"){
+			$scope.item.ausente = false;
+		}
+		else if($scope.item.ausente == "True" || $scope.item.ausente == "true"){
+			$scope.item.ausente = true;	
+		}
+
 		$scope.clickAplicar = function(e, parte){
 		var elemento = aplicarTratamientoService.aplicar($scope.item, parte, $scope.item);
 		if(elemento.valido){
@@ -67,6 +74,10 @@ angular.module('starter')
 
 	$scope.eliminarSupernumerario = function(){
 		$rootScope.$broadcast('eliminar-supernumerario', { seleccionado: $scope.item});		
+	}
+
+	$scope.ausente = function(){
+		$scope.item['Modificado'] = true;
 	}
 
 	//ocurre cuando se elilima algun tratamiento

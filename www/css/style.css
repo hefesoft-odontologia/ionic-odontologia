@@ -64,9 +64,12 @@ src: url('fonts/raphael/raphaelicons-webfont.eot?#iefix') format('embedded-opent
    flex-wrap: wrap;
 }
 
-.flex-item {  
-
+.flex-item {
   text-align: center;
+}
+
+.center{
+ text-align: center; 
 }
 
 .slider-bounce {
