@@ -191,9 +191,12 @@ angular.module('starter')
 
      function goToSection(index){
         try{
-         if(index >= 0){
-            hubCtrl._scrollToSection(index,true)
-          }
+             if(index >= 0){
+                hubCtrl._scrollToSection(index,true);
+              }
+              else{
+               hubCtrl._scrollToSection(0,true);
+              }
         }
         catch(ex){}
     }

@@ -123,6 +123,9 @@ angular.module('starter')
     		if(index >= 0){
     			hubCtrl._scrollToSection(index, true);
     		}
+    		else{
+    			hubCtrl._scrollToSection(0, true);	
+    		}
     	}
     	catch(ex){
 
