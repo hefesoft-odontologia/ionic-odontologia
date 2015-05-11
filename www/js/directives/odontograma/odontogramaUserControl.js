@@ -8,15 +8,16 @@ directive('odontogramaUserControl', [function () {
 }]);
 
 angular.module('starter')
-.controller("odontogramaCtrl", ['$scope', 'dataTableStorageFactory', 'dataBlobStorageFactory', 'sharedDataService', 'dataTableStorageFactory','leerOdontogramaServices','users','$state','$ionicLoading', '$q', 'indicesServices','piezasService', '$rootScope',
+.controller("odontogramaCtrl", ['$scope', 'dataTableStorageFactory', 'dataBlobStorageFactory', 'sharedDataService', 'dataTableStorageFactory','leerOdontogramaServices','users','$state','$ionicLoading', '$q', 'indicesServices','piezasService', '$rootScope','platformService', 
 
-    function ($scope, dataTableStorageFactory, dataBlobStorageFactory, sharedDataService, dataTableStorageFactory,leerOdontogramaServices, users, $state, $ionicLoading, $q, indicesServices, piezasService, $rootScope) {
+    function ($scope, dataTableStorageFactory, dataBlobStorageFactory, sharedDataService, dataTableStorageFactory,leerOdontogramaServices, users, $state, $ionicLoading, $q, indicesServices, piezasService, $rootScope, platformService) {
     
      var usuario = users.getCurrentUser();
      var i = 0;
      var index = 0;
      var pacienteId = $state.params.pacienteId; 
-     $scope.items = [];  
+     $scope.items = [];
+     $scope.esMobile = platformService.esMobile();  
 
      $scope.$on('supernumerario', function(event, args){      
         var seleccionado = args.seleccionado;

@@ -1,6 +1,6 @@
 angular.module('starter')
-.controller('odontogramaController', [ '$scope', '$rootScope', '$state','validarNavegacionService', 'piezasService', '$ionicLoading','users', 'dataTableStorageFactory', '$q', '$timeout',
-	function($scope, $rootScope, $state, validarNavegacionService, piezasService, $ionicLoading, users, dataTableStorageFactory, $q, $timeout){
+.controller('odontogramaController', [ '$scope', '$rootScope', '$state','validarNavegacionService', 'piezasService', '$ionicLoading','users', 'dataTableStorageFactory', '$q', '$timeout', 'platformService',
+	function($scope, $rootScope, $state, validarNavegacionService, piezasService, $ionicLoading, users, dataTableStorageFactory, $q, $timeout, platformService){
 	
 	var i = 0;
 	var secction = 0;
@@ -8,6 +8,7 @@ angular.module('starter')
 	$scope.width = 40;
 	$scope.height = 40;
 	$scope.mostrarImprimir = true;
+	$scope.esMobile = platformService.esMobile();
 
 	var pacienteId = $state.params.pacienteId;   
 	
@@ -38,6 +39,10 @@ angular.module('starter')
 	$scope.$on('$ionicView.leave', function(){        
         guardar();
     });
+
+    $scope.guardar = function(){
+    	guardar();
+    }
 
     function guardar(){
     	var deferred = $q.defer();

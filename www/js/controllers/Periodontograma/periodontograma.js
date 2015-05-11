@@ -32,7 +32,15 @@ angular.module('starter')
     }
 
     $scope.$on('$ionicView.leave', function(){        
-        if(cambioDetectado){
+        guardar();
+    });
+
+    $scope.guardar = function(){
+        guardar();        
+    }
+
+    function guardar(){
+         if(cambioDetectado){
             $ionicLoading.show({
                 template: "Guardando periodontograma..."
             })
@@ -49,7 +57,7 @@ angular.module('starter')
                 console.log(error);                
             });
         }
-    });
+    }
 
     function obtenerPeriodontogramaBase(){
         dataTableStorageFactory.getJsonData('Periodontograma.json').success(function (data) {

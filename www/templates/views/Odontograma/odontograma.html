@@ -3,8 +3,9 @@
    
     <div class="bar bar-header bar-positive">
         <div class="button-bar">
-           <a class="button" ng-click="izquierda()">  <<  </a>
+          <a class="button" ng-click="izquierda()">  <<  </a>
           <a class="button" ng-click="derecha()"> >> </a>
+          <a class="button" ng-click="guardar()"> Guardar </a>
           <a class="button" ng-show="mostrarImprimir" ng-click="imprimir()">imprimir</a>          
         </div> 
     </div>
@@ -12,8 +13,8 @@
     
     <win-hub id="odontograma" on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()" obtener-control="setCtrl(ctrl)">
 
-    <win-hub-section header="'Odontograma'" is-header-static="true">
-        <odontograma-user-control item="vm.item"/>
+    <win-hub-section header="'Odontograma'" is-header-static="true">        
+        <odontograma-user-control item="vm.item"/>        
     </win-hub-section>
 
     <win-hub-section header="'Tratamientos'">

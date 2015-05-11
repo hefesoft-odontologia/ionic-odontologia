@@ -266,13 +266,9 @@
 </div>
 </div>
 
-<div ng-show="esPiezaCompleta">  
-  <ul class="list">
-   <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox" ng-model="item.ausente" ng-change="ausente()">
-     </label>
-     Diente ausente     
-  </li>
-</ul>
+ <div ng-show="esPiezaCompleta" class="center">   
+   <input type="checkbox" 
+   ng-model="item.ausente" 
+   ng-change="ausente()"> Diente ausente </input>
 </div>
+
