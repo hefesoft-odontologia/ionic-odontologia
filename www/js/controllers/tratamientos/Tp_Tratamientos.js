@@ -51,7 +51,7 @@ angular.module('starter')
 	$scope.Aplica = [{nombre: 'Boca', codigo : 3}, {nombre: 'Superficie', codigo : 2}, {nombre: 'Pieza completa', codigo : 1}];
 	$scope.AplicaSeleccionado = $scope.Aplica[1];
 
-	$scope.Fuentes = [{fuente: 'Arial', codigo : 1 },{fuente: 'Glyphyx', codigo : 2}, {fuente: 'signify', codigo : 3}, {fuente: 'raphael', codigo : 4}];
+	$scope.Fuentes = [{fuente: 'Arial', codigo : 1 },{fuente: 'Glyphyx', codigo : 2}, {fuente: 'signify', codigo : 3}, {fuente: 'raphael', codigo : 4}, {fuente:'odontologia', codigo : 5}];
 	$scope.Fuente = $scope.Fuentes[1];
 
 	$scope.Indices= { IndiceCEO: false, IndiceCOP: false, IndicePlacaBacteriana: false};

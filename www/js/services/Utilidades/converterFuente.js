@@ -27,6 +27,10 @@ angular.module('starter')
 				 case "signify":
 					 return "signify";
 					 break;
+
+				 case "odontologia":
+					 return "odontologia";
+					 break;
 				
 				default:
 					return 'Arial';
