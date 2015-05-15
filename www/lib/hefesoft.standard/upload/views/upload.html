@@ -1,0 +1,40 @@
+<ion-view view-title="Updload files" ng-controller="uploadCtrl as vm">
+<ion-content has-subheader="false">
+
+ <form>
+        <div style="margin-left: 20px;">
+            <h1>File Uploader</h1>           
+            <p>
+                <strong>File To Upload</strong>: 
+                <br/>
+                <span class="input-control text">
+                    <input type="file" id="file" name="file" file-model="handleFileSelect(myFile)" style="width: 50%" multiple/>
+                </span>
+            </p>
+            <div ng-show="mostrarCargar">
+                 
+                <strong>File Properties:</strong>
+                <br/>
+                <p>
+                    Name: <span id="fileName"> {{fileName}} </span>
+                </p>
+                <p>
+                    File Size: <span id="fileSize"> {{fileSize}} </span> bytes.
+                </p>
+                <p>
+                    File Type: <span id="fileType"> {{fileType}} </span>
+                </p>
+                <p>
+                    <input type="button" value="Upload File" ng-click="uploadFileInBlocks()"/>
+                </p>
+                <p>
+                    <strong>Progress</strong>: <span id="fileUploadProgress">{{fileUploadProgress}}</span>
+                </p>
+            </div>
+        </div>
+        <div>
+        </div>
+    </form>
+
+</ion-content>
+</ion-view>

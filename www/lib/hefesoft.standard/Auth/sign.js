@@ -10,7 +10,7 @@ angular.module('starter')
 		var urlBase = urlServicioFactory.getUrlBase();
 		var data = item;
 		data.grant_type = 'password';
-
+		$localstorage.clear();
 
 		var request = $http({
 					method: "post",
@@ -41,6 +41,7 @@ angular.module('starter')
 		var urlBase = urlServicioFactory.getUrlService();
 		var data = item;
 		data.email = item.username;
+		$localstorage.clear();
 
 		$http.post(urlBase + "SignUp", data).
 			success(function (data) {

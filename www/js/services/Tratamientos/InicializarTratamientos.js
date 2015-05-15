@@ -6,6 +6,7 @@ angular.module('starter')
 	var dataFactory = {};
 
 	dataFactory.inicializar = function(){
+        usuario = users.getCurrentUser();
 		get();
 	}
 
