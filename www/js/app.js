@@ -180,6 +180,16 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
         }
     })
 
+ .state('historia.listadoadjuntos', {
+    url: "/listadoadjuntos",
+    cache: false,
+    views: {
+        'menuContent': {
+            templateUrl: "lib/hefesoft.standard/upload/views/List.html",           
+        }       
+        }
+    })
+
 /***********************************/
 
 

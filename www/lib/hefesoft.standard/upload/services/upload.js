@@ -1,5 +1,5 @@
 angular.module('starter')
-.service('uploadService', [function () {
+.service('uploadService', ['$q', '$timeout', function ($q, $timeout) {
 
 	var dataService = {}; 
 	var selectedFile;
@@ -13,6 +13,12 @@ angular.module('starter')
     var blockIdPrefix = "block-";
     var submitUri = null;
     var bytesUploaded = 0;
+    var fileUploadProgress;
+    var fileName;
+    var fileSize;
+    var fileType; 
+    var mostrarCargar;
+    var deferred;
 
 
 	var reader = new FileReader();
@@ -28,7 +34,7 @@ angular.module('starter')
                     processData: false,
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob');
-                        xhr.setRequestHeader('Content-Length', requestData.length);
+                        //xhr.setRequestHeader('Content-Length', requestData.length);
                     },
                     success: function (data, status) {
                         console.log(data);
@@ -36,11 +42,14 @@ angular.module('starter')
                         bytesUploaded += requestData.length;
                         var percentComplete = ((parseFloat(bytesUploaded) / parseFloat(selectedFile.size)) * 100).toFixed(2);
 
-                        $scope.$apply(function(){
-                            $scope.fileUploadProgress = percentComplete + " %";
-                        });
+                        console.log(percentComplete + " %");
+                        selectedFile['percent'] = percentComplete + " %";
 
-                        $scope.uploadFileInBlocks();
+                        $timeout(function(){
+                            deferred.notify({filename: fileName, percent: percentComplete + " %" });
+                        }, 100);
+
+                        uploadFileInBlocks();
                     },
                     error: function(xhr, desc, err) {
                         console.log(desc);
@@ -65,11 +74,12 @@ angular.module('starter')
                 data: requestBody,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('x-ms-blob-content-type', selectedFile.type);
-                    xhr.setRequestHeader('Content-Length', requestBody.length);
+                    //xhr.setRequestHeader('Content-Length', requestBody.length);
                 },
                 success: function (data, status) {
                     console.log(data);
                     console.log(status);
+                    deferred.resolve(data);
                 },
                 error: function (xhr, desc, err) {
                     console.log(desc);
@@ -97,13 +107,47 @@ angular.module('starter')
             blockIds = new Array();
             blockIdPrefix = "block-";
             submitUri = null;
-            bytesUploaded = 0;            
+            bytesUploaded = 0;
+
+            fileUploadProgress = {};
+    		fileName = {};
+    		fileSize = {};
+    		fileType = {};             
         }
 
-        dataService.upload = function(File, baseUrl){
-        	inicializar();
-        	submitUri = baseUrl;
-        	selectedFile = File;
+        function handleFile(e) {
+            fileUploadProgress = "0.00 %";           
+            maxBlockSize = 256 * 1024;
+            currentFilePointer = 0;
+            totalBytesRemaining = 0;
+            //var files = e.target.files;
+
+            selectedFile = e;
+            mostrarCargar = true;
+            
+            fileName = selectedFile.blobname;
+            fileSize = selectedFile.size;
+            fileType = selectedFile.type;           
+            
+            var fileSize = selectedFile.size;
+            if (fileSize < maxBlockSize) {
+                maxBlockSize = fileSize;
+                console.log("max block size = " + maxBlockSize);
+            }
+            totalBytesRemaining = fileSize;
+            if (fileSize % maxBlockSize == 0) {
+                numberOfBlocks = fileSize / maxBlockSize;
+            } else {
+                numberOfBlocks = parseInt(fileSize / maxBlockSize, 10) + 1;
+            }
+            console.log("total blocks = " + numberOfBlocks);
+            var baseUrl = urlUploadFiles;
+            var indexOfQueryStart = baseUrl.indexOf("?");
+            submitUri = baseUrl.substring(0, indexOfQueryStart) + '/' + selectedFile.blobname + baseUrl.substring(indexOfQueryStart);
+            console.log(submitUri);
+        }
+
+        function uploadFileInBlocks(){
         	if (totalBytesRemaining > 0) {
                 console.log("current file pointer = " + currentFilePointer + " bytes read = " + maxBlockSize);
                 var fileContent = selectedFile.slice(currentFilePointer, currentFilePointer + maxBlockSize);
@@ -119,6 +163,18 @@ angular.module('starter')
             } else {
                 commitBlockList();
             }
+        }
+
+        dataService.upload = function(File, urlUpload){
+        	deferred = {};
+            deferred = $q.defer();
+            inicializar();
+        	urlUploadFiles = urlUpload;
+        	handleFile(File);        	
+        	
+        	uploadFileInBlocks();
+
+        	 return deferred.promise;
         }
 
 
