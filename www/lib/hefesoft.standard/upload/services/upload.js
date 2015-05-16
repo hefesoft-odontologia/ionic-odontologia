@@ -54,6 +54,10 @@ angular.module('starter')
                     error: function(xhr, desc, err) {
                         console.log(desc);
                         console.log(err);
+
+                        $timeout(function(){
+                             deferred.reject(err);
+                        }, 100);                       
                     }
                 });
             }
@@ -84,6 +88,7 @@ angular.module('starter')
                 error: function (xhr, desc, err) {
                     console.log(desc);
                     console.log(err);
+                    deferred.reject(err);
                 }
             });
  
