@@ -12,7 +12,7 @@ angular.module('starter')
 	$scope.textoBuscar;
 	inicializarTratamientosServices.inicializar();
 
-
+	
 	var usuario = users.getCurrentUser();
 	$rootScope.$broadcast('Dispositivo listo');
 	validarNavegacionService.validarCaptcha();
