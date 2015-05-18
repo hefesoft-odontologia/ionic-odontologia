@@ -1,0 +1,24 @@
+<<ion-view ng-controller="CieCupsCtrl as vm">
+  <ion-content>
+	
+	 <div class="list list-inset">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search" ng-model="textoBuscar">
+  </label>
+</div>
+
+<ion-list show-delete="shouldShowDelete">
+
+
+  <ion-item ng-repeat="n in listado | filter:textoBuscar">        
+	<strong>{{n.Codigo}}</strong>
+    {{n.Descripcion}}
+    
+    </br>
+    Tipo: {{n.Tipo}}
+  </ion-item>
+</ion-list>
+
+  </ion-content>
+</ion-view>

@@ -1,5 +1,5 @@
 angular.module('starter')
-.service('sharedSignatureHttpHelper', [function () {
+.service('sharedSignatureHttpHelper', ['$q', function ($q) {
 	
 	var dataService = {};
     var start = "%28"
@@ -14,8 +14,32 @@ angular.module('starter')
     //sharedSignatureHttpHelper.get('','futbolito152', "511");
     //sharedSignatureHttpHelper.delete('','a', "1");
 
+    dataService.getAll = function(table, shared){        
+        
+        var deferred = $q.defer();
+        //Se le agrega a la peticion que el resultado se devuelva como un objeto json
+        shared = shared + '&$format=json';       
+        var url =  "https://hefesoft.table.core.windows.net/" + table + shared;
 
-     dataService.get = function(shared, partitionKey, rowKey){        
+         $.ajax({
+                url: url,
+                type: "GET",                
+                success: function (data, status) {                    
+                    deferred.resolve(data);
+                },
+                error: function (xhr, desc, err) {
+                    console.log(desc);
+                    console.log(err);
+                    deferred.reject(xhr);
+                }
+            });
+
+          return deferred.promise;
+     }
+
+
+
+     dataService.get = function(table, shared, partitionKey, rowKey){        
         
         //Se le agrega a la peticion que el resultado se devuelva como un objeto json
         shared = shared + '&$format=json';
@@ -31,7 +55,7 @@ angular.module('starter')
 
 
         shared = shared + filter;
-        var url =  "https://hefesoft.table.core.windows.net/TmPacientes" + shared;
+        var url =  "https://hefesoft.table.core.windows.net/" + table + shared;
 
          $.ajax({
                 url: url,
@@ -48,9 +72,9 @@ angular.module('starter')
      }
 
 
-	dataService.insertOrUpdate = function(shared, partitionKey, rowKey, data){
+	dataService.insertOrUpdate = function(table, shared, partitionKey, rowKey, data){
 	
-		var url = "https://hefesoft.table.core.windows.net/TmPacientes(PartitionKey='" + partitionKey + "',RowKey='" + rowKey + "')" + shared;
+		var url = "https://hefesoft.table.core.windows.net/" + table + "(PartitionKey='" + partitionKey + "',RowKey='" + rowKey + "')" + shared;
         var datos = JSON.stringify(data);
 
 		 $.ajax({
@@ -78,9 +102,9 @@ angular.module('starter')
 
 
     /*No soportado por el browser*/
-    dataService.delete = function(shared, partitionKey, rowKey){
+    dataService.delete = function(table, shared, partitionKey, rowKey){
 
-        var url = "https://hefesoft.table.core.windows.net/TmPacientes(PartitionKey='" + partitionKey + "',RowKey='" + rowKey + "')" + shared;        
+        var url = "https://hefesoft.table.core.windows.net/"+ table + "(PartitionKey='" + partitionKey + "',RowKey='" + rowKey + "')" + shared;        
 
          $.ajax({
                 url: url,

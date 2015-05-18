@@ -105,6 +105,15 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
     }
   })  
 
+.state('app.listadociecups', {
+    url: "/listadociecups",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views/tratamientos/Cie_Cups.html"
+      }
+    }
+  })  
+
 
 .state('app.periodontograma', {
     url: "/periodontograma/:pacienteId",
