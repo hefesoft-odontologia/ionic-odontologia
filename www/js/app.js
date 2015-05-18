@@ -104,30 +104,6 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
       }
     }
   })  
-    
-   
-.state('app.odontograma', {
-    url: "/odontograma/:pacienteId",
-    cache: false,
-    views: {
-        'menuContent': {
-            templateUrl: "templates/views/Odontograma/odontograma.html",            
-        }       
-        }
-    })
-
-
-.state('app.odontogramaimprimir', {
-    url: "/odontogramaimprimir/:pacienteId/:userId",
-    cache: false,
-    views: {
-        'menuContent': {
-            templateUrl: "templates/views/Odontograma/impresion.html",
-            controller : "impresionOdontogramaCtrl",
-        }       
-        }
-    })
-
 
 
 .state('app.periodontograma', {
@@ -192,6 +168,51 @@ angular.module('starter', ['ionic', 'winjs', 'ngjsColorPicker', 'ngCordova'])
 
 /***********************************/
 
+
+/*************** Odontograma  *************************/
+
+ .state('odontograma', {
+    url: "/odontograma",
+    abstract: true,
+    templateUrl: "/templates/menus/odontograma.html",
+    controller: 'AppCtrl'
+  })
+
+
+.state('odontograma.odontogramaControl', {
+    url: "/odontogramaControl/:pacienteId",
+    cache: false,
+    views: {
+        'menuContent': {
+            templateUrl: "templates/views/Odontograma/odontograma.html",            
+        }       
+        }
+    })
+
+
+.state('app.odontogramaimprimir', {
+    url: "/odontogramaimprimir/:pacienteId/:userId",
+    cache: false,
+    views: {
+        'menuContent': {
+            templateUrl: "templates/views/Odontograma/impresion.html",
+            controller : "impresionOdontogramaCtrl",
+        }       
+        }
+    })
+
+.state('odontograma.listado', {
+    url: "/odontograma/listado",
+    cache: false,
+    views: {
+        'menuContent': {
+            templateUrl: "templates/views/Odontograma/Listado.html",
+        }       
+        }
+    })
+
+
+/******************************************************/
 
 .state('app.pacientes', {
     url: "/pacientes",

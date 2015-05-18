@@ -9,6 +9,8 @@ angular.module('starter')
 	    total: 80
 	}
 
+	$scope.tipoTratamiento = { name: "procedimiento"};
+
 	var Color;
 	var ColorAdicional;	
 	var Descripcion = "";
@@ -170,7 +172,8 @@ angular.module('starter')
 						IndiceCEO : $scope.Indices.IndiceCEO,
 						IndiceCOP : $scope.Indices.IndiceCOP,
 						IndicePlacaBacteriana : $scope.Indices.IndicePlacaBacteriana,
-						Fuente: $scope.Fuente.fuente
+						Fuente: $scope.Fuente.fuente,
+						tipoTratamiento : $scope.tipoTratamiento
 					};
 
 			if(elemento.AplicaTratamiento == 1 || elemento.AplicaTratamiento == 2){

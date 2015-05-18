@@ -33,6 +33,7 @@ service('tratamientosPorPiezaDental', ['$rootScope','sharedDataService', 'crearP
 		pacienteId = varsFactoryService.pacienteSeleccionado();
 		crearPropiedades.fill(tratamientoSeleccionado,item);
 		item['idTratamiento'] = tratamientoSeleccionado.RowKey;
+		item['tipoOdontograma'] = varsFactoryService.getTipoOdontograma();
 
 
 		var existe = validarExiste(item, elemento);

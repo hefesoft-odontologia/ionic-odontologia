@@ -10,6 +10,7 @@ angular.module('starter')
 	var modoDesarrollo = true;
 	var proxyInicializado = false;
     var proxyEnLinea = false;
+    var tipoOdontograma = "";
 
 
 	vars.fijarPrestador = function(prestador){
@@ -65,6 +66,14 @@ angular.module('starter')
 
 	vars.getModoDesarrollo = function(){
 		return modoDesarrollo;
+	}
+
+	vars.setTipoOdontograma = function(tipo){
+		tipoOdontograma = tipo;
+	}
+
+	vars.getTipoOdontograma = function(){
+		return tipoOdontograma;
 	}
 
 	return vars;	

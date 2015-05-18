@@ -7,6 +7,30 @@
 
 	<win-hub id="tratamiento" on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()" obtener-control="setCtrl(ctrl)">
 
+    <win-hub-section header="'Tipo'" is-header-static="true">
+
+        <div class="list">
+		
+		  <label class="item item-radio">
+		    <input type="radio" name="group" ng-model="tipoTratamiento.name" value="diagnostico">
+		    <div class="item-content">
+		      Diagnostico
+		    </div>
+		    <i class="radio-icon ion-checkmark"></i>
+		  </label>
+
+		    <label class="item item-radio">
+		    <input type="radio" name="group" ng-model="tipoTratamiento.name" value="procedimiento">
+		    <div class="item-content">
+		      Procedimiento
+		    </div>
+		    <i class="radio-icon ion-checkmark"></i>
+		  </label>
+		
+		</div>
+
+    </win-hub-section>
+
     <win-hub-section header="'Indices'" is-header-static="true">
 
         <div class="item item-divider">

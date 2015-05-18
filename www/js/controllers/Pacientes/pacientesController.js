@@ -19,8 +19,8 @@ angular.module('starter')
 
 	$scope.navegarOdontograma = function(item){
 		$scope.Paciente = item;
-		varsFactoryService.fijarPaciente(item.RowKey);
-		$state.go("app.odontograma", { "pacienteId": item.RowKey});
+		varsFactoryService.fijarPaciente(item.RowKey);		
+		$state.go("odontograma.listado");
 	}
 
 	$scope.navegarPeriododntograma = function(item){
