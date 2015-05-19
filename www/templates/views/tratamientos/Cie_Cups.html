@@ -1,6 +1,21 @@
 <<ion-view ng-controller="CieCupsCtrl as vm">
   <ion-content>
-	
+
+  <ion-autocomplete 
+    ng-model="searchTags" 
+    items-method="getTags(query)" 
+    item-value-key="Codigo" 
+    item-view-value-key="Descripcion" 
+    placeholder="Buscar" 
+    cancel-label="Cancelar"
+    items-clicked-method="callbackMethod(callback)"
+    />
+  </ion-autocomplete>
+  
+ 
+
+
+  <!--
 	 <div class="list list-inset">
   <label class="item item-input">
     <i class="icon ion-search placeholder-icon"></i>
@@ -19,6 +34,7 @@
     Tipo: {{n.Tipo}}
   </ion-item>
 </ion-list>
+-->
 
   </ion-content>
 </ion-view>
