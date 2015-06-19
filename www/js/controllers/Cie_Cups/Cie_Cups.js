@@ -23,7 +23,9 @@ angular.module('starter')
 		function procesarCie(data){
 			for (var i = 0; i < data.length; i++) {
 				var item = data[i];
-				listado.push({Codigo : item.PartitionKey, Descripcion: item.RowKey, Tipo : "Cie"});
+				var busqueda = item.PartitionKey + " " + item.RowKey;
+
+				listado.push({Codigo : item.PartitionKey, Descripcion: item.RowKey, Tipo : "Cie", Busqueda: busqueda});
 
 			};
 		}
@@ -31,7 +33,9 @@ angular.module('starter')
 		function procesarCups(data){
 			for (var i = 0; i < data.length; i++) {
 				var item = data[i];
-				listado.push({Codigo : item.PartitionKey, Descripcion: item.RowKey, Tipo : "Cup"});
+				var busqueda = item.PartitionKey + " " + item.RowKey;
+
+				listado.push({Codigo : item.PartitionKey, Descripcion: item.RowKey, Tipo : "Cup", Busqueda: busqueda});
 
 			};
 		}
@@ -40,7 +44,7 @@ angular.module('starter')
 			query = query.toUpperCase();
 			var array = _.filter(listado, function(item){
 						  //return (item.Descripcion.indexOf(query) > -1 || item.Codigo.indexOf(query));
-						  return item.Descripcion.indexOf(query) > -1;
+						  return item.Busqueda.indexOf(query) > -1;
 						});
             return array;
 
